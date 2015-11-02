@@ -36,7 +36,6 @@ public class Aplicacion extends javax.swing.JFrame {
 
         labelTitulo = new javax.swing.JLabel();
         labelSeleccioneArchivo = new javax.swing.JLabel();
-        textFieldArchivo = new javax.swing.JTextField();
         buttonSeleccionarArchivo = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -50,9 +49,6 @@ public class Aplicacion extends javax.swing.JFrame {
 
         labelSeleccioneArchivo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         labelSeleccioneArchivo.setText("Seleccione el archivo a analizar:");
-
-        textFieldArchivo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        textFieldArchivo.setEnabled(false);
 
         buttonSeleccionarArchivo.setText("Seleccionar");
         buttonSeleccionarArchivo.addActionListener(new java.awt.event.ActionListener() {
@@ -92,13 +88,12 @@ public class Aplicacion extends javax.swing.JFrame {
                         .addComponent(labelTitulo)
                         .addGap(76, 76, 76))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelSeleccioneArchivo)
-                            .addComponent(textFieldArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(123, 123, 123)
-                                .addComponent(buttonSeleccionarArchivo)))
-                        .addGap(38, 38, 38))))
+                        .addComponent(labelSeleccioneArchivo)
+                        .addGap(219, 219, 219))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(161, 161, 161)
+                .addComponent(buttonSeleccionarArchivo)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,11 +102,9 @@ public class Aplicacion extends javax.swing.JFrame {
                 .addComponent(labelTitulo)
                 .addGap(72, 72, 72)
                 .addComponent(labelSeleccioneArchivo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(29, 29, 29)
                 .addComponent(buttonSeleccionarArchivo)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         pack();
@@ -190,6 +183,5 @@ public class Aplicacion extends javax.swing.JFrame {
     private javax.swing.JLabel labelTitulo;
     private javax.swing.JMenu menuAyuda;
     private javax.swing.JMenuItem menuItemAcercade;
-    private javax.swing.JTextField textFieldArchivo;
     // End of variables declaration//GEN-END:variables
 }

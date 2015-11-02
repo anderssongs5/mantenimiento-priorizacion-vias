@@ -43,75 +43,67 @@ public class LectorArchivoExcel {
     private static final String EXTENSION_ARCHIVO_xlsx = ".xlsx";
     private static final String EXTENSION_ARCHIVO_XLSX = ".XLSX";
 
-    public MantPriorViasInfo leerArchivo(String rutaCompleta) throws FileNotFoundException,
+    public MantPriorViasInfo leerArchivo(File archivo) throws FileNotFoundException,
             IOException {
-        File archivo = new File(rutaCompleta);
-        String mensajeErrorGeneral = "";
         MantPriorViasInfo mantPriorViasInfo = null;
-        if (this.validarArchivo(archivo)) {
-            List<String> mensajesErrorArchivo = new ArrayList<>();
-            List<String> mensajesErrorHojaPresupuesto = new ArrayList<>();
-            String mensajesErrorHojaPriorizacion = "";
-            FileInputStream fileInputStream = new FileInputStream(archivo);
-            Workbook workbook = new XSSFWorkbook(fileInputStream);
 
-            Sheet hojaPresupuesto = workbook.getSheet("Presupuesto");
-            Presupuesto presupuesto = null;
-            if (null == hojaPresupuesto) {
-                mensajesErrorArchivo.add("No existe la hoja Presupuesto.");
-            } else {
-                presupuesto = this.obtenerInfoHojaPresupuesto(
-                        hojaPresupuesto, mensajesErrorHojaPresupuesto);
-            }
+        List<String> mensajesErrorArchivo = new ArrayList<>();
+        List<String> mensajesErrorHojaPresupuesto = new ArrayList<>();
+        String mensajesErrorHojaPriorizacion = "";
+        FileInputStream fileInputStream = new FileInputStream(archivo);
+        Workbook workbook = new XSSFWorkbook(fileInputStream);
 
-            Sheet hojaPriorizacion = workbook.getSheet("Priorización");
-            List<InfoVia> vias = new ArrayList<>();
-            List<String> daniosSeleccionados = new ArrayList<>();
-            if (null == hojaPriorizacion) {
-                mensajesErrorArchivo.add("No existe la hoja Priorización.");
-            } else {
-                vias = this.obtenerInfoHojaPriorizacion(hojaPriorizacion,
-                        daniosSeleccionados);
-            }
-
-            if (!vias.isEmpty()) {
-                if (ValidadorVia.existenViasConCodigoRepetido(vias)) {
-                    mensajesErrorHojaPriorizacion += "Existen vías con código "
-                            + "igual. Por favor corrija la información ya que "
-                            + "cada código de vía debe ser único.";
-                }
-            }
-
-            System.out.println("Errores de archivo:");
-            mensajesErrorArchivo.stream().forEach((String s) -> {
-                System.out.println("\t" + s);
-            });
-
-            System.out.println("\nErrores Hoja Presupuesto:");
-            mensajesErrorHojaPresupuesto.stream().forEach((String s) -> {
-                System.out.println("\t" + s);
-            });
-
-            System.out.println("\nErrores Hoja Priorización:");
-            for (InfoVia vu : vias) {
-                System.out.println("Número de Fila: " + vu.getFilaVia());
-                System.out.println("Errores: " + vu.getErroresVia() + "\n");
-            }
-            if (!mensajesErrorHojaPriorizacion.isEmpty()) {
-                System.out.println(mensajesErrorHojaPriorizacion);
-            }
-
-            Collections.sort(daniosSeleccionados);
-            mantPriorViasInfo = new MantPriorViasInfo(mensajesErrorArchivo,
-                    mensajesErrorHojaPresupuesto,
-                    mensajesErrorHojaPriorizacion, presupuesto, vias,
-                    daniosSeleccionados);
+        Sheet hojaPresupuesto = workbook.getSheet("Presupuesto");
+        Presupuesto presupuesto = null;
+        if (null == hojaPresupuesto) {
+            mensajesErrorArchivo.add("No existe la hoja Presupuesto.");
         } else {
-            mensajeErrorGeneral += "El archivo no es correcto. Por favor valide"
-                    + " que el archivo exista y que su extensión sea XLSX.";
-            mantPriorViasInfo = new MantPriorViasInfo(mensajeErrorGeneral);
-            System.out.println(mensajeErrorGeneral);
+            presupuesto = this.obtenerInfoHojaPresupuesto(
+                    hojaPresupuesto, mensajesErrorHojaPresupuesto);
         }
+
+        Sheet hojaPriorizacion = workbook.getSheet("Priorización");
+        List<InfoVia> vias = new ArrayList<>();
+        List<String> daniosSeleccionados = new ArrayList<>();
+        if (null == hojaPriorizacion) {
+            mensajesErrorArchivo.add("No existe la hoja Priorización.");
+        } else {
+            vias = this.obtenerInfoHojaPriorizacion(hojaPriorizacion,
+                    daniosSeleccionados);
+        }
+
+        if (!vias.isEmpty()) {
+            if (ValidadorVia.existenViasConCodigoRepetido(vias)) {
+                mensajesErrorHojaPriorizacion += "Existen vías con código "
+                        + "igual. Por favor corrija la información ya que "
+                        + "cada código de vía debe ser único.";
+            }
+        }
+
+        System.out.println("Errores de archivo:");
+        mensajesErrorArchivo.stream().forEach((String s) -> {
+            System.out.println("\t" + s);
+        });
+
+        System.out.println("\nErrores Hoja Presupuesto:");
+        mensajesErrorHojaPresupuesto.stream().forEach((String s) -> {
+            System.out.println("\t" + s);
+        });
+
+        System.out.println("\nErrores Hoja Priorización:");
+        for (InfoVia vu : vias) {
+            System.out.println("Número de Fila: " + vu.getFilaVia());
+            System.out.println("Errores: " + vu.getErroresVia() + "\n");
+        }
+        if (!mensajesErrorHojaPriorizacion.isEmpty()) {
+            System.out.println(mensajesErrorHojaPriorizacion);
+        }
+
+        Collections.sort(daniosSeleccionados);
+        mantPriorViasInfo = new MantPriorViasInfo(mensajesErrorArchivo,
+                mensajesErrorHojaPresupuesto,
+                mensajesErrorHojaPriorizacion, presupuesto, vias,
+                daniosSeleccionados);
 
         return mantPriorViasInfo;
     }
@@ -228,7 +220,7 @@ public class LectorArchivoExcel {
         return vias;
     }
 
-    private boolean validarArchivo(File archivo) {
+    public static boolean validarArchivo(File archivo) {
 
         return (null != archivo && archivo.exists() && archivo.isFile()
                 && archivo.canRead() && (archivo.getName().endsWith(

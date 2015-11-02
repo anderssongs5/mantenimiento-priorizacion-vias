@@ -4,7 +4,6 @@ import java.util.List;
 
 public class MantPriorViasInfo {
 
-    private String errorGeneral;
     private List<String> erroresArchivo;
     private List<String> erroresHojaPresupuesto;
     private String erroresHojaPriorizacion;
@@ -17,10 +16,6 @@ public class MantPriorViasInfo {
         super();
     }
 
-    public MantPriorViasInfo(String errorGeneral) {
-        this.errorGeneral = errorGeneral;
-    }
-
     public MantPriorViasInfo(List<String> erroresArchivo,
             List<String> erroresHojaPresupuesto, String erroresHojaPriorizacion,
             Presupuesto presupuesto, List<InfoVia> vias,
@@ -31,14 +26,6 @@ public class MantPriorViasInfo {
         this.presupuesto = presupuesto;
         this.vias = vias;
         this.daniosSeleccionados = daniosSeleccionados;
-    }
-
-    public String getErrorGeneral() {
-        return errorGeneral;
-    }
-
-    public void setErrorGeneral(String errorGeneral) {
-        this.errorGeneral = errorGeneral;
     }
 
     public List<String> getErroresArchivo() {

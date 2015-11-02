@@ -7,6 +7,7 @@ package co.edu.udea.mantpriorivias;
 
 import co.edu.udea.mantpriorivias.archivos.LectorArchivoExcel;
 import co.edu.udea.mantpriorivias.entidades.MantPriorViasInfo;
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -23,9 +24,10 @@ public class MantenimientoPriorizacionVias {
         long inicio = System.currentTimeMillis();
 
         String ruta = "C:\\Users\\Andersson\\Desktop\\Temporales\\Plantilla.xlsx";
+        File archivo = new File(ruta);
 
         LectorArchivoExcel lectorArchivoExcel = new LectorArchivoExcel();
-        MantPriorViasInfo mantPriorViasInfo = lectorArchivoExcel.leerArchivo(ruta);
+        MantPriorViasInfo mantPriorViasInfo = lectorArchivoExcel.leerArchivo(archivo);
 
         long fin = System.currentTimeMillis();
         System.out.println("\n\nTiempo total milesegundos: " + (fin - inicio));

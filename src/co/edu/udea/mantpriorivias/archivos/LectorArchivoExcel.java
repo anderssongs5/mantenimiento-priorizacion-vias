@@ -220,7 +220,7 @@ public class LectorArchivoExcel {
         return vias;
     }
 
-    public static boolean validarArchivo(File archivo) {
+    public boolean validarArchivo(File archivo) {
 
         return (null != archivo && archivo.exists() && archivo.isFile()
                 && archivo.canRead() && (archivo.getName().endsWith(

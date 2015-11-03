@@ -31,4 +31,9 @@ public class Util {
 
         return valoresTokenizados;
     }
+
+    public static String getRutaTemporal() {
+
+        return System.getProperty("java.io.tmpdir");
+    }
 }

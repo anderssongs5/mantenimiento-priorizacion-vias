@@ -1,7 +1,16 @@
 package co.edu.udea.mantpriorivias;
 
+import co.edu.udea.mantpriorivias.archivos.CreadorArchivoTextoPlano;
 import co.edu.udea.mantpriorivias.archivos.LectorArchivoExcel;
+import co.edu.udea.mantpriorivias.entidades.InfoVia;
+import co.edu.udea.mantpriorivias.entidades.MantPriorViasInfo;
+import co.edu.udea.mantpriorivias.general.Util;
+import co.edu.udea.mantpriorivias.validadores.ValidadorVia;
+import java.awt.Desktop;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.plaf.metal.MetalLookAndFeel;
@@ -18,7 +27,7 @@ public class Aplicacion extends javax.swing.JFrame {
                     + "ic_dialog_error.png"));
     private static final ImageIcon WARNING_IMAGE = new ImageIcon(Aplicacion.class
             .getResource("/co/edu/udea/mantpriorivias/recursos/imagenes/"
-                    + "ic_dialog_error.png"));
+                    + "ic_dialog_warning.png"));
 
     static {
         FILE_CHOOSER = new JFileChooser();
@@ -115,11 +124,54 @@ public class Aplicacion extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemAcercadeActionPerformed
 
     private void buttonSeleccionarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSeleccionarArchivoActionPerformed
+        LectorArchivoExcel lectorArchivoExcel = new LectorArchivoExcel();
         int retorno = FILE_CHOOSER.showOpenDialog(this);
         if (JFileChooser.APPROVE_OPTION == retorno) {
             this.archivoSelecciondo = FILE_CHOOSER.getSelectedFile();
-            if (LectorArchivoExcel.validarArchivo(this.archivoSelecciondo)) {
+            if (lectorArchivoExcel.validarArchivo(this.archivoSelecciondo)) {
+                try {
+                    MantPriorViasInfo mantPriorViasInfo = lectorArchivoExcel.
+                            leerArchivo(this.archivoSelecciondo);
+                    if (mantPriorViasInfo.tieneErrores()) {
+                        JOptionPane.showMessageDialog(this, "El archivo contiene "
+                                + "errores.\nA continuación se le indicará cuáles "
+                                + "son los errores para poder continuar con el proceso.\n"
+                                + "Una vez corregidos, por favor inténtelo de nuevo.\n",
+                                "Archivo con Errores", JOptionPane.WARNING_MESSAGE,
+                                WARNING_IMAGE);
+                        String rutaTemporal = Util.getRutaTemporal();
+                        String fullPath = rutaTemporal + "Errores_Plantilla.txt";
+                        CreadorArchivoTextoPlano creadorArchivoTextoPlano
+                                = new CreadorArchivoTextoPlano();
 
+                        String contenidoErrores = this.estructurarInformacionError(
+                                mantPriorViasInfo);
+                        if (creadorArchivoTextoPlano.crearArchivo(contenidoErrores,
+                                fullPath)) {
+                            File archivoErrores = new File(fullPath);
+                            if (Desktop.isDesktopSupported()) {
+                                Desktop desktop = Desktop.getDesktop();
+                                desktop.open(archivoErrores);
+                            } else {
+                                JOptionPane.showMessageDialog(this,
+                                        "El archivo de errores no se puede abrir. "
+                                        + "Por favor búsquelo en la "
+                                        + "siguiente ruta:\n" + fullPath,
+                                        "No se puede abrir archivos",
+                                        JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Se ha generado "
+                                    + "un error creando el archivo de errores.\n"
+                                    + "Por favor contáctese con el administrador"
+                                    + " del sistema.", "Error generando archivo",
+                                    JOptionPane.ERROR_MESSAGE, ERROR_IMAGE);
+                        }
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(Aplicacion.class.getName()).log(
+                            Level.SEVERE, null, ex);
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "El archivo no es válido. Por "
                         + "favor verifique que el archivo exista y tenga extensión "
@@ -184,4 +236,64 @@ public class Aplicacion extends javax.swing.JFrame {
     private javax.swing.JMenu menuAyuda;
     private javax.swing.JMenuItem menuItemAcercade;
     // End of variables declaration//GEN-END:variables
+
+    private String estructurarInformacionError(MantPriorViasInfo mantPriorViasInfo) {
+        String informacion = "";
+        String separadorLinea = System.getProperty("line.separator");
+        if (mantPriorViasInfo.getErroresArchivo() != null
+                && !mantPriorViasInfo.getErroresArchivo().isEmpty()) {
+            informacion += "Errores del archivo:" + separadorLinea;
+            informacion = mantPriorViasInfo.getErroresArchivo().stream().map((s)
+                    -> "    * " + s.trim() + separadorLinea).reduce(informacion,
+                            String::concat);
+        }
+
+        if (!informacion.isEmpty()) {
+            informacion += separadorLinea;
+            informacion += separadorLinea;
+            informacion += "====================================================";
+            informacion += separadorLinea;
+            informacion += separadorLinea;
+        }
+
+        if (mantPriorViasInfo.getErroresHojaPresupuesto() != null
+                && !mantPriorViasInfo.getErroresHojaPresupuesto().isEmpty()) {
+            informacion += "Errores en hoja Presupuesto:" + separadorLinea;
+            informacion = mantPriorViasInfo.getErroresHojaPresupuesto().stream()
+                    .map((s) -> "    * " + s.trim() + separadorLinea).reduce(
+                            informacion, String::concat);
+        }
+
+        if (!informacion.isEmpty()) {
+            informacion += separadorLinea;
+            informacion += separadorLinea;
+            informacion += "====================================================";
+            informacion += separadorLinea;
+            informacion += separadorLinea;
+        }
+
+        if (mantPriorViasInfo.existenViasConErrores()) {
+            informacion += "Errores en hoja Priorización o errores en vías:";
+            informacion += separadorLinea;
+            informacion += separadorLinea;
+            for (InfoVia iv : mantPriorViasInfo.getVias()) {
+                if (iv.getErroresVia() != null && !iv.getErroresVia().isEmpty()) {
+                    informacion += "Número de fila: " + iv.getFilaVia() + separadorLinea;
+                    String codVia = (iv.getVia().getCodigoVia() != null)
+                            ? iv.getVia().getCodigoVia() : "";
+                    informacion += "Código de la vía: " + codVia + separadorLinea;
+                    informacion += "Errores: " + separadorLinea + iv.getErroresVia();
+                    informacion += separadorLinea;
+                    informacion += separadorLinea;
+                }
+            }
+        }
+
+        if (ValidadorVia.existenViasConCodigoRepetido(mantPriorViasInfo.getVias())) {
+            informacion += "*** Existen códigos de vías repetidos. Tenga en cuenta "
+                    + "que cada código de vía debe ser único. ***" + separadorLinea;
+        }
+
+        return informacion;
+    }
 }

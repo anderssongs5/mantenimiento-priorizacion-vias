@@ -51,6 +51,7 @@ public class ValidadorVia {
 
     public String validarInformacion(Via via,
             List<String> daniosSeleccionados) {
+        String separadorLinea = System.getProperty("line.separator");
         if (null == via) {
 
             return "La vía no contiene ningún dato.";
@@ -58,7 +59,7 @@ public class ValidadorVia {
 
         String mensajesErrorVia = "";
         if (null == via.getCodigoVia() || via.getCodigoVia().isEmpty()) {
-            mensajesErrorVia += "La vía no tiene código.";
+            mensajesErrorVia += "     * La vía no tiene código." + separadorLinea;
         }
 
         if (null != via.getDesarrolloEconomico()) {
@@ -66,69 +67,70 @@ public class ValidadorVia {
                     || via.getDesarrolloEconomico().getComercial().trim().isEmpty()
                     || !this.valoresPosiblesDesarrolloEconomico.contains(via.
                             getDesarrolloEconomico().getComercial().trim())) {
-                mensajesErrorVia += "Desarrollo Comercial es vacío"
-                        + " o no tiene un valor válido.\n";
+                mensajesErrorVia += "     * Desarrollo Comercial es vacío"
+                        + " o no tiene un valor válido." + separadorLinea;
             }
 
             if (null == via.getDesarrolloEconomico().getIndustrial()
                     || via.getDesarrolloEconomico().getIndustrial().trim().isEmpty()
                     || !this.valoresPosiblesDesarrolloEconomico.contains(via.
                             getDesarrolloEconomico().getIndustrial().trim())) {
-                mensajesErrorVia += "Desarrollo Industrial es vacío "
-                        + "o no tiene un valor válido.\n";
+                mensajesErrorVia += "     * Desarrollo Industrial es vacío "
+                        + "o no tiene un valor válido." + separadorLinea;
             }
 
             if (null == via.getDesarrolloEconomico().getServicios()
                     || via.getDesarrolloEconomico().getServicios().trim().isEmpty()
                     || !this.valoresPosiblesDesarrolloEconomico.contains(via.
                             getDesarrolloEconomico().getServicios().trim())) {
-                mensajesErrorVia += "Desarrollo Servicios es vacío "
-                        + "o no tiene un valor válido.\n";
+                mensajesErrorVia += "     * Desarrollo Servicios es vacío "
+                        + "o no tiene un valor válido." + separadorLinea;
             }
 
             if (null == via.getDesarrolloEconomico().getAgropecuario()
                     || via.getDesarrolloEconomico().getAgropecuario().trim().isEmpty()
                     || !this.valoresPosiblesDesarrolloEconomico.contains(via.
                             getDesarrolloEconomico().getAgropecuario().trim())) {
-                mensajesErrorVia += "Desarrollo Agropecuario es vacío "
-                        + "o no tiene un valor válido.\n";
+                mensajesErrorVia += "     * Desarrollo Agropecuario es vacío "
+                        + "o no tiene un valor válido." + separadorLinea;
             }
 
             if (null == via.getDesarrolloEconomico().getMinero()
                     || via.getDesarrolloEconomico().getMinero().isEmpty()
                     || !this.valoresPosiblesDesarrolloEconomico.contains(via.
                             getDesarrolloEconomico().getMinero().trim())) {
-                mensajesErrorVia += "Desarrollo Minero es vacío "
-                        + "o no tiene un valor válido.\n";
+                mensajesErrorVia += "     * Desarrollo Minero es vacío "
+                        + "o no tiene un valor válido." + separadorLinea;
             }
         } else {
-            mensajesErrorVia += "No existe ningún valor para desarrollo "
-                    + "económico\n";
+            mensajesErrorVia += "     * No existe ningún valor para desarrollo "
+                    + "económico" + separadorLinea;
         }
 
         if (null == via.getConectividad() || via.getConectividad().trim().isEmpty()
                 || !this.valoresPosiblesConectividad.contains(via.getConectividad().trim())) {
-            mensajesErrorVia += "La conectividad está vacía o "
-                    + "no tiene un valor válido.\n";
+            mensajesErrorVia += "     * La conectividad está vacía o "
+                    + "no tiene un valor válido." + separadorLinea;
         }
 
         if (null == via.getTpd() || via.getTpd().isEmpty()
                 || !this.valoresPosiblesTPD.contains(via.getTpd().trim())) {
-            mensajesErrorVia += "El TPD es vacío o no tiene un valor válido.\n";
+            mensajesErrorVia += "     * El TPD es vacío o no tiene un valor válido."
+                    + separadorLinea;
         }
 
         if (null == via.getViasAlternas() || via.getViasAlternas().isEmpty()
                 || !this.valoresPosiblesViasAlternas.contains(via.getViasAlternas().trim())) {
-            mensajesErrorVia += "Vías Alternas es vacío o no tiene un valor "
-                    + "válido.\n";
+            mensajesErrorVia += "     * Vías Alternas es vacío o no tiene un valor "
+                    + "válido." + separadorLinea;
         }
 
         if (null != via.getDanioVia()) {
             if (null != via.getDanioVia().getSeccionTransversalInapropiada81()) {
                 if (!this.valoresPosiblesDaniosGeneral.contains(via.getDanioVia().
                         getSeccionTransversalInapropiada81())) {
-                    mensajesErrorVia += "El daño Sección Transversal Inapropiada"
-                            + " (81) no tiene un valor valido.\n";
+                    mensajesErrorVia += "     * El daño Sección Transversal Inapropiada"
+                            + " (81) no tiene un valor valido." + separadorLinea;
                 } else {
                     ValidadorVia.agregarDanio("81", daniosSeleccionados);
                 }
@@ -137,8 +139,8 @@ public class ValidadorVia {
             if (null != via.getDanioVia().getDrenajeLateralInadecuado82()) {
                 if (!this.valoresPosiblesDaniosGeneral.contains(via.getDanioVia().
                         getDrenajeLateralInadecuado82())) {
-                    mensajesErrorVia += "El daño Drenaje Lateral Inadecuado (82)"
-                            + " no tiene un valor valido.\n";
+                    mensajesErrorVia += "     * El daño Drenaje Lateral Inadecuado (82)"
+                            + " no tiene un valor valido." + separadorLinea;
                 } else {
                     ValidadorVia.agregarDanio("82", daniosSeleccionados);
                 }
@@ -147,8 +149,8 @@ public class ValidadorVia {
             if (null != via.getDanioVia().getCorrugaciones83()) {
                 if (!this.valoresPosiblesDaniosGeneral.contains(via.getDanioVia().
                         getCorrugaciones83())) {
-                    mensajesErrorVia += "El daño Corrugaciones (83) "
-                            + "no tiene un valor valido.\n";
+                    mensajesErrorVia += "     * El daño Corrugaciones (83) "
+                            + "no tiene un valor valido." + separadorLinea;
                 } else {
                     ValidadorVia.agregarDanio("83", daniosSeleccionados);
                 }
@@ -157,8 +159,8 @@ public class ValidadorVia {
             if (null != via.getDanioVia().getPolvo84()) {
                 if (!this.valoresPosiblesDaniosGeneral.contains(via.getDanioVia().
                         getPolvo84())) {
-                    mensajesErrorVia += "El daño Polvo (84) "
-                            + "no tiene un valor valido.\n";
+                    mensajesErrorVia += "     * El daño Polvo (84) "
+                            + "no tiene un valor valido." + separadorLinea;
                 } else {
                     ValidadorVia.agregarDanio("84", daniosSeleccionados);
                 }
@@ -167,8 +169,8 @@ public class ValidadorVia {
             if (null != via.getDanioVia().getBachesHuecos85()) {
                 if (!this.valoresPosiblesDaniosGeneral.contains(via.getDanioVia().
                         getBachesHuecos85())) {
-                    mensajesErrorVia += "El daño Baches / Huecos (85) "
-                            + "no tiene un valor valido.\n";
+                    mensajesErrorVia += "     * El daño Baches / Huecos (85) "
+                            + "no tiene un valor valido." + separadorLinea;
                 } else {
                     ValidadorVia.agregarDanio("85", daniosSeleccionados);
                 }
@@ -177,8 +179,8 @@ public class ValidadorVia {
             if (null != via.getDanioVia().getAhuellamientoSurcos86()) {
                 if (!this.valoresPosiblesDaniosGeneral.contains(via.getDanioVia().
                         getAhuellamientoSurcos86())) {
-                    mensajesErrorVia += "El daño Ahuellamiento / Surcos (86) "
-                            + "no tiene un valor valido.\n";
+                    mensajesErrorVia += "     * El daño Ahuellamiento / Surcos (86) "
+                            + "no tiene un valor valido." + separadorLinea;
                 } else {
                     ValidadorVia.agregarDanio("86", daniosSeleccionados);
                 }
@@ -187,8 +189,8 @@ public class ValidadorVia {
             if (null != via.getDanioVia().getAgregadoSuelto87()) {
                 if (!this.valoresPosiblesDaniosGeneral.contains(via.getDanioVia().
                         getAgregadoSuelto87())) {
-                    mensajesErrorVia += "El daño Agregado Suelto (87) "
-                            + "no tiene un valor valido.\n";
+                    mensajesErrorVia += "     * El daño Agregado Suelto (87) "
+                            + "no tiene un valor valido." + separadorLinea;
                 } else {
                     ValidadorVia.agregarDanio("87", daniosSeleccionados);
                 }
@@ -197,8 +199,8 @@ public class ValidadorVia {
             if (null != via.getDanioVia().getCabezasDuras88()) {
                 if (!this.valoresPosiblesCabezasDuras.contains(via.getDanioVia().
                         getCabezasDuras88())) {
-                    mensajesErrorVia += "El daño Cabezas Duras (88) "
-                            + "no tiene un valor valido.\n";
+                    mensajesErrorVia += "     * El daño Cabezas Duras (88) "
+                            + "no tiene un valor valido." + separadorLinea;
                 } else {
                     ValidadorVia.agregarDanio("88", daniosSeleccionados);
                 }

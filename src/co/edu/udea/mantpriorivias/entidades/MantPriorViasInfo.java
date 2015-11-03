@@ -1,5 +1,6 @@
 package co.edu.udea.mantpriorivias.entidades;
 
+import co.edu.udea.mantpriorivias.validadores.ValidadorVia;
 import java.util.List;
 
 public class MantPriorViasInfo {
@@ -74,5 +75,24 @@ public class MantPriorViasInfo {
 
     public void setDaniosSeleccionados(List<String> daniosSeleccionados) {
         this.daniosSeleccionados = daniosSeleccionados;
+    }
+
+    public boolean tieneErrores() {
+        return ((this.erroresArchivo != null && !this.erroresArchivo.isEmpty())
+                || (this.erroresHojaPresupuesto != null
+                && !this.erroresHojaPresupuesto.isEmpty())
+                || (this.erroresHojaPriorizacion != null
+                && !this.erroresHojaPriorizacion.isEmpty())
+                || this.existenViasConErrores()
+                || ValidadorVia.existenViasConCodigoRepetido(vias));
+    }
+
+    public boolean existenViasConErrores() {
+        if (this.vias == null || this.vias.isEmpty()) {
+            return false;
+        }
+
+        return this.vias.stream().anyMatch((iv) -> (iv.getErroresVia() != null
+                && !iv.getErroresVia().isEmpty()));
     }
 }

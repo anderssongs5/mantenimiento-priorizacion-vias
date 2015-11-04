@@ -9,18 +9,23 @@ import co.edu.udea.mantpriorivias.validadores.ValidadorVia;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class LectorArchivoExcel {
+public class ArchivoExcel {
 
     private static final int CODIGO_VIA = 0;
     private static final int DE_COMERCIAL = 1;
@@ -43,8 +48,8 @@ public class LectorArchivoExcel {
     private static final String EXTENSION_ARCHIVO_xlsx = ".xlsx";
     private static final String EXTENSION_ARCHIVO_XLSX = ".XLSX";
 
-    public MantPriorViasInfo leerArchivo(File archivo) throws FileNotFoundException,
-            IOException {
+    public MantPriorViasInfo leerPlantilla(File archivo)
+            throws FileNotFoundException, IOException {
         MantPriorViasInfo mantPriorViasInfo = null;
 
         List<String> mensajesErrorArchivo = new ArrayList<>();
@@ -238,5 +243,28 @@ public class LectorArchivoExcel {
         } else {
             return "";
         }
+    }
+
+    public boolean descargarPlantilla(File directorio) {
+        boolean correcto = false;
+        InputStream inputStream = ArchivoExcel.class.getClassLoader().
+                getResourceAsStream("./co/edu/udea/mantpriorivias/archivos/"
+                        + "recursos/Plantilla_MantPriorVias.xlsx");
+        try {
+            OutputStream outputStream = new FileOutputStream(directorio
+                    + "/Plantilla_MantPriorVias.xlsx");
+            byte[] buffer = new byte[1024];
+            int longitud;
+            while ((longitud = inputStream.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, longitud);
+            }
+            correcto = true;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ArchivoExcel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ArchivoExcel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return correcto;
     }
 }

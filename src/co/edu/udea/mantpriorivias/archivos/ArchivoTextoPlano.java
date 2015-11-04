@@ -6,7 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class CreadorArchivoTextoPlano {
+public class ArchivoTextoPlano {
 
     public boolean crearArchivo(String contenido, String fullPath) {
         PrintWriter writer = null;
@@ -16,7 +16,7 @@ public class CreadorArchivoTextoPlano {
             writer.println(contenido);
             writer.close();
         } catch (FileNotFoundException | UnsupportedEncodingException ex) {
-            Logger.getLogger(CreadorArchivoTextoPlano.class.getName()).
+            Logger.getLogger(ArchivoTextoPlano.class.getName()).
                     log(Level.SEVERE, null, ex);
             correcto = false;
         } finally {

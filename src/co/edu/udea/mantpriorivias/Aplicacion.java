@@ -1,7 +1,7 @@
 package co.edu.udea.mantpriorivias;
 
-import co.edu.udea.mantpriorivias.archivos.CreadorArchivoTextoPlano;
-import co.edu.udea.mantpriorivias.archivos.LectorArchivoExcel;
+import co.edu.udea.mantpriorivias.archivos.ArchivoTextoPlano;
+import co.edu.udea.mantpriorivias.archivos.ArchivoExcel;
 import co.edu.udea.mantpriorivias.entidades.InfoVia;
 import co.edu.udea.mantpriorivias.entidades.MantPriorViasInfo;
 import co.edu.udea.mantpriorivias.general.Util;
@@ -20,19 +20,29 @@ import javax.swing.JOptionPane;
 
 public class Aplicacion extends javax.swing.JFrame {
 
-    private static final JFileChooser FILE_CHOOSER;
+    private static final JFileChooser FILE_CHOOSER_PLANTILLA;
+    private static final JFileChooser FILE_CHOOSER_DIRECTORIO_PLANTILLA;
     private File archivoSelecciondo;
+    private File directorioSeleccionado;
+    private final ArchivoExcel archivoExcel = new ArchivoExcel();
     private static final ImageIcon ERROR_IMAGE = new ImageIcon(Aplicacion.class
             .getResource("/co/edu/udea/mantpriorivias/recursos/imagenes/"
                     + "ic_dialog_error.png"));
     private static final ImageIcon WARNING_IMAGE = new ImageIcon(Aplicacion.class
             .getResource("/co/edu/udea/mantpriorivias/recursos/imagenes/"
                     + "ic_dialog_warning.png"));
+    private static final ImageIcon INFORMATION_IMAGE = new ImageIcon(Aplicacion.class
+            .getResource("/co/edu/udea/mantpriorivias/recursos/imagenes/"
+                    + "info_48.png"));
 
     static {
-        FILE_CHOOSER = new JFileChooser();
-        FILE_CHOOSER.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        FILE_CHOOSER.setDialogTitle("Seleccionar archivo a procesar...");
+        FILE_CHOOSER_PLANTILLA = new JFileChooser();
+        FILE_CHOOSER_PLANTILLA.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        FILE_CHOOSER_PLANTILLA.setDialogTitle("Seleccionar archivo a procesar...");
+
+        FILE_CHOOSER_DIRECTORIO_PLANTILLA = new JFileChooser();
+        FILE_CHOOSER_DIRECTORIO_PLANTILLA.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        FILE_CHOOSER_PLANTILLA.setDialogTitle("Seleccionar directorio...");
     }
 
     public Aplicacion() {
@@ -47,7 +57,9 @@ public class Aplicacion extends javax.swing.JFrame {
         labelSeleccioneArchivo = new javax.swing.JLabel();
         buttonSeleccionarArchivo = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        menuArchivo = new javax.swing.JMenu();
+        menuItemCargarArchivo = new javax.swing.JMenuItem();
+        menuItemDescargarPlantilla = new javax.swing.JMenuItem();
         menuAyuda = new javax.swing.JMenu();
         menuItemAcercade = new javax.swing.JMenuItem();
 
@@ -66,8 +78,25 @@ public class Aplicacion extends javax.swing.JFrame {
             }
         });
 
-        jMenu1.setText("File");
-        barraMenu.add(jMenu1);
+        menuArchivo.setText("Archivo");
+
+        menuItemCargarArchivo.setText("Cargar archivo");
+        menuItemCargarArchivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemCargarArchivoActionPerformed(evt);
+            }
+        });
+        menuArchivo.add(menuItemCargarArchivo);
+
+        menuItemDescargarPlantilla.setText("Descargar plantilla");
+        menuItemDescargarPlantilla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemDescargarPlantillaActionPerformed(evt);
+            }
+        });
+        menuArchivo.add(menuItemDescargarPlantilla);
+
+        barraMenu.add(menuArchivo);
 
         menuAyuda.setText("Ayuda");
         menuAyuda.setContentAreaFilled(false);
@@ -124,63 +153,16 @@ public class Aplicacion extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemAcercadeActionPerformed
 
     private void buttonSeleccionarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSeleccionarArchivoActionPerformed
-        LectorArchivoExcel lectorArchivoExcel = new LectorArchivoExcel();
-        int retorno = FILE_CHOOSER.showOpenDialog(this);
-        if (JFileChooser.APPROVE_OPTION == retorno) {
-            this.archivoSelecciondo = FILE_CHOOSER.getSelectedFile();
-            if (lectorArchivoExcel.validarArchivo(this.archivoSelecciondo)) {
-                try {
-                    MantPriorViasInfo mantPriorViasInfo = lectorArchivoExcel.
-                            leerArchivo(this.archivoSelecciondo);
-                    if (mantPriorViasInfo.tieneErrores()) {
-                        JOptionPane.showMessageDialog(this, "El archivo contiene "
-                                + "errores.\nA continuación se le indicará cuáles "
-                                + "son los errores para poder continuar con el proceso.\n"
-                                + "Una vez corregidos, por favor inténtelo de nuevo.\n",
-                                "Archivo con Errores", JOptionPane.WARNING_MESSAGE,
-                                WARNING_IMAGE);
-                        String rutaTemporal = Util.getRutaTemporal();
-                        String fullPath = rutaTemporal + "Errores_Plantilla.txt";
-                        CreadorArchivoTextoPlano creadorArchivoTextoPlano
-                                = new CreadorArchivoTextoPlano();
-
-                        String contenidoErrores = this.estructurarInformacionError(
-                                mantPriorViasInfo);
-                        if (creadorArchivoTextoPlano.crearArchivo(contenidoErrores,
-                                fullPath)) {
-                            File archivoErrores = new File(fullPath);
-                            if (Desktop.isDesktopSupported()) {
-                                Desktop desktop = Desktop.getDesktop();
-                                desktop.open(archivoErrores);
-                            } else {
-                                JOptionPane.showMessageDialog(this,
-                                        "El archivo de errores no se puede abrir. "
-                                        + "Por favor búsquelo en la "
-                                        + "siguiente ruta:\n" + fullPath,
-                                        "No se puede abrir archivos",
-                                        JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Se ha generado "
-                                    + "un error creando el archivo de errores.\n"
-                                    + "Por favor contáctese con el administrador"
-                                    + " del sistema.", "Error generando archivo",
-                                    JOptionPane.ERROR_MESSAGE, ERROR_IMAGE);
-                        }
-                    }
-                } catch (IOException ex) {
-                    Logger.getLogger(Aplicacion.class.getName()).log(
-                            Level.SEVERE, null, ex);
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "El archivo no es válido. Por "
-                        + "favor verifique que el archivo exista y tenga extensión "
-                        + "XLSX.", "Archivo inválido", JOptionPane.ERROR_MESSAGE,
-                        ERROR_IMAGE);
-            }
-        }
-
+        this.cargarArchivoPlantilla();
     }//GEN-LAST:event_buttonSeleccionarArchivoActionPerformed
+
+    private void menuItemCargarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCargarArchivoActionPerformed
+        this.cargarArchivoPlantilla();
+    }//GEN-LAST:event_menuItemCargarArchivoActionPerformed
+
+    private void menuItemDescargarPlantillaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDescargarPlantillaActionPerformed
+        this.descargarPlantilla();
+    }//GEN-LAST:event_menuItemDescargarPlantillaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -230,12 +212,103 @@ public class Aplicacion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton buttonSeleccionarArchivo;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JLabel labelSeleccioneArchivo;
     private javax.swing.JLabel labelTitulo;
+    private javax.swing.JMenu menuArchivo;
     private javax.swing.JMenu menuAyuda;
     private javax.swing.JMenuItem menuItemAcercade;
+    private javax.swing.JMenuItem menuItemCargarArchivo;
+    private javax.swing.JMenuItem menuItemDescargarPlantilla;
     // End of variables declaration//GEN-END:variables
+
+    private void descargarPlantilla() {
+        int retorno = FILE_CHOOSER_DIRECTORIO_PLANTILLA.showOpenDialog(this);
+        if (JFileChooser.APPROVE_OPTION == retorno) {
+            this.directorioSeleccionado = FILE_CHOOSER_DIRECTORIO_PLANTILLA.
+                    getSelectedFile();
+            if (Util.isDirectorioValido(this.directorioSeleccionado)) {
+                boolean correcto = archivoExcel.descargarPlantilla(
+                        this.directorioSeleccionado);
+                if (correcto) {
+                    JOptionPane.showMessageDialog(this, "Se ha descargado "
+                            + "satisfactoriamente la plantilla \n"
+                            + "Plantilla_MantPriorVias.xlsx en el directorio "
+                            + "seleccionado.", "Plantilla descargada",
+                            JOptionPane.INFORMATION_MESSAGE, INFORMATION_IMAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Se ha generado "
+                            + "un error descargando la plantilla. "
+                            + "Por favor verifique que el directorio exista\n y "
+                            + "que un archivo con el nombre "
+                            + "Plantilla_MantPriorVias.xlsx no esté abierto.",
+                            "Error descargando plantilla",
+                            JOptionPane.ERROR_MESSAGE, ERROR_IMAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor seleccione un "
+                        + "directorio válido.",
+                        "Directorio inválido",
+                        JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
+            }
+        }
+    }
+
+    private void cargarArchivoPlantilla() {
+        int retorno = FILE_CHOOSER_PLANTILLA.showOpenDialog(this);
+        if (JFileChooser.APPROVE_OPTION == retorno) {
+            this.archivoSelecciondo = FILE_CHOOSER_PLANTILLA.getSelectedFile();
+            if (this.archivoExcel.validarArchivo(this.archivoSelecciondo)) {
+                try {
+                    MantPriorViasInfo mantPriorViasInfo = this.archivoExcel.
+                            leerPlantilla(this.archivoSelecciondo);
+                    if (mantPriorViasInfo.tieneErrores()) {
+                        JOptionPane.showMessageDialog(this, "El archivo contiene "
+                                + "errores.\nA continuación se le indicará cuáles "
+                                + "son los errores para poder continuar con el proceso.\n"
+                                + "Una vez corregidos, por favor inténtelo de nuevo.\n",
+                                "Archivo con Errores", JOptionPane.WARNING_MESSAGE,
+                                WARNING_IMAGE);
+                        String rutaTemporal = Util.getRutaTemporal();
+                        String fullPath = rutaTemporal + "Errores_Plantilla.txt";
+                        ArchivoTextoPlano creadorArchivoTextoPlano
+                                = new ArchivoTextoPlano();
+
+                        String contenidoErrores = this.estructurarInformacionError(
+                                mantPriorViasInfo);
+                        if (creadorArchivoTextoPlano.crearArchivo(contenidoErrores,
+                                fullPath)) {
+                            File archivoErrores = new File(fullPath);
+                            if (Desktop.isDesktopSupported()) {
+                                Desktop desktop = Desktop.getDesktop();
+                                desktop.open(archivoErrores);
+                            } else {
+                                JOptionPane.showMessageDialog(this,
+                                        "El archivo de errores no se puede abrir. "
+                                        + "Por favor búsquelo en la "
+                                        + "siguiente ruta:\n" + fullPath,
+                                        "No se puede abrir archivos",
+                                        JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Se ha generado "
+                                    + "un error creando el archivo de errores.\n"
+                                    + "Por favor contáctese con el administrador"
+                                    + " del sistema.", "Error generando archivo",
+                                    JOptionPane.ERROR_MESSAGE, ERROR_IMAGE);
+                        }
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(Aplicacion.class.getName()).log(
+                            Level.SEVERE, null, ex);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "El archivo no es válido. Por "
+                        + "favor verifique que el archivo exista y tenga extensión "
+                        + "XLSX.", "Archivo inválido", JOptionPane.ERROR_MESSAGE,
+                        ERROR_IMAGE);
+            }
+        }
+    }
 
     private String estructurarInformacionError(MantPriorViasInfo mantPriorViasInfo) {
         String informacion = "";

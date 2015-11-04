@@ -1,19 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.udea.mantpriorivias.general;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 import org.apache.commons.lang3.math.NumberUtils;
 
-/**
- *
- * @author Samsung
- */
 public class Util {
 
     public static boolean isNumerico(String numero) {
@@ -35,5 +27,10 @@ public class Util {
     public static String getRutaTemporal() {
 
         return System.getProperty("java.io.tmpdir");
+    }
+
+    public static boolean isDirectorioValido(File archivo) {
+
+        return (null != archivo && archivo.isDirectory());
     }
 }

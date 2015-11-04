@@ -5,3 +5,4 @@ Colaborador en el desarrollo del proyecto de grado perteneciente a Juliet Andrea
 * Netbeans IDE
 * Apache POI 3.13
 * Apache Commons Lang3 3.4
+* Microsoft Excel 2010+

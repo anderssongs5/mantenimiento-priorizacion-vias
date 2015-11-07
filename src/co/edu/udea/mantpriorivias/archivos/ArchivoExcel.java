@@ -4,6 +4,7 @@ import co.edu.udea.mantpriorivias.entidades.MantPriorViasInfo;
 import co.edu.udea.mantpriorivias.entidades.Presupuesto;
 import co.edu.udea.mantpriorivias.entidades.Via;
 import co.edu.udea.mantpriorivias.entidades.InfoVia;
+import co.edu.udea.mantpriorivias.entidades.Item;
 import co.edu.udea.mantpriorivias.validadores.ValidadorPresupuesto;
 import co.edu.udea.mantpriorivias.validadores.ValidadorVia;
 import java.io.File;
@@ -27,6 +28,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ArchivoExcel {
 
+    private static final int NUMERO_COLUMNAS_PRIORIZACION = 22;
     private static final int CODIGO_VIA = 0;
     private static final int DE_COMERCIAL = 1;
     private static final int DE_INDUSTRIAL = 2;
@@ -36,14 +38,19 @@ public class ArchivoExcel {
     private static final int CONECTIVIDAD = 6;
     private static final int TPD = 7;
     private static final int VIAS_ALTERNAS = 8;
-    private static final int SECCION_TRANSVERSAL_INAPROPIADA_81 = 9;
-    private static final int DRENAJE_LATERAL_INADECUADO_82 = 10;
-    private static final int CORRUGACIONES_83 = 11;
-    private static final int POLVO_84 = 12;
-    private static final int BACHES_HUECOS_85 = 13;
-    private static final int AHUELLAMIENTO_SURCOS_86 = 14;
-    private static final int AGREGADO_SUELTO_87 = 15;
-    private static final int CABEZAS_DURAS_88 = 16;
+    private static final int PERSONAS_TRANSPORTADAS_DIA = 9;
+    private static final int URCI = 10;
+    private static final int SECCION_TRANSVERSAL_INAPROPIADA_81 = 11;
+    private static final int DRENAJE_LONGITUDINAL_INADECUADO_82 = 12;
+    private static final int DRENAJE_TRANSVERSAL_INADECUADO_83 = 13;
+    private static final int CORRUGACIONES_84 = 14;
+    private static final int POLVO_85 = 15;
+    private static final int BACHES_HUECOS_86 = 16;
+    private static final int AHUELLAMIENTO_SURCOS_87 = 17;
+    private static final int AGREGADO_SUELTO_88 = 18;
+    private static final int CABEZAS_DURAS_89 = 19;
+    private static final int PROBABILIDAD_DERRUMBES_90 = 20;
+    private static final int DANIOS_BANCA_91 = 21;
 
     private static final String EXTENSION_ARCHIVO_xlsx = ".xlsx";
     private static final String EXTENSION_ARCHIVO_XLSX = ".XLSX";
@@ -83,6 +90,14 @@ public class ArchivoExcel {
                         + "igual. Por favor corrija la información ya que "
                         + "cada código de vía debe ser único.";
             }
+        }
+
+        Sheet hojaCostosMantenimiento = workbook.getSheet("Costos de mantenimiento");
+        List<Item> items = new ArrayList<>();
+        if (null == hojaCostosMantenimiento) {
+            mensajesErrorArchivo.add("No existe la hoja Costos de mantenimiento.");
+        } else {
+            items = this.obtenerInfoCostosMantenimiento(hojaCostosMantenimiento);
         }
 
         System.out.println("Errores de archivo:");
@@ -145,7 +160,7 @@ public class ArchivoExcel {
             Row row = rows.next();
             InfoVia infoVia = new InfoVia();
             Via via = new Via();
-            for (int i = 0; i < 17; i++) {
+            for (int i = 0; i < NUMERO_COLUMNAS_PRIORIZACION; i++) {
                 Cell cell = row.getCell(i);
                 switch (i) {
                     case CODIGO_VIA:
@@ -180,36 +195,54 @@ public class ArchivoExcel {
                     case VIAS_ALTERNAS:
                         via.setViasAlternas(this.obtenerValorCelda(cell));
                         break;
+                    case PERSONAS_TRANSPORTADAS_DIA:
+                        via.setPersonasTransportadasDia(this.obtenerValorCelda(cell));
+                        break;
+                    case URCI:
+                        via.setUrci(this.obtenerValorCelda(cell));
+                        break;
                     case SECCION_TRANSVERSAL_INAPROPIADA_81:
                         via.getDanioVia().setSeccionTransversalInapropiada81(
                                 this.obtenerValorCelda(cell));
                         break;
-                    case DRENAJE_LATERAL_INADECUADO_82:
-                        via.getDanioVia().setDrenajeLateralInadecuado82(
+                    case DRENAJE_LONGITUDINAL_INADECUADO_82:
+                        via.getDanioVia().setDrenajeLongitudinalInadecuado82(
                                 this.obtenerValorCelda(cell));
                         break;
-                    case CORRUGACIONES_83:
-                        via.getDanioVia().setCorrugaciones83(
+                    case DRENAJE_TRANSVERSAL_INADECUADO_83:
+                        via.getDanioVia().setDrenajeTransversalInadecuado83(
                                 this.obtenerValorCelda(cell));
                         break;
-                    case POLVO_84:
-                        via.getDanioVia().setPolvo84(
+                    case CORRUGACIONES_84:
+                        via.getDanioVia().setCorrugaciones84(
                                 this.obtenerValorCelda(cell));
                         break;
-                    case BACHES_HUECOS_85:
-                        via.getDanioVia().setBachesHuecos85(
+                    case POLVO_85:
+                        via.getDanioVia().setPolvo85(
                                 this.obtenerValorCelda(cell));
                         break;
-                    case AHUELLAMIENTO_SURCOS_86:
-                        via.getDanioVia().setAhuellamientoSurcos86(
+                    case BACHES_HUECOS_86:
+                        via.getDanioVia().setBachesHuecos86(
                                 this.obtenerValorCelda(cell));
                         break;
-                    case AGREGADO_SUELTO_87:
-                        via.getDanioVia().setAgregadoSuelto87(
+                    case AHUELLAMIENTO_SURCOS_87:
+                        via.getDanioVia().setAhuellamientoSurcos87(
                                 this.obtenerValorCelda(cell));
                         break;
-                    case CABEZAS_DURAS_88:
-                        via.getDanioVia().setCabezasDuras88(
+                    case AGREGADO_SUELTO_88:
+                        via.getDanioVia().setAgregadoSuelto88(
+                                this.obtenerValorCelda(cell));
+                        break;
+                    case CABEZAS_DURAS_89:
+                        via.getDanioVia().setCabezasDuras89(
+                                this.obtenerValorCelda(cell));
+                        break;
+                    case PROBABILIDAD_DERRUMBES_90:
+                        via.getDanioVia().setProbabilidadDerrumbes90(
+                                this.obtenerValorCelda(cell));
+                        break;
+                    case DANIOS_BANCA_91:
+                        via.getDanioVia().setDanioBanca91(
                                 this.obtenerValorCelda(cell));
                         break;
                 }
@@ -223,6 +256,24 @@ public class ArchivoExcel {
         }
 
         return vias;
+    }
+
+    private List<Item> obtenerInfoCostosMantenimiento(Sheet hojaCostosMantenimiento) {
+        List<Item> items = new ArrayList<>();
+        Iterator<Row> rows = hojaCostosMantenimiento.iterator();
+        
+        rows.next();
+        while(rows.hasNext()){
+            Row row = rows.next();
+            String codigo = this.obtenerValorCelda(row.getCell(1));
+            String item = this.obtenerValorCelda(row.getCell(2));
+            String unidad = this.obtenerValorCelda(row.getCell(1));
+            String valorUnitario = this.obtenerValorCelda(row.getCell(1));
+            int fila = row.getRowNum();
+            
+        }
+
+        return items;
     }
 
     public boolean validarArchivo(File archivo) {

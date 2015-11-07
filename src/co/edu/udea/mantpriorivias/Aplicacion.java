@@ -360,6 +360,11 @@ public class Aplicacion extends javax.swing.JFrame {
                     informacion += separadorLinea;
                 }
             }
+        } else if (mantPriorViasInfo.getVias().isEmpty()) {
+            informacion += "Errores en hoja Priorización o errores en vías:";
+            informacion += separadorLinea;
+            informacion += separadorLinea;
+            informacion += "    * No existe ninguna vía.";
         }
 
         if (ValidadorVia.existenViasConCodigoRepetido(mantPriorViasInfo.getVias())) {

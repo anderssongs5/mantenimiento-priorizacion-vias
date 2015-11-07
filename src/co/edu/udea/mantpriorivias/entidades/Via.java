@@ -6,6 +6,8 @@ public class Via {
     private DesarrolloEconomico desarrolloEconomico;
     private String conectividad;
     private String tpd;
+    private String personasTransportadasDia;
+    private String urci;
     private String viasAlternas;
     private DanioVia danioVia;
 
@@ -60,5 +62,21 @@ public class Via {
 
     public void setDanioVia(DanioVia danioVia) {
         this.danioVia = danioVia;
+    }
+
+    public String getPersonasTransportadasDia() {
+        return personasTransportadasDia;
+    }
+
+    public void setPersonasTransportadasDia(String personasTransportadasDia) {
+        this.personasTransportadasDia = personasTransportadasDia;
+    }
+
+    public String getUrci() {
+        return urci;
+    }
+
+    public void setUrci(String urci) {
+        this.urci = urci;
     }
 }

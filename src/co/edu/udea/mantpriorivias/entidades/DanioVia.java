@@ -3,13 +3,16 @@ package co.edu.udea.mantpriorivias.entidades;
 public class DanioVia {
 
     private String seccionTransversalInapropiada81;
-    private String drenajeLateralInadecuado82;
-    private String corrugaciones83;
-    private String polvo84;
-    private String bachesHuecos85;
-    private String ahuellamientoSurcos86;
-    private String agregadoSuelto87;
-    private String cabezasDuras88;
+    private String drenajeLongitudinalInadecuado82;
+    private String drenajeTransversalInadecuado83;
+    private String corrugaciones84;
+    private String polvo85;
+    private String bachesHuecos86;
+    private String ahuellamientoSurcos87;
+    private String agregadoSuelto88;    
+    private String cabezasDuras89;
+    private String probabilidadDerrumbes90;
+    private String danioBanca91;
 
     public String getSeccionTransversalInapropiada81() {
         return seccionTransversalInapropiada81;
@@ -19,59 +22,83 @@ public class DanioVia {
         this.seccionTransversalInapropiada81 = seccionTransversalInapropiada81;
     }
 
-    public String getDrenajeLateralInadecuado82() {
-        return drenajeLateralInadecuado82;
+    public String getDrenajeTransversalInadecuado83() {
+        return drenajeTransversalInadecuado83;
     }
 
-    public void setDrenajeLateralInadecuado82(String drenajeLateralInadecuado82) {
-        this.drenajeLateralInadecuado82 = drenajeLateralInadecuado82;
+    public void setDrenajeTransversalInadecuado83(String drenajeTransversalInadecuado83) {
+        this.drenajeTransversalInadecuado83 = drenajeTransversalInadecuado83;
     }
 
-    public String getCorrugaciones83() {
-        return corrugaciones83;
+    public String getCorrugaciones84() {
+        return corrugaciones84;
     }
 
-    public void setCorrugaciones83(String corrugaciones83) {
-        this.corrugaciones83 = corrugaciones83;
+    public void setCorrugaciones84(String corrugaciones84) {
+        this.corrugaciones84 = corrugaciones84;
     }
 
-    public String getPolvo84() {
-        return polvo84;
+    public String getPolvo85() {
+        return polvo85;
     }
 
-    public void setPolvo84(String polvo84) {
-        this.polvo84 = polvo84;
+    public void setPolvo85(String polvo85) {
+        this.polvo85 = polvo85;
     }
 
-    public String getBachesHuecos85() {
-        return bachesHuecos85;
+    public String getBachesHuecos86() {
+        return bachesHuecos86;
     }
 
-    public void setBachesHuecos85(String bachesHuecos85) {
-        this.bachesHuecos85 = bachesHuecos85;
+    public void setBachesHuecos86(String bachesHuecos86) {
+        this.bachesHuecos86 = bachesHuecos86;
     }
 
-    public String getAhuellamientoSurcos86() {
-        return ahuellamientoSurcos86;
+    public String getAhuellamientoSurcos87() {
+        return ahuellamientoSurcos87;
     }
 
-    public void setAhuellamientoSurcos86(String ahuellamientoSurcos86) {
-        this.ahuellamientoSurcos86 = ahuellamientoSurcos86;
+    public void setAhuellamientoSurcos87(String ahuellamientoSurcos87) {
+        this.ahuellamientoSurcos87 = ahuellamientoSurcos87;
     }
 
-    public String getAgregadoSuelto87() {
-        return agregadoSuelto87;
+    public String getAgregadoSuelto88() {
+        return agregadoSuelto88;
     }
 
-    public void setAgregadoSuelto87(String agregadoSuelto87) {
-        this.agregadoSuelto87 = agregadoSuelto87;
+    public void setAgregadoSuelto88(String agregadoSuelto88) {
+        this.agregadoSuelto88 = agregadoSuelto88;
     }
 
-    public String getCabezasDuras88() {
-        return cabezasDuras88;
+    public String getCabezasDuras89() {
+        return cabezasDuras89;
     }
 
-    public void setCabezasDuras88(String cabezasDuras88) {
-        this.cabezasDuras88 = cabezasDuras88;
+    public void setCabezasDuras89(String cabezasDuras89) {
+        this.cabezasDuras89 = cabezasDuras89;
+    }
+
+    public String getDrenajeLongitudinalInadecuado82() {
+        return drenajeLongitudinalInadecuado82;
+    }
+
+    public void setDrenajeLongitudinalInadecuado82(String drenajeLongitudinalInadecuado82) {
+        this.drenajeLongitudinalInadecuado82 = drenajeLongitudinalInadecuado82;
+    }
+
+    public String getProbabilidadDerrumbes90() {
+        return probabilidadDerrumbes90;
+    }
+
+    public void setProbabilidadDerrumbes90(String probabilidadDerrumbes90) {
+        this.probabilidadDerrumbes90 = probabilidadDerrumbes90;
+    }
+
+    public String getDanioBanca91() {
+        return danioBanca91;
+    }
+
+    public void setDanioBanca91(String danioBanca91) {
+        this.danioBanca91 = danioBanca91;
     }
 }

@@ -15,6 +15,7 @@ public class ValidadorVia {
     private final List<String> valoresPosiblesTPD;
     private final List<String> valoresPosiblesViasAlternas;
     private final List<String> valoresPosiblesPersonasTransportadasDia;
+    private final List<String> valoresPosiblesUrciDecimal;
     private final List<String> valoresPosiblesUrci;
     private final List<String> valoresPosiblesDaniosGeneral;
     private final List<String> valoresPosiblesCabezasDuras;
@@ -40,6 +41,8 @@ public class ValidadorVia {
                 "VIAS_ALTERNAS"), ",");
         this.valoresPosiblesPersonasTransportadasDia = Util.tokenizar(properties.getProperty(
                 "PERSONAS_TRANSPORTADAS_DIA"), ",");
+        this.valoresPosiblesUrciDecimal = Util.tokenizar(properties.getProperty(
+                "URCI_DECIMAL"), ",");
         this.valoresPosiblesUrci = Util.tokenizar(properties.getProperty(
                 "URCI"), ",");
         this.valoresPosiblesDaniosGeneral = Util.tokenizar(properties.getProperty(
@@ -140,6 +143,7 @@ public class ValidadorVia {
         }
 
         if (null == via.getUrci() || via.getUrci().trim().isEmpty()
+                || !this.valoresPosiblesUrciDecimal.contains(via.getUrci().trim())
                 || !this.valoresPosiblesUrci.contains(via.getUrci().trim())) {
             mensajesErrorVia += "     * URCI es vacío "
                     + "o no tiene un valor válido." + separadorLinea;

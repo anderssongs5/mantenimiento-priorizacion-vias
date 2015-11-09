@@ -2,10 +2,10 @@ package co.edu.udea.mantpriorivias;
 
 import co.edu.udea.mantpriorivias.archivos.ArchivoTextoPlano;
 import co.edu.udea.mantpriorivias.archivos.ArchivoExcel;
+import co.edu.udea.mantpriorivias.entidades.InfoItem;
 import co.edu.udea.mantpriorivias.entidades.InfoVia;
 import co.edu.udea.mantpriorivias.entidades.MantPriorViasInfo;
 import co.edu.udea.mantpriorivias.general.Util;
-import co.edu.udea.mantpriorivias.validadores.ValidadorVia;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
@@ -345,6 +345,7 @@ public class Aplicacion extends javax.swing.JFrame {
             informacion += separadorLinea;
         }
 
+        boolean erroresVias = false;
         if (mantPriorViasInfo.existenViasConErrores()) {
             informacion += "Errores en hoja Priorización o errores en vías:";
             informacion += separadorLinea;
@@ -360,16 +361,72 @@ public class Aplicacion extends javax.swing.JFrame {
                     informacion += separadorLinea;
                 }
             }
+            erroresVias = true;
         } else if (mantPriorViasInfo.getVias().isEmpty()) {
             informacion += "Errores en hoja Priorización o errores en vías:";
             informacion += separadorLinea;
             informacion += separadorLinea;
             informacion += "    * No existe ninguna vía.";
+            erroresVias = true;
         }
 
-        if (ValidadorVia.existenViasConCodigoRepetido(mantPriorViasInfo.getVias())) {
-            informacion += "*** Existen códigos de vías repetidos. Tenga en cuenta "
-                    + "que cada código de vía debe ser único. ***" + separadorLinea;
+        if (mantPriorViasInfo.getErroresHojaPriorizacion() != null
+                && !mantPriorViasInfo.getErroresHojaPriorizacion().isEmpty()) {
+            if (!erroresVias) {
+                informacion += "Errores en hoja Priorización o errores en vías:";
+                informacion += separadorLinea;
+                informacion += separadorLinea;
+            }
+            informacion += mantPriorViasInfo.getErroresHojaPriorizacion().trim()
+                    + separadorLinea;
+        }
+
+        if (!informacion.isEmpty()) {
+            informacion += separadorLinea;
+            informacion += separadorLinea;
+            informacion += "====================================================";
+            informacion += separadorLinea;
+            informacion += separadorLinea;
+        }
+
+        boolean erroresItems = false;
+        if (mantPriorViasInfo.existenItemsConErrores()) {
+            informacion += "Errores en hoja Costos de mantenimiento:";
+            informacion += separadorLinea;
+            informacion += separadorLinea;
+            for (InfoItem ii : mantPriorViasInfo.getItems()) {
+                if (ii != null && ii.getErroresItem() != null
+                        && !ii.getErroresItem().trim().isEmpty()) {
+                    informacion += "Número de fila: " + ii.getFila() + separadorLinea;
+                    String codItem = (ii.getItem().getCodigo() != null)
+                            ? ii.getItem().getCodigo().trim() : "";
+                    informacion += "Código del ítem: " + codItem + separadorLinea;
+                    String item = (ii.getItem().getItem() != null)
+                            ? ii.getItem().getItem() : "";
+                    informacion += "Nombre del ítem: " + item + separadorLinea;
+                    informacion += "Errores: " + separadorLinea + ii.getErroresItem();
+                    informacion += separadorLinea;
+                    informacion += separadorLinea;
+                }
+            }
+            erroresItems = true;
+        } else if (mantPriorViasInfo.getItems().isEmpty()) {
+            informacion += "Errores en hoja Costos de mantenimiento:";
+            informacion += separadorLinea;
+            informacion += separadorLinea;
+            informacion += "    * No existe ningún ítem de mantenimiento.";
+            erroresItems = true;
+        }
+
+        if (mantPriorViasInfo.getErroresHojaCostosMantenimiento() != null
+                && !mantPriorViasInfo.getErroresHojaCostosMantenimiento().isEmpty()) {
+            if (!erroresItems) {
+                informacion += "Errores en hoja Costos de mantenimiento:";
+                informacion += separadorLinea;
+                informacion += separadorLinea;
+            }
+            informacion += mantPriorViasInfo.getErroresHojaCostosMantenimiento().trim()
+                    + separadorLinea;
         }
 
         return informacion;

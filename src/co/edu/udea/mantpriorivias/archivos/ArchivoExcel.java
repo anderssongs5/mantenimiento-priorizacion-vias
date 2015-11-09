@@ -1,10 +1,12 @@
 package co.edu.udea.mantpriorivias.archivos;
 
+import co.edu.udea.mantpriorivias.entidades.InfoItem;
 import co.edu.udea.mantpriorivias.entidades.MantPriorViasInfo;
 import co.edu.udea.mantpriorivias.entidades.Presupuesto;
 import co.edu.udea.mantpriorivias.entidades.Via;
 import co.edu.udea.mantpriorivias.entidades.InfoVia;
 import co.edu.udea.mantpriorivias.entidades.Item;
+import co.edu.udea.mantpriorivias.validadores.ValidadorCostosMantenimiento;
 import co.edu.udea.mantpriorivias.validadores.ValidadorPresupuesto;
 import co.edu.udea.mantpriorivias.validadores.ValidadorVia;
 import java.io.File;
@@ -62,6 +64,7 @@ public class ArchivoExcel {
         List<String> mensajesErrorArchivo = new ArrayList<>();
         List<String> mensajesErrorHojaPresupuesto = new ArrayList<>();
         String mensajesErrorHojaPriorizacion = "";
+        String mensajesErrorHojaCostosMantenimiento = "";
         FileInputStream fileInputStream = new FileInputStream(archivo);
         Workbook workbook = new XSSFWorkbook(fileInputStream);
 
@@ -86,18 +89,24 @@ public class ArchivoExcel {
 
         if (!vias.isEmpty()) {
             if (ValidadorVia.existenViasConCodigoRepetido(vias)) {
-                mensajesErrorHojaPriorizacion += "Existen vías con código "
+                mensajesErrorHojaPriorizacion += "*** Existen vías con código "
                         + "igual. Por favor corrija la información ya que "
-                        + "cada código de vía debe ser único.";
+                        + "cada código de vía debe ser único. ***";
             }
         }
 
         Sheet hojaCostosMantenimiento = workbook.getSheet("Costos de mantenimiento");
-        List<Item> items = new ArrayList<>();
+        List<InfoItem> items = new ArrayList<>();
         if (null == hojaCostosMantenimiento) {
             mensajesErrorArchivo.add("No existe la hoja Costos de mantenimiento.");
         } else {
             items = this.obtenerInfoCostosMantenimiento(hojaCostosMantenimiento);
+            ValidadorCostosMantenimiento vcs = new ValidadorCostosMantenimiento();
+            if (!vcs.contieneTodosLosItems(items)) {
+                mensajesErrorHojaCostosMantenimiento += "La hoja Costos de "
+                        + "mantenimiento no contiene todos los ítems establecidos "
+                        + "para la misma.";
+            }
         }
 
         System.out.println("Errores de archivo:");
@@ -119,11 +128,18 @@ public class ArchivoExcel {
             System.out.println(mensajesErrorHojaPriorizacion);
         }
 
+        System.out.println("\nErrores en Hoja Costos de mantenimiento:");
+        for (InfoItem ii : items) {
+            System.out.println("Número de fila: " + ii.getFila());
+            System.out.println("Código ítem: " + ii.getItem().getCodigo());
+            System.out.println("Errores: " + ii.getErroresItem());
+        }
+
         Collections.sort(daniosSeleccionados);
         mantPriorViasInfo = new MantPriorViasInfo(mensajesErrorArchivo,
                 mensajesErrorHojaPresupuesto,
                 mensajesErrorHojaPriorizacion, presupuesto, vias,
-                daniosSeleccionados);
+                daniosSeleccionados, items, mensajesErrorHojaCostosMantenimiento);
 
         return mantPriorViasInfo;
     }
@@ -258,19 +274,26 @@ public class ArchivoExcel {
         return vias;
     }
 
-    private List<Item> obtenerInfoCostosMantenimiento(Sheet hojaCostosMantenimiento) {
-        List<Item> items = new ArrayList<>();
+    private List<InfoItem> obtenerInfoCostosMantenimiento(Sheet hojaCostosMantenimiento)
+            throws IOException {
+        ValidadorCostosMantenimiento validadorCostosMantenimiento
+                = new ValidadorCostosMantenimiento();
+        List<InfoItem> items = new ArrayList<>();
         Iterator<Row> rows = hojaCostosMantenimiento.iterator();
-        
+
         rows.next();
-        while(rows.hasNext()){
+        while (rows.hasNext()) {
             Row row = rows.next();
             String codigo = this.obtenerValorCelda(row.getCell(1));
             String item = this.obtenerValorCelda(row.getCell(2));
             String unidad = this.obtenerValorCelda(row.getCell(1));
             String valorUnitario = this.obtenerValorCelda(row.getCell(1));
             int fila = row.getRowNum();
-            
+
+            Item i = new Item(codigo, item, unidad, valorUnitario);
+            String erroresItem = validadorCostosMantenimiento.validarItem(i);
+
+            items.add(new InfoItem(i, erroresItem, fila));
         }
 
         return items;

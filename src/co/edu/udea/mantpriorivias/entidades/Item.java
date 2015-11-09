@@ -1,18 +1,26 @@
 package co.edu.udea.mantpriorivias.entidades;
 
 public class Item {
-    
+
     private String codigo;
     private String item;
     private String unidad;
     private double valorUnitario;
+    private String valorUnitarioString;
 
-    public Item(String codigo, String nombreItem, String unidad, 
+    public Item(String codigo, String nombreItem, String unidad,
             double valorUnitario) {
         this.codigo = codigo;
         this.item = nombreItem;
         this.unidad = unidad;
         this.valorUnitario = valorUnitario;
+    }
+
+    public Item(String codigo, String item, String unidad, String valorUnitarioString) {
+        this.codigo = codigo;
+        this.item = item;
+        this.unidad = unidad;
+        this.valorUnitarioString = valorUnitarioString;
     }
 
     public String getCodigo() {
@@ -45,5 +53,13 @@ public class Item {
 
     public void setValorUnitario(double valorUnitario) {
         this.valorUnitario = valorUnitario;
-    }   
+    }
+
+    public String getValorUnitarioString() {
+        return valorUnitarioString;
+    }
+
+    public void setValorUnitarioString(String valorUnitarioString) {
+        this.valorUnitarioString = valorUnitarioString;
+    }
 }

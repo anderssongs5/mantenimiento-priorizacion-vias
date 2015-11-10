@@ -13,7 +13,6 @@ public class MantPriorViasInfo {
     private Presupuesto presupuesto;
     private List<InfoVia> vias;
     private List<InfoItem> items;
-    private List<String> daniosSeleccionados;
 
     public MantPriorViasInfo() {
         super();
@@ -21,15 +20,15 @@ public class MantPriorViasInfo {
 
     public MantPriorViasInfo(List<String> erroresArchivo,
             List<String> erroresHojaPresupuesto, String erroresHojaPriorizacion,
-            Presupuesto presupuesto, List<InfoVia> vias,
-            List<String> daniosSeleccionados, List<InfoItem> items,
+            Presupuesto presupuesto, List<InfoVia> vias, List<InfoItem> items,
             String erroresHojaCostosMantenimiento) {
         this.erroresArchivo = erroresArchivo;
         this.erroresHojaPresupuesto = erroresHojaPresupuesto;
         this.erroresHojaPriorizacion = erroresHojaPriorizacion;
         this.presupuesto = presupuesto;
         this.vias = vias;
-        this.daniosSeleccionados = daniosSeleccionados;
+        this.items = items;
+        this.erroresHojaCostosMantenimiento = erroresHojaCostosMantenimiento;
     }
 
     public List<String> getErroresArchivo() {
@@ -88,14 +87,6 @@ public class MantPriorViasInfo {
         this.items = items;
     }
 
-    public List<String> getDaniosSeleccionados() {
-        return daniosSeleccionados;
-    }
-
-    public void setDaniosSeleccionados(List<String> daniosSeleccionados) {
-        this.daniosSeleccionados = daniosSeleccionados;
-    }
-
     public boolean tieneErrores() {
         return ((this.erroresArchivo != null && !this.erroresArchivo.isEmpty())
                 || (this.erroresHojaPresupuesto != null
@@ -103,7 +94,10 @@ public class MantPriorViasInfo {
                 || (this.erroresHojaPriorizacion != null
                 && !this.erroresHojaPriorizacion.isEmpty())
                 || this.existenViasConErrores()
-                || ValidadorVia.existenViasConCodigoRepetido(vias));
+                || ValidadorVia.existenViasConCodigoRepetido(this.vias)
+                || (this.erroresHojaCostosMantenimiento != null
+                && this.erroresHojaCostosMantenimiento.isEmpty())
+                || this.existenItemsConErrores());
     }
 
     public boolean existenViasConErrores() {

@@ -142,133 +142,146 @@ public class ValidadorVia {
                     + "o no tiene un valor válido." + separadorLinea;
         }
 
-        if (null == via.getUrci() || via.getUrci().trim().isEmpty()
-                || !this.valoresPosiblesUrciDecimal.contains(via.getUrci().trim())
-                || !this.valoresPosiblesUrci.contains(via.getUrci().trim())) {
-            mensajesErrorVia += "     * URCI es vacío "
-                    + "o no tiene un valor válido." + separadorLinea;
+        if (null == via.getUrci() || via.getUrci().trim().isEmpty()) {
+            if (!this.valoresPosiblesUrciDecimal.contains(via.getUrci().trim())) {
+                if (!this.valoresPosiblesUrci.contains(via.getUrci().trim())) {
+                    mensajesErrorVia += "     * URCI es vacío "
+                            + "o no tiene un valor válido." + separadorLinea;
+                }
+            }
         }
 
         if (null != via.getDanioVia()) {
-            if (null != via.getDanioVia().getSeccionTransversalInapropiada81() && 
-                    !via.getDanioVia().getSeccionTransversalInapropiada81().trim().isEmpty()) {
+            if (null != via.getDanioVia().getSeccionTransversalInapropiada81()
+                    && !via.getDanioVia().getSeccionTransversalInapropiada81().trim().isEmpty()) {
                 if (!this.valoresPosiblesDaniosGeneral.contains(via.getDanioVia().
                         getSeccionTransversalInapropiada81())) {
                     mensajesErrorVia += "     * El daño Sección Transversal Inapropiada"
                             + " (81) no tiene un valor valido." + separadorLinea;
                 } else {
-                    ValidadorVia.agregarDanio("81", daniosSeleccionados);
+                    ValidadorVia.agregarDanio("81" + via.getDanioVia().
+                            getSeccionTransversalInapropiada81().trim(), daniosSeleccionados);
                 }
             }
 
-            if (null != via.getDanioVia().getDrenajeLongitudinalInadecuado82() && 
-                    !via.getDanioVia().getDrenajeLongitudinalInadecuado82().trim().isEmpty()) {
+            if (null != via.getDanioVia().getDrenajeLongitudinalInadecuado82()
+                    && !via.getDanioVia().getDrenajeLongitudinalInadecuado82().trim().isEmpty()) {
                 if (!this.valoresPosiblesDaniosGeneral.contains(via.getDanioVia().
                         getDrenajeLongitudinalInadecuado82())) {
                     mensajesErrorVia += "     * El daño Drenaje Longitudinal Inadecuado (82)"
                             + " no tiene un valor valido." + separadorLinea;
                 } else {
-                    ValidadorVia.agregarDanio("82", daniosSeleccionados);
+                    ValidadorVia.agregarDanio("82" + via.getDanioVia().
+                            getDrenajeLongitudinalInadecuado82().trim(), daniosSeleccionados);
                 }
             }
 
-            if (null != via.getDanioVia().getDrenajeTransversalInadecuado83() && 
-                    !via.getDanioVia().getDrenajeTransversalInadecuado83().trim().isEmpty()) {
+            if (null != via.getDanioVia().getDrenajeTransversalInadecuado83()
+                    && !via.getDanioVia().getDrenajeTransversalInadecuado83().trim().isEmpty()) {
                 if (!this.valoresPosiblesDaniosGeneral.contains(via.getDanioVia().
                         getDrenajeTransversalInadecuado83())) {
                     mensajesErrorVia += "     * El daño Drenaje Transversal Inadecuado (83)"
                             + " no tiene un valor valido." + separadorLinea;
                 } else {
-                    ValidadorVia.agregarDanio("83", daniosSeleccionados);
+                    ValidadorVia.agregarDanio("83" + via.getDanioVia().
+                            getDrenajeTransversalInadecuado83().trim(), daniosSeleccionados);
                 }
             }
 
-            if (null != via.getDanioVia().getCorrugaciones84() && 
-                    !via.getDanioVia().getCorrugaciones84().trim().isEmpty()) {
+            if (null != via.getDanioVia().getCorrugaciones84()
+                    && !via.getDanioVia().getCorrugaciones84().trim().isEmpty()) {
                 if (!this.valoresPosiblesDaniosGeneral.contains(via.getDanioVia().
                         getCorrugaciones84())) {
                     mensajesErrorVia += "     * El daño Corrugaciones (84) "
                             + "no tiene un valor valido." + separadorLinea;
                 } else {
-                    ValidadorVia.agregarDanio("84", daniosSeleccionados);
+                    ValidadorVia.agregarDanio("84" + via.getDanioVia().
+                            getCorrugaciones84().trim(), daniosSeleccionados);
                 }
             }
 
-            if (null != via.getDanioVia().getPolvo85() && 
-                    !via.getDanioVia().getPolvo85().trim().isEmpty()) {
+            if (null != via.getDanioVia().getPolvo85()
+                    && !via.getDanioVia().getPolvo85().trim().isEmpty()) {
                 if (!this.valoresPosiblesDaniosGeneral.contains(via.getDanioVia().
                         getPolvo85())) {
                     mensajesErrorVia += "     * El daño Polvo (85) "
                             + "no tiene un valor valido." + separadorLinea;
                 } else {
-                    ValidadorVia.agregarDanio("85", daniosSeleccionados);
+                    ValidadorVia.agregarDanio("85" + via.getDanioVia().
+                            getPolvo85().trim(), daniosSeleccionados);
                 }
             }
 
-            if (null != via.getDanioVia().getBachesHuecos86() && 
-                    !via.getDanioVia().getBachesHuecos86().trim().isEmpty()) {
+            if (null != via.getDanioVia().getBachesHuecos86()
+                    && !via.getDanioVia().getBachesHuecos86().trim().isEmpty()) {
                 if (!this.valoresPosiblesDaniosGeneral.contains(via.getDanioVia().
                         getBachesHuecos86())) {
                     mensajesErrorVia += "     * El daño Baches / Huecos (86) "
                             + "no tiene un valor valido." + separadorLinea;
                 } else {
-                    ValidadorVia.agregarDanio("86", daniosSeleccionados);
+                    ValidadorVia.agregarDanio("86" + via.getDanioVia().
+                            getBachesHuecos86().trim(), daniosSeleccionados);
                 }
             }
 
-            if (null != via.getDanioVia().getAhuellamientoSurcos87() && 
-                    !via.getDanioVia().getAhuellamientoSurcos87().trim().isEmpty()) {
+            if (null != via.getDanioVia().getAhuellamientoSurcos87()
+                    && !via.getDanioVia().getAhuellamientoSurcos87().trim().isEmpty()) {
                 if (!this.valoresPosiblesDaniosGeneral.contains(via.getDanioVia().
                         getAhuellamientoSurcos87())) {
                     mensajesErrorVia += "     * El daño Ahuellamiento / Surcos (87) "
                             + "no tiene un valor valido." + separadorLinea;
                 } else {
-                    ValidadorVia.agregarDanio("87", daniosSeleccionados);
+                    ValidadorVia.agregarDanio("87" + via.getDanioVia().
+                            getAhuellamientoSurcos87().trim(), daniosSeleccionados);
                 }
             }
 
-            if (null != via.getDanioVia().getAgregadoSuelto88() && 
-                    !via.getDanioVia().getAgregadoSuelto88().trim().isEmpty()) {
+            if (null != via.getDanioVia().getAgregadoSuelto88()
+                    && !via.getDanioVia().getAgregadoSuelto88().trim().isEmpty()) {
                 if (!this.valoresPosiblesDaniosGeneral.contains(via.getDanioVia().
                         getAgregadoSuelto88())) {
                     mensajesErrorVia += "     * El daño Agregado Suelto (88) "
                             + "no tiene un valor valido." + separadorLinea;
                 } else {
-                    ValidadorVia.agregarDanio("88", daniosSeleccionados);
+                    ValidadorVia.agregarDanio("88" + via.getDanioVia().
+                            getAgregadoSuelto88().trim(), daniosSeleccionados);
                 }
             }
 
-            if (null != via.getDanioVia().getCabezasDuras89() && 
-                    !via.getDanioVia().getCabezasDuras89().trim().isEmpty()) {
+            if (null != via.getDanioVia().getCabezasDuras89()
+                    && !via.getDanioVia().getCabezasDuras89().trim().isEmpty()) {
                 if (!this.valoresPosiblesCabezasDuras.contains(via.getDanioVia().
                         getCabezasDuras89())) {
                     mensajesErrorVia += "     * El daño Cabezas Duras (89) "
                             + "no tiene un valor valido." + separadorLinea;
                 } else {
-                    ValidadorVia.agregarDanio("89", daniosSeleccionados);
+                    ValidadorVia.agregarDanio("89" + via.getDanioVia().
+                            getCabezasDuras89().trim(), daniosSeleccionados);
                 }
             }
 
-            if (null != via.getDanioVia().getProbabilidadDerrumbes90() && 
-                    !via.getDanioVia().getProbabilidadDerrumbes90().trim().isEmpty()) {
+            if (null != via.getDanioVia().getProbabilidadDerrumbes90()
+                    && !via.getDanioVia().getProbabilidadDerrumbes90().trim().isEmpty()) {
                 if (!this.valoresPosiblesDaniosGeneral.contains(via.getDanioVia().
                         getProbabilidadDerrumbes90())) {
                     mensajesErrorVia += "     * El daño Probablidad de "
                             + "Derrumbes (90) "
                             + "no tiene un valor valido." + separadorLinea;
                 } else {
-                    ValidadorVia.agregarDanio("90", daniosSeleccionados);
+                    ValidadorVia.agregarDanio("90" + via.getDanioVia().
+                            getProbabilidadDerrumbes90().trim(), daniosSeleccionados);
                 }
             }
 
-            if (null != via.getDanioVia().getDanioBanca91() && 
-                    !via.getDanioVia().getDanioBanca91().trim().isEmpty()) {
+            if (null != via.getDanioVia().getDanioBanca91()
+                    && !via.getDanioVia().getDanioBanca91().trim().isEmpty()) {
                 if (!this.valoresPosiblesCabezasDuras.contains(via.getDanioVia().
                         getCabezasDuras89())) {
                     mensajesErrorVia += "     * Daños en la Banca (91) "
                             + "no tiene un valor valido." + separadorLinea;
                 } else {
-                    ValidadorVia.agregarDanio("91", daniosSeleccionados);
+                    ValidadorVia.agregarDanio("91" + via.getDanioVia().
+                            getDanioBanca91().trim(), daniosSeleccionados);
                 }
             }
         }

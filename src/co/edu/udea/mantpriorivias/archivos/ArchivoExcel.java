@@ -79,12 +79,10 @@ public class ArchivoExcel {
 
         Sheet hojaPriorizacion = workbook.getSheet("Priorización");
         List<InfoVia> vias = new ArrayList<>();
-        List<String> daniosSeleccionados = new ArrayList<>();
         if (null == hojaPriorizacion) {
             mensajesErrorArchivo.add("No existe la hoja Priorización.");
         } else {
-            vias = this.obtenerInfoHojaPriorizacion(hojaPriorizacion,
-                    daniosSeleccionados);
+            vias = this.obtenerInfoHojaPriorizacion(hojaPriorizacion);
         }
 
         if (!vias.isEmpty()) {
@@ -135,11 +133,10 @@ public class ArchivoExcel {
             System.out.println("Errores: " + ii.getErroresItem());
         }
 
-        Collections.sort(daniosSeleccionados);
         mantPriorViasInfo = new MantPriorViasInfo(mensajesErrorArchivo,
                 mensajesErrorHojaPresupuesto,
                 mensajesErrorHojaPriorizacion, presupuesto, vias,
-                daniosSeleccionados, items, mensajesErrorHojaCostosMantenimiento);
+                items, mensajesErrorHojaCostosMantenimiento);
 
         return mantPriorViasInfo;
     }
@@ -164,8 +161,7 @@ public class ArchivoExcel {
         return presupuesto;
     }
 
-    private List<InfoVia> obtenerInfoHojaPriorizacion(Sheet hojaPriorizacion,
-            List<String> daniosSeleccionados)
+    private List<InfoVia> obtenerInfoHojaPriorizacion(Sheet hojaPriorizacion)
             throws IOException {
         List<InfoVia> vias = new ArrayList<>();
 
@@ -176,6 +172,7 @@ public class ArchivoExcel {
             Row row = rows.next();
             InfoVia infoVia = new InfoVia();
             Via via = new Via();
+            List<String> daniosSeleccionados = new ArrayList<>();
             for (int i = 0; i < NUMERO_COLUMNAS_PRIORIZACION; i++) {
                 Cell cell = row.getCell(i);
                 switch (i) {
@@ -250,8 +247,10 @@ public class ArchivoExcel {
                                 this.obtenerValorCelda(cell));
                         break;
                     case CABEZAS_DURAS_89:
+                        String cd89 = this.obtenerValorCelda(cell);
                         via.getDanioVia().setCabezasDuras89(
-                                this.obtenerValorCelda(cell));
+                                cd89 == null || cd89.trim().isEmpty()
+                                || "N".equals(cd89.trim()) ? "N" : "");
                         break;
                     case PROBABILIDAD_DERRUMBES_90:
                         via.getDanioVia().setProbabilidadDerrumbes90(
@@ -268,6 +267,7 @@ public class ArchivoExcel {
             infoVia.setVia(via);
             infoVia.setErroresVia(ValidadorVia.getInstance().
                     validarInformacion(via, daniosSeleccionados));
+            infoVia.setDaniosSeleccionados(daniosSeleccionados);
             vias.add(infoVia);
         }
 
@@ -286,8 +286,8 @@ public class ArchivoExcel {
             Row row = rows.next();
             String codigo = this.obtenerValorCelda(row.getCell(1));
             String item = this.obtenerValorCelda(row.getCell(2));
-            String unidad = this.obtenerValorCelda(row.getCell(1));
-            String valorUnitario = this.obtenerValorCelda(row.getCell(1));
+            String unidad = this.obtenerValorCelda(row.getCell(3));
+            String valorUnitario = this.obtenerValorCelda(row.getCell(4));
             int fila = row.getRowNum();
 
             Item i = new Item(codigo, item, unidad, valorUnitario);

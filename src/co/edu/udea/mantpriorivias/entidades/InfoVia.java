@@ -1,10 +1,13 @@
 package co.edu.udea.mantpriorivias.entidades;
 
+import java.util.List;
+
 public class InfoVia {
 
     private Via via;
     private int filaVia;
     private String erroresVia;
+    private List<String> daniosSeleccionados;
 
     public Via getVia() {
         return via;
@@ -28,5 +31,13 @@ public class InfoVia {
 
     public void setErroresVia(String erroresVia) {
         this.erroresVia = erroresVia;
+    }
+
+    public List<String> getDaniosSeleccionados() {
+        return daniosSeleccionados;
+    }
+
+    public void setDaniosSeleccionados(List<String> daniosSeleccionados) {
+        this.daniosSeleccionados = daniosSeleccionados;
     }
 }

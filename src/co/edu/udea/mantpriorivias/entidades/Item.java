@@ -8,14 +8,6 @@ public class Item {
     private double valorUnitario;
     private String valorUnitarioString;
 
-    public Item(String codigo, String nombreItem, String unidad,
-            double valorUnitario) {
-        this.codigo = codigo;
-        this.item = nombreItem;
-        this.unidad = unidad;
-        this.valorUnitario = valorUnitario;
-    }
-
     public Item(String codigo, String item, String unidad, String valorUnitarioString) {
         this.codigo = codigo;
         this.item = item;

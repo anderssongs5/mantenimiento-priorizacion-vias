@@ -45,7 +45,7 @@ public class ValidadorCostosMantenimiento {
         }
 
         if (item.getUnidad() != null && !item.getUnidad().trim().isEmpty()) {
-            if (!this.posiblesValoresUnidad.contains(item.getUnidad().trim())) {
+            if (!this.posiblesValoresUnidad.contains(item.getUnidad().trim().toUpperCase())) {
                 errores += "     * La unidad no contiene un valor válido." + separadorLinea;
             }
         }
@@ -67,14 +67,16 @@ public class ValidadorCostosMantenimiento {
         if (errores.isEmpty()) {
             if ((null != item.getUnidad() && !item.getUnidad().trim().isEmpty()
                     && (null == item.getValorUnitarioString()
-                    || !item.getValorUnitarioString().trim().isEmpty()))
+                    || item.getValorUnitarioString().trim().isEmpty()))
                     || (null != item.getValorUnitarioString()
                     && !item.getValorUnitarioString().isEmpty()
                     && (null == item.getUnidad() || item.getUnidad().isEmpty()))) {
-                errores += "     * La unidad o el valor unitario son vacíos." + separadorLinea;
+                errores += "     * La unidad o el valor unitario son vacíos. Tener"
+                        + " presente que si se agrega uno de ellos, el otro valor  "
+                        + "también debe ser agregado." + separadorLinea;
             } else {
-                item = new Item(item.getCodigo().trim(), item.getItem().trim(),
-                        item.getUnidad().trim(), valor);
+                item.setValorUnitarioString(item.getValorUnitarioString().trim());
+                item.setValorUnitario(valor);
             }
         }
 
@@ -92,8 +94,8 @@ public class ValidadorCostosMantenimiento {
         for (InfoItem i : items) {
             if (null != i && i.getItem() != null && i.getItem().getItem() != null
                     && !i.getItem().getItem().isEmpty()
-                    && codigosItemsTemp.contains(i.getItem().getItem().trim())) {
-                codigosItemsTemp.remove(i.getItem().getItem().trim());
+                    && codigosItemsTemp.contains(i.getItem().getCodigo().trim())) {
+                codigosItemsTemp.remove(i.getItem().getCodigo().trim());
             } else {
 
                 return false;

@@ -25,9 +25,11 @@ public class Util {
     }
 
     public static String getRutaTemporal() {
+        String temporal = System.getProperty("java.io.tmpdir");
+        String home = System.getProperty("user.home");
+        File file = new File(temporal);
 
-//        return System.getProperty("java.io.tmpdir");
-        return "/export/estudiantes/andersson.garcia/Escritorio";
+        return (file != null && file.canWrite()) ? temporal : home;
     }
 
     public static boolean isDirectorioValido(File archivo) {

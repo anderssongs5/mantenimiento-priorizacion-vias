@@ -22,6 +22,7 @@ public class Aplicacion extends javax.swing.JFrame {
 
     private static final JFileChooser FILE_CHOOSER_PLANTILLA;
     private static final JFileChooser FILE_CHOOSER_DIRECTORIO_PLANTILLA;
+    private static final JFileChooser FILE_CHOOSER_ALTERNATIVAS_INTERVENCION;
     private File archivoSelecciondo;
     private File directorioSeleccionado;
     private final ArchivoExcel archivoExcel = new ArchivoExcel();
@@ -43,6 +44,10 @@ public class Aplicacion extends javax.swing.JFrame {
         FILE_CHOOSER_DIRECTORIO_PLANTILLA = new JFileChooser();
         FILE_CHOOSER_DIRECTORIO_PLANTILLA.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         FILE_CHOOSER_PLANTILLA.setDialogTitle("Seleccionar directorio...");
+
+        FILE_CHOOSER_ALTERNATIVAS_INTERVENCION = new JFileChooser();
+        FILE_CHOOSER_ALTERNATIVAS_INTERVENCION.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        FILE_CHOOSER_ALTERNATIVAS_INTERVENCION.setDialogTitle("Seleccionar directorio...");
     }
 
     public Aplicacion() {
@@ -60,6 +65,7 @@ public class Aplicacion extends javax.swing.JFrame {
         menuArchivo = new javax.swing.JMenu();
         menuItemCargarArchivo = new javax.swing.JMenuItem();
         menuItemDescargarPlantilla = new javax.swing.JMenuItem();
+        menuItemDescargarAlternativasIntervencion = new javax.swing.JMenuItem();
         menuAyuda = new javax.swing.JMenu();
         menuItemAcercade = new javax.swing.JMenuItem();
 
@@ -95,6 +101,14 @@ public class Aplicacion extends javax.swing.JFrame {
             }
         });
         menuArchivo.add(menuItemDescargarPlantilla);
+
+        menuItemDescargarAlternativasIntervencion.setText("Descargar alternativas de intervencion");
+        menuItemDescargarAlternativasIntervencion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemDescargarAlternativasIntervencionActionPerformed(evt);
+            }
+        });
+        menuArchivo.add(menuItemDescargarAlternativasIntervencion);
 
         barraMenu.add(menuArchivo);
 
@@ -164,6 +178,10 @@ public class Aplicacion extends javax.swing.JFrame {
         this.descargarPlantilla();
     }//GEN-LAST:event_menuItemDescargarPlantillaActionPerformed
 
+    private void menuItemDescargarAlternativasIntervencionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDescargarAlternativasIntervencionActionPerformed
+        this.descargarAlternativasIntervencion();
+    }//GEN-LAST:event_menuItemDescargarAlternativasIntervencionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -218,6 +236,7 @@ public class Aplicacion extends javax.swing.JFrame {
     private javax.swing.JMenu menuAyuda;
     private javax.swing.JMenuItem menuItemAcercade;
     private javax.swing.JMenuItem menuItemCargarArchivo;
+    private javax.swing.JMenuItem menuItemDescargarAlternativasIntervencion;
     private javax.swing.JMenuItem menuItemDescargarPlantilla;
     // End of variables declaration//GEN-END:variables
 
@@ -227,7 +246,7 @@ public class Aplicacion extends javax.swing.JFrame {
             this.directorioSeleccionado = FILE_CHOOSER_DIRECTORIO_PLANTILLA.
                     getSelectedFile();
             if (Util.isDirectorioValido(this.directorioSeleccionado)) {
-                boolean correcto = archivoExcel.descargarPlantilla(
+                boolean correcto = this.archivoExcel.descargarPlantilla(
                         this.directorioSeleccionado);
                 if (correcto) {
                     JOptionPane.showMessageDialog(this, "Se ha descargado "
@@ -241,6 +260,38 @@ public class Aplicacion extends javax.swing.JFrame {
                             + "Por favor verifique que el directorio exista\n y "
                             + "que un archivo con el nombre "
                             + "Plantilla_MantPriorVias.xlsx no esté abierto.",
+                            "Error descargando plantilla",
+                            JOptionPane.ERROR_MESSAGE, ERROR_IMAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor seleccione un "
+                        + "directorio válido.",
+                        "Directorio inválido",
+                        JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
+            }
+        }
+    }
+
+    public void descargarAlternativasIntervencion() {
+        int retorno = FILE_CHOOSER_ALTERNATIVAS_INTERVENCION.showOpenDialog(this);
+        if (JFileChooser.APPROVE_OPTION == retorno) {
+            this.directorioSeleccionado = FILE_CHOOSER_ALTERNATIVAS_INTERVENCION.
+                    getSelectedFile();
+            if (Util.isDirectorioValido(this.directorioSeleccionado)) {
+                boolean correcto = this.archivoExcel.descargarAlternativasIntervencion(
+                        this.directorioSeleccionado);
+                if (correcto) {
+                    JOptionPane.showMessageDialog(this, "Se ha descargado "
+                            + "satisfactoriamente la plantilla \n"
+                            + "Alternativas_Intervencion.xlsx en el directorio "
+                            + "seleccionado.", "Plantilla descargada",
+                            JOptionPane.INFORMATION_MESSAGE, INFORMATION_IMAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Se ha generado "
+                            + "un error descargando la plantilla. "
+                            + "Por favor verifique que el directorio exista\n y "
+                            + "que un archivo con el nombre "
+                            + "Alternativas_Intervencion.xlsx no esté abierto.",
                             "Error descargando plantilla",
                             JOptionPane.ERROR_MESSAGE, ERROR_IMAGE);
                 }

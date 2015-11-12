@@ -320,18 +320,49 @@ public class ArchivoExcel {
     }
 
     public boolean descargarPlantilla(File directorio) {
-        boolean correcto = false;
         InputStream inputStream = ArchivoExcel.class.getClassLoader().
                 getResourceAsStream("./co/edu/udea/mantpriorivias/archivos/"
                         + "recursos/Plantilla_MantPriorVias.xlsx");
+
+        boolean respuesta = this.descargarArchivo(inputStream, directorio,
+                "Plantilla_MantPriorVias.xlsx");
+        try {
+            inputStream.close();
+        } catch (IOException ex) {
+            Logger.getLogger(ArchivoExcel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return respuesta;
+    }
+    
+    public boolean descargarAlternativasIntervencion(File directorio){        
+        InputStream inputStream = ArchivoExcel.class.getClassLoader().
+                getResourceAsStream("./co/edu/udea/mantpriorivias/archivos/"
+                        + "recursos/Alternativas_Intervencion.xlsx");
+        
+        boolean respuesta = this.descargarArchivo(inputStream, directorio,
+                "Alternativas_Intervencion.xlsx");
+        try {
+            inputStream.close();
+        } catch (IOException ex) {
+            Logger.getLogger(ArchivoExcel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return respuesta;
+    }
+
+    private boolean descargarArchivo(InputStream inputStream, File directorio,
+            String nombreArchivo) {
+        boolean correcto = false;
         try {
             OutputStream outputStream = new FileOutputStream(directorio
-                    + "/Plantilla_MantPriorVias.xlsx");
+                    + "/" + nombreArchivo);
             byte[] buffer = new byte[1024];
             int longitud;
             while ((longitud = inputStream.read(buffer)) > 0) {
                 outputStream.write(buffer, 0, longitud);
             }
+            outputStream.close();
             correcto = true;
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ArchivoExcel.class.getName()).log(Level.SEVERE, null, ex);

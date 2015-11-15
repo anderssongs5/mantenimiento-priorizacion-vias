@@ -31,6 +31,16 @@ public class MantPriorViasInfo {
         this.erroresHojaCostosMantenimiento = erroresHojaCostosMantenimiento;
     }
 
+    public MantPriorViasInfo(List<String> erroresArchivo,
+            List<String> erroresHojaPresupuesto, String erroresHojaPriorizacion,
+            Presupuesto presupuesto, List<InfoVia> vias) {
+        this.erroresArchivo = erroresArchivo;
+        this.erroresHojaPresupuesto = erroresHojaPresupuesto;
+        this.erroresHojaPriorizacion = erroresHojaPriorizacion;
+        this.presupuesto = presupuesto;
+        this.vias = vias;
+    }
+
     public List<String> getErroresArchivo() {
         return erroresArchivo;
     }
@@ -88,7 +98,7 @@ public class MantPriorViasInfo {
     }
 
     public boolean tieneErrores() {
-        return ((this.erroresArchivo != null && !this.erroresArchivo.isEmpty())
+        /*return ((this.erroresArchivo != null && !this.erroresArchivo.isEmpty())
                 || (this.erroresHojaPresupuesto != null
                 && !this.erroresHojaPresupuesto.isEmpty())
                 || (this.erroresHojaPriorizacion != null
@@ -97,7 +107,15 @@ public class MantPriorViasInfo {
                 || ValidadorVia.existenViasConCodigoRepetido(this.vias)
                 || (this.erroresHojaCostosMantenimiento != null
                 && this.erroresHojaCostosMantenimiento.isEmpty())
-                || this.existenItemsConErrores());
+                || this.existenItemsConErrores());*/
+        return ((this.erroresArchivo != null && !this.erroresArchivo.isEmpty())
+                || (this.erroresHojaPresupuesto != null
+                && !this.erroresHojaPresupuesto.isEmpty())
+                || (this.erroresHojaPriorizacion != null
+                && !this.erroresHojaPriorizacion.isEmpty())
+                || this.vias.isEmpty()
+                || this.existenViasConErrores()
+                || ValidadorVia.existenViasConCodigoRepetido(this.vias));
     }
 
     public boolean existenViasConErrores() {

@@ -10,6 +10,7 @@ import co.edu.udea.mantpriorivias.entidades.MantPriorViasInfo;
 import co.edu.udea.mantpriorivias.general.Util;
 import java.io.File;
 import java.io.IOException;
+import org.apache.commons.lang3.math.NumberUtils;
 
 /**
  *
@@ -34,6 +35,9 @@ public class MantenimientoPriorizacionVias {
 //        System.out.println("\n\nTiempo total milesegundos: " + (fin - inicio));
         
         Util.getRutaTemporal();
+        
+        String s = "-155000,9";
+        System.out.println("Resultado : " + Util.isNumerico(s));
     }
 
 }

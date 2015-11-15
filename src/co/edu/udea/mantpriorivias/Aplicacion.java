@@ -347,6 +347,10 @@ public class Aplicacion extends javax.swing.JFrame {
                                     + " del sistema.", "Error generando archivo",
                                     JOptionPane.ERROR_MESSAGE, ERROR_IMAGE);
                         }
+                    } else {
+                        this.abrirPantallaCostosMantenimiento(mantPriorViasInfo);
+                        
+                        System.out.println("Oelo");
                     }
                 } catch (IOException ex) {
                     Logger.getLogger(Aplicacion.class.getName()).log(
@@ -432,54 +436,59 @@ public class Aplicacion extends javax.swing.JFrame {
                     + separadorLinea;
         }
 
-        if (!informacion.isEmpty()) {
-            informacion += separadorLinea;
-            informacion += separadorLinea;
-            informacion += "====================================================";
-            informacion += separadorLinea;
-            informacion += separadorLinea;
-        }
+        /*if (!informacion.isEmpty()) {
+         informacion += separadorLinea;
+         informacion += separadorLinea;
+         informacion += "====================================================";
+         informacion += separadorLinea;
+         informacion += separadorLinea;
+         }
 
-        boolean erroresItems = false;
-        if (mantPriorViasInfo.existenItemsConErrores()) {
-            informacion += "Errores en hoja Costos de mantenimiento:";
-            informacion += separadorLinea;
-            informacion += separadorLinea;
-            for (InfoItem ii : mantPriorViasInfo.getItems()) {
-                if (ii != null && ii.getErroresItem() != null
-                        && !ii.getErroresItem().trim().isEmpty()) {
-                    informacion += "Número de fila: " + ii.getFila() + separadorLinea;
-                    String codItem = (ii.getItem().getCodigo() != null)
-                            ? ii.getItem().getCodigo().trim() : "";
-                    informacion += "Código del ítem: " + codItem + separadorLinea;
-                    String item = (ii.getItem().getItem() != null)
-                            ? ii.getItem().getItem() : "";
-                    informacion += "Nombre del ítem: " + item + separadorLinea;
-                    informacion += "Errores: " + separadorLinea + ii.getErroresItem();
-                    informacion += separadorLinea;
-                    informacion += separadorLinea;
-                }
-            }
-            erroresItems = true;
-        } else if (mantPriorViasInfo.getItems().isEmpty()) {
-            informacion += "Errores en hoja Costos de mantenimiento:";
-            informacion += separadorLinea;
-            informacion += separadorLinea;
-            informacion += "    * No existe ningún ítem de mantenimiento.";
-            erroresItems = true;
-        }
+         boolean erroresItems = false;
+         if (mantPriorViasInfo.existenItemsConErrores()) {
+         informacion += "Errores en hoja Costos de mantenimiento:";
+         informacion += separadorLinea;
+         informacion += separadorLinea;
+         for (InfoItem ii : mantPriorViasInfo.getItems()) {
+         if (ii != null && ii.getErroresItem() != null
+         && !ii.getErroresItem().trim().isEmpty()) {
+         informacion += "Número de fila: " + ii.getFila() + separadorLinea;
+         String codItem = (ii.getItem().getCodigo() != null)
+         ? ii.getItem().getCodigo().trim() : "";
+         informacion += "Código del ítem: " + codItem + separadorLinea;
+         String item = (ii.getItem().getItem() != null)
+         ? ii.getItem().getItem() : "";
+         informacion += "Nombre del ítem: " + item + separadorLinea;
+         informacion += "Errores: " + separadorLinea + ii.getErroresItem();
+         informacion += separadorLinea;
+         informacion += separadorLinea;
+         }
+         }
+         erroresItems = true;
+         } else if (mantPriorViasInfo.getItems().isEmpty()) {
+         informacion += "Errores en hoja Costos de mantenimiento:";
+         informacion += separadorLinea;
+         informacion += separadorLinea;
+         informacion += "    * No existe ningún ítem de mantenimiento.";
+         erroresItems = true;
+         }
 
-        if (mantPriorViasInfo.getErroresHojaCostosMantenimiento() != null
-                && !mantPriorViasInfo.getErroresHojaCostosMantenimiento().isEmpty()) {
-            if (!erroresItems) {
-                informacion += "Errores en hoja Costos de mantenimiento:";
-                informacion += separadorLinea;
-                informacion += separadorLinea;
-            }
-            informacion += mantPriorViasInfo.getErroresHojaCostosMantenimiento().trim()
-                    + separadorLinea;
-        }
-
+         if (mantPriorViasInfo.getErroresHojaCostosMantenimiento() != null
+         && !mantPriorViasInfo.getErroresHojaCostosMantenimiento().isEmpty()) {
+         if (!erroresItems) {
+         informacion += "Errores en hoja Costos de mantenimiento:";
+         informacion += separadorLinea;
+         informacion += separadorLinea;
+         }
+         informacion += mantPriorViasInfo.getErroresHojaCostosMantenimiento().trim()
+         + separadorLinea;
+         }*/
         return informacion;
+    }
+
+    private void abrirPantallaCostosMantenimiento(MantPriorViasInfo mantPriorViasInfo) {
+        CostosMantenimientoJDialog costosMantenimientoJDialog
+                = new CostosMantenimientoJDialog(this, true, mantPriorViasInfo);
+        costosMantenimientoJDialog.setVisible(true);
     }
 }

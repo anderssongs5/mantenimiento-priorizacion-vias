@@ -28,60 +28,60 @@ public class ValidadorCostosMantenimiento {
                 "CODIGOS_ITEMS"), ",");
     }
 
-    public String validarItem(Item item) {
-        String separadorLinea = System.getProperty("line.separator");
-        String errores = "";
-        if (null == item) {
-
-            return "El ítem no contiene ningún dato.";
-        }
-
-        if (null == item.getCodigo() || item.getCodigo().trim().isEmpty()) {
-            errores += "     * El código del ítem es vacío." + separadorLinea;
-        }
-
-        if (null == item.getItem() || item.getItem().trim().isEmpty()) {
-            errores += "     * El nombre del ítem es vacío." + separadorLinea;
-        }
-
-        if (item.getUnidad() != null && !item.getUnidad().trim().isEmpty()) {
-            if (!this.posiblesValoresUnidad.contains(item.getUnidad().trim().toUpperCase())) {
-                errores += "     * La unidad no contiene un valor válido." + separadorLinea;
-            }
-        }
-
-        double valor = 0.0;
-        if (item.getValorUnitarioString() != null
-                && !item.getValorUnitarioString().trim().isEmpty()) {
-            if (!Util.isNumerico(item.getValorUnitarioString().trim())) {
-                errores += "     * El valor unitario no es un número." + separadorLinea;
-            } else {
-                valor = Double.parseDouble(item.getValorUnitarioString().trim());
-                if (valor <= 0) {
-                    errores += "     * El valor unitario no puede ser menor o "
-                            + "igual a cero." + separadorLinea;
-                }
-            }
-        }
-
-        if (errores.isEmpty()) {
-            if ((null != item.getUnidad() && !item.getUnidad().trim().isEmpty()
-                    && (null == item.getValorUnitarioString()
-                    || item.getValorUnitarioString().trim().isEmpty()))
-                    || (null != item.getValorUnitarioString()
-                    && !item.getValorUnitarioString().isEmpty()
-                    && (null == item.getUnidad() || item.getUnidad().isEmpty()))) {
-                errores += "     * La unidad o el valor unitario son vacíos. Tener"
-                        + " presente que si se agrega uno de ellos, el otro valor  "
-                        + "también debe ser agregado." + separadorLinea;
-            } else {
-                item.setValorUnitarioString(item.getValorUnitarioString().trim());
-                item.setValorUnitario(valor);
-            }
-        }
-
-        return errores;
-    }
+//    public String validarItem(Item item) {
+//        String separadorLinea = System.getProperty("line.separator");
+//        String errores = "";
+//        if (null == item) {
+//
+//            return "El ítem no contiene ningún dato.";
+//        }
+//
+//        if (null == item.getCodigo() || item.getCodigo().trim().isEmpty()) {
+//            errores += "     * El código del ítem es vacío." + separadorLinea;
+//        }
+//
+//        if (null == item.getItem() || item.getItem().trim().isEmpty()) {
+//            errores += "     * El nombre del ítem es vacío." + separadorLinea;
+//        }
+//
+//        if (item.getUnidad() != null && !item.getUnidad().trim().isEmpty()) {
+//            if (!this.posiblesValoresUnidad.contains(item.getUnidad().trim().toUpperCase())) {
+//                errores += "     * La unidad no contiene un valor válido." + separadorLinea;
+//            }
+//        }
+//
+//        double valor = 0.0;
+//        if (item.getValorUnitarioString() != null
+//                && !item.getValorUnitarioString().trim().isEmpty()) {
+//            if (!Util.isNumerico(item.getValorUnitarioString().trim())) {
+//                errores += "     * El valor unitario no es un número." + separadorLinea;
+//            } else {
+//                valor = Double.parseDouble(item.getValorUnitarioString().trim());
+//                if (valor <= 0) {
+//                    errores += "     * El valor unitario no puede ser menor o "
+//                            + "igual a cero." + separadorLinea;
+//                }
+//            }
+//        }
+//
+//        if (errores.isEmpty()) {
+//            if ((null != item.getUnidad() && !item.getUnidad().trim().isEmpty()
+//                    && (null == item.getValorUnitarioString()
+//                    || item.getValorUnitarioString().trim().isEmpty()))
+//                    || (null != item.getValorUnitarioString()
+//                    && !item.getValorUnitarioString().isEmpty()
+//                    && (null == item.getUnidad() || item.getUnidad().isEmpty()))) {
+//                errores += "     * La unidad o el valor unitario son vacíos. Tener"
+//                        + " presente que si se agrega uno de ellos, el otro valor  "
+//                        + "también debe ser agregado." + separadorLinea;
+//            } else {
+//                item.setValorUnitarioString(item.getValorUnitarioString().trim());
+//                item.setValorUnitario(valor);
+//            }
+//        }
+//
+//        return errores;
+//    }
 
     public boolean contieneTodosLosItems(List<InfoItem> items) {
         List<String> codigosItemsTemp = this.codigosItems;

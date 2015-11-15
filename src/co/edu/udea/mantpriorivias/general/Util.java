@@ -9,6 +9,9 @@ import org.apache.commons.lang3.math.NumberUtils;
 public class Util {
 
     public static boolean isNumerico(String numero) {
+        if (numero != null) {
+            numero = numero.replaceAll(",", ".");
+        }
 
         return (NumberUtils.isNumber(numero));
     }

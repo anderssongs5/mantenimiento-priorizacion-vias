@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -93,7 +92,7 @@ public class ArchivoExcel {
             }
         }
 
-        Sheet hojaCostosMantenimiento = workbook.getSheet("Costos de mantenimiento");
+        /*Sheet hojaCostosMantenimiento = workbook.getSheet("Costos de mantenimiento");
         List<InfoItem> items = new ArrayList<>();
         if (null == hojaCostosMantenimiento) {
             mensajesErrorArchivo.add("No existe la hoja Costos de mantenimiento.");
@@ -105,7 +104,7 @@ public class ArchivoExcel {
                         + "mantenimiento no contiene todos los ítems establecidos "
                         + "para la misma.";
             }
-        }
+        }*/
 
         System.out.println("Errores de archivo:");
         mensajesErrorArchivo.stream().forEach((String s) -> {
@@ -116,6 +115,9 @@ public class ArchivoExcel {
         mensajesErrorHojaPresupuesto.stream().forEach((String s) -> {
             System.out.println("\t" + s);
         });
+        if(vias.isEmpty()){
+            System.out.println("\tNo existe ninguna vía.");
+        }
 
         System.out.println("\nErrores Hoja Priorización:");
         for (InfoVia vu : vias) {
@@ -126,7 +128,7 @@ public class ArchivoExcel {
             System.out.println(mensajesErrorHojaPriorizacion);
         }
 
-        System.out.println("\nErrores en Hoja Costos de mantenimiento:");
+        /*System.out.println("\nErrores en Hoja Costos de mantenimiento:");
         for (InfoItem ii : items) {
             System.out.println("Número de fila: " + ii.getFila());
             System.out.println("Código ítem: " + ii.getItem().getCodigo());
@@ -136,7 +138,10 @@ public class ArchivoExcel {
         mantPriorViasInfo = new MantPriorViasInfo(mensajesErrorArchivo,
                 mensajesErrorHojaPresupuesto,
                 mensajesErrorHojaPriorizacion, presupuesto, vias,
-                items, mensajesErrorHojaCostosMantenimiento);
+                items, mensajesErrorHojaCostosMantenimiento);*/
+        mantPriorViasInfo = new MantPriorViasInfo(mensajesErrorArchivo,
+                mensajesErrorHojaPresupuesto,
+                mensajesErrorHojaPriorizacion, presupuesto, vias);
 
         return mantPriorViasInfo;
     }
@@ -172,7 +177,6 @@ public class ArchivoExcel {
             Row row = rows.next();
             InfoVia infoVia = new InfoVia();
             Via via = new Via();
-            List<String> daniosSeleccionados = new ArrayList<>();
             for (int i = 0; i < NUMERO_COLUMNAS_PRIORIZACION; i++) {
                 Cell cell = row.getCell(i);
                 switch (i) {
@@ -263,6 +267,7 @@ public class ArchivoExcel {
                 }
             }
 
+            List<String> daniosSeleccionados = new ArrayList<>();
             infoVia.setFilaVia(row.getRowNum() + 1);
             infoVia.setVia(via);
             infoVia.setErroresVia(ValidadorVia.getInstance().
@@ -274,30 +279,30 @@ public class ArchivoExcel {
         return vias;
     }
 
-    private List<InfoItem> obtenerInfoCostosMantenimiento(Sheet hojaCostosMantenimiento)
-            throws IOException {
-        ValidadorCostosMantenimiento validadorCostosMantenimiento
-                = new ValidadorCostosMantenimiento();
-        List<InfoItem> items = new ArrayList<>();
-        Iterator<Row> rows = hojaCostosMantenimiento.iterator();
-
-        rows.next();
-        while (rows.hasNext()) {
-            Row row = rows.next();
-            String codigo = this.obtenerValorCelda(row.getCell(1));
-            String item = this.obtenerValorCelda(row.getCell(2));
-            String unidad = this.obtenerValorCelda(row.getCell(3));
-            String valorUnitario = this.obtenerValorCelda(row.getCell(4));
-            int fila = row.getRowNum();
-
-            Item i = new Item(codigo, item, unidad, valorUnitario);
-            String erroresItem = validadorCostosMantenimiento.validarItem(i);
-
-            items.add(new InfoItem(i, erroresItem, fila));
-        }
-
-        return items;
-    }
+//    private List<InfoItem> obtenerInfoCostosMantenimiento(Sheet hojaCostosMantenimiento)
+//            throws IOException {
+//        ValidadorCostosMantenimiento validadorCostosMantenimiento
+//                = new ValidadorCostosMantenimiento();
+//        List<InfoItem> items = new ArrayList<>();
+//        Iterator<Row> rows = hojaCostosMantenimiento.iterator();
+//
+//        rows.next();
+//        while (rows.hasNext()) {
+//            Row row = rows.next();
+//            String codigo = this.obtenerValorCelda(row.getCell(1));
+//            String item = this.obtenerValorCelda(row.getCell(2));
+//            String unidad = this.obtenerValorCelda(row.getCell(3));
+//            String valorUnitario = this.obtenerValorCelda(row.getCell(4));
+//            int fila = row.getRowNum();
+//
+//            Item i = new Item(codigo, item, unidad, valorUnitario);
+//            String erroresItem = validadorCostosMantenimiento.validarItem(i);
+//
+//            items.add(new InfoItem(i, erroresItem, fila));
+//        }
+//
+//        return items;
+//    }
 
     public boolean validarArchivo(File archivo) {
 

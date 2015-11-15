@@ -15,6 +15,11 @@ public class Item {
         this.valorUnitarioString = valorUnitarioString;
     }
 
+    public Item(String codigo, String item) {
+        this.codigo = codigo;
+        this.item = item;
+    }
+
     public String getCodigo() {
         return codigo;
     }

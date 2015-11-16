@@ -1,15 +1,23 @@
 package co.edu.udea.mantpriorivias;
 
+import co.edu.udea.mantpriorivias.archivos.ArchivoTextoPlano;
 import co.edu.udea.mantpriorivias.constantes.Constantes;
 import co.edu.udea.mantpriorivias.entidades.Item;
 import co.edu.udea.mantpriorivias.entidades.MantPriorViasInfo;
 import co.edu.udea.mantpriorivias.general.Util;
 import co.edu.udea.mantpriorivias.validadores.ValidadorPriorizacion;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.DefaultCellEditor;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -26,6 +34,12 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
             return column > 1;
         }
     };
+    private static final ImageIcon ERROR_IMAGE = new ImageIcon(Aplicacion.class
+            .getResource("/co/edu/udea/mantpriorivias/recursos/imagenes/"
+                    + "ic_dialog_error.png"));
+    private static final ImageIcon WARNING_IMAGE = new ImageIcon(Aplicacion.class
+            .getResource("/co/edu/udea/mantpriorivias/recursos/imagenes/"
+                    + "ic_dialog_warning.png"));
 
     /**
      * Creates new form CostosMantenimientoJDialog
@@ -151,10 +165,53 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSiguienteActionPerformed
+        String separadorLinea = System.getProperty("line.separator");
         String resultadoValidacion = this.validarInformacionItems();
         if (!resultadoValidacion.isEmpty()) {
-            System.out.println("Se presentaron errores: \n\n" + resultadoValidacion);
+            JOptionPane.showMessageDialog(this, "Existen errores en la información.\n\n"
+                    + "A continuación se mostrará los errores presentados.",
+                    "Información con Errores", JOptionPane.ERROR_MESSAGE,
+                    ERROR_IMAGE);
+            resultadoValidacion = "Existen los siguientes errores en "
+                    + "la información ingresada:" + separadorLinea
+                    + separadorLinea + resultadoValidacion;
 
+            String rutaTemporal = Util.getRutaTemporal();
+            String fullPath = rutaTemporal + "Errores_Items.txt";
+            ArchivoTextoPlano creadorArchivoTextoPlano
+                    = new ArchivoTextoPlano();
+            if (creadorArchivoTextoPlano.crearArchivo(resultadoValidacion,
+                    fullPath)) {
+                File archivoErrores = new File(fullPath);
+                if (Desktop.isDesktopSupported()) {
+                    try {
+                        Desktop desktop = Desktop.getDesktop();
+                        desktop.open(archivoErrores);
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(this,
+                                "Se han presentado errores en al información; sin embargo, "
+                                + "el archivo de errores no se puede abrir. "
+                                + "Por favor búsquelo en la "
+                                + "siguiente ruta:\n" + fullPath,
+                                "No se puede abrir archivo",
+                                JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                            "Se han presentado errores en al información; sin embargo, "
+                            + "el archivo de errores no se puede abrir. "
+                            + "Por favor búsquelo en la "
+                            + "siguiente ruta:\n" + fullPath,
+                            "No se puede abrir archivo",
+                            JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Se ha generado "
+                        + "un error creando el archivo de errores.\n"
+                        + "Por favor contáctese con el administrador"
+                        + " del sistema.", "Error generando archivo",
+                        JOptionPane.ERROR_MESSAGE, ERROR_IMAGE);
+            }
         } else {
             this.dispose();
         }
@@ -258,6 +315,8 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
 
     private String validarInformacionItems() {
         String errores = "";
+        String separadorLinea = System.getProperty("line.separator");
+        this.mantPriorViasInfo.setItems(new ArrayList<>());
         for (int fila = 0; fila < this.tablaAlternativasMantenimiento.getRowCount(); fila++) {
             String codigo = (String) this.tablaAlternativasMantenimiento.getValueAt(fila, 0);
             String item = (String) this.tablaAlternativasMantenimiento.getValueAt(fila, 1);
@@ -277,33 +336,45 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
                         || (Util.isNumerico(valorUnitario)
                         && Double.parseDouble(valorUnitario) <= 0))) {
                     if (Util.isNumerico(valorUnitario)
-                        && Double.parseDouble(valorUnitario.replaceAll(",", ".")) <= 0) {
-                        errores += codigo + ": no tiene unidad ni valor unitario, "
+                            && Double.parseDouble(valorUnitario.replaceAll(",", ".")) <= 0) {
+                        errores += "* " + codigo + ": no tiene unidad ni valor unitario, "
                                 + "ninguno de los dos es válido o no tiene unidad "
-                                + "válida y el valor es menor o igual a cero.\n";
+                                + "válida y el valor es menor o igual a cero."
+                                + separadorLinea;
                         continue;
                     }
-                    errores += codigo + ": no tiene unidad ni valor unitario o "
-                            + "ninguno de los dos es válido.\n";
+                    errores += "* " + codigo + ": no tiene unidad ni valor unitario o "
+                            + "ninguno de los dos es válido." + separadorLinea;
                     continue;
                 }
 
                 if (unidad == null || unidad.trim().isEmpty()
                         || !Constantes.UNIDADES_POSIBLES.contains(unidad.trim())) {
-                    errores += codigo + ": no tiene unidad o es no válido.\n";
+                    errores += "* " + codigo + ": no tiene unidad o es no válido." + separadorLinea;
                     continue;
                 }
 
                 if (valorUnitario == null || valorUnitario.trim().isEmpty()
                         || !Util.isNumerico(valorUnitario)) {
-                    errores += codigo + ": no tiene valor unitario o es no válido.\n";
+                    errores += "* " + codigo + ": no tiene valor unitario o es no "
+                            + "válido." + separadorLinea;
                 } else if (Util.isNumerico(valorUnitario)
                         && Double.parseDouble(valorUnitario.replaceAll(",", ".")) <= 0) {
-                    errores += codigo + ": el valor unitario es menor o igual que cero.\n";
+                    errores += "* " + codigo + ": el valor unitario es menor o igual "
+                            + "que cero." + separadorLinea;
                 }
+            } else {
+                this.mantPriorViasInfo.getItems().add(new Item(codigo, item,
+                        unidad, valorUnitario));
             }
         }
 
         return errores;
+    }
+
+    public MantPriorViasInfo iniciarVentanta() {
+        this.setVisible(true);
+
+        return null;
     }
 }

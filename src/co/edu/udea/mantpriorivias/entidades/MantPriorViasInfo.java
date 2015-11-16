@@ -12,7 +12,7 @@ public class MantPriorViasInfo {
 
     private Presupuesto presupuesto;
     private List<InfoVia> vias;
-    private List<InfoItem> items;
+    private List<Item> items;
 
     public MantPriorViasInfo() {
         super();
@@ -20,7 +20,7 @@ public class MantPriorViasInfo {
 
     public MantPriorViasInfo(List<String> erroresArchivo,
             List<String> erroresHojaPresupuesto, String erroresHojaPriorizacion,
-            Presupuesto presupuesto, List<InfoVia> vias, List<InfoItem> items,
+            Presupuesto presupuesto, List<InfoVia> vias, List<Item> items,
             String erroresHojaCostosMantenimiento) {
         this.erroresArchivo = erroresArchivo;
         this.erroresHojaPresupuesto = erroresHojaPresupuesto;
@@ -89,11 +89,11 @@ public class MantPriorViasInfo {
         this.erroresHojaCostosMantenimiento = erroresHojaCostosMantenimiento;
     }
 
-    public List<InfoItem> getItems() {
+    public List<Item> getItems() {
         return items;
     }
 
-    public void setItems(List<InfoItem> items) {
+    public void setItems(List<Item> items) {
         this.items = items;
     }
 
@@ -127,12 +127,12 @@ public class MantPriorViasInfo {
                 && !iv.getErroresVia().isEmpty()));
     }
 
-    public boolean existenItemsConErrores() {
-        if (this.items == null || this.items.isEmpty()) {
-            return false;
-        }
-
-        return this.items.stream().anyMatch((ii) -> (ii != null && ii.getItem() != null
-                && ii.getErroresItem() != null && !ii.getErroresItem().isEmpty()));
-    }
+//    public boolean existenItemsConErrores() {
+//        if (this.items == null || this.items.isEmpty()) {
+//            return false;
+//        }
+//
+//        return this.items.stream().anyMatch((ii) -> (ii != null && ii.getItem() != null
+//                && ii.getErroresItem() != null && !ii.getErroresItem().isEmpty()));
+//    }
 }

@@ -15,6 +15,13 @@ public class Item {
         this.valorUnitarioString = valorUnitarioString;
     }
 
+    public Item(String codigo, String item, String unidad, double valorUnitario) {
+        this.codigo = codigo;
+        this.item = item;
+        this.unidad = unidad;
+        this.valorUnitario = valorUnitario;
+    }
+
     public Item(String codigo, String item) {
         this.codigo = codigo;
         this.item = item;

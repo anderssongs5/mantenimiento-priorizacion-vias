@@ -2,7 +2,6 @@ package co.edu.udea.mantpriorivias;
 
 import co.edu.udea.mantpriorivias.archivos.ArchivoTextoPlano;
 import co.edu.udea.mantpriorivias.archivos.ArchivoExcel;
-import co.edu.udea.mantpriorivias.entidades.InfoItem;
 import co.edu.udea.mantpriorivias.entidades.InfoVia;
 import co.edu.udea.mantpriorivias.entidades.MantPriorViasInfo;
 import co.edu.udea.mantpriorivias.general.Util;
@@ -334,7 +333,8 @@ public class Aplicacion extends javax.swing.JFrame {
                                 desktop.open(archivoErrores);
                             } else {
                                 JOptionPane.showMessageDialog(this,
-                                        "El archivo de errores no se puede abrir. "
+                                        "Se han presentado errores en al información; sin embargo, "
+                                        + "el archivo de errores no se puede abrir. "
                                         + "Por favor búsquelo en la "
                                         + "siguiente ruta:\n" + fullPath,
                                         "No se puede abrir archivos",
@@ -348,9 +348,18 @@ public class Aplicacion extends javax.swing.JFrame {
                                     JOptionPane.ERROR_MESSAGE, ERROR_IMAGE);
                         }
                     } else {
-                        this.abrirPantallaCostosMantenimiento(mantPriorViasInfo);
-                        
-                        System.out.println("Oelo");
+                        mantPriorViasInfo = this.abrirPantallaCostosMantenimiento(mantPriorViasInfo);
+
+                        if (mantPriorViasInfo == null) {
+                            JOptionPane.showMessageDialog(this,
+                                    "Usted ha decidido cerrar la ventana de "
+                                    + "los ítems de mantenimiento y mejoras.\n"
+                                    + "Por lo tanto no podrá continuar con el proceso.",
+                                    "No se puede continuar con proceso",
+                                    JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
+                        } else {
+                            System.out.println("Gato man.");
+                        }
                     }
                 } catch (IOException ex) {
                     Logger.getLogger(Aplicacion.class.getName()).log(
@@ -486,9 +495,10 @@ public class Aplicacion extends javax.swing.JFrame {
         return informacion;
     }
 
-    private void abrirPantallaCostosMantenimiento(MantPriorViasInfo mantPriorViasInfo) {
+    private MantPriorViasInfo abrirPantallaCostosMantenimiento(MantPriorViasInfo mantPriorViasInfo) {
         CostosMantenimientoJDialog costosMantenimientoJDialog
                 = new CostosMantenimientoJDialog(this, true, mantPriorViasInfo);
-        costosMantenimientoJDialog.setVisible(true);
+
+        return costosMantenimientoJDialog.iniciarVentanta();
     }
 }

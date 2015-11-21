@@ -375,6 +375,6 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
     public MantPriorViasInfo iniciarVentanta() {
         this.setVisible(true);
 
-        return null;
+        return this.mantPriorViasInfo;
     }
 }

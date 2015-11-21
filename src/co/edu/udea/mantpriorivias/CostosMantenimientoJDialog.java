@@ -269,9 +269,11 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
         List<String> codigosMantenimiento = new ArrayList<>();
         for (String ds : daniosSeleccionados) {
             String s = Constantes.ALTERNATIVAS_INTERVENCION_MANTENIMIENTO.get(ds);
-            List<String> valoresObtenidos = Util.tokenizar(s, ",");
-            for (String vo : valoresObtenidos) {
-                codigosMantenimiento.add(vo);
+            if (!s.trim().isEmpty()) {
+                List<String> valoresObtenidos = Util.tokenizar(s, ",");
+                for (String vo : valoresObtenidos) {
+                    codigosMantenimiento.add(vo);
+                }
             }
         }
 

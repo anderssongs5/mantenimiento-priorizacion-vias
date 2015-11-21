@@ -245,20 +245,29 @@ public class Aplicacion extends javax.swing.JFrame {
             this.directorioSeleccionado = FILE_CHOOSER_DIRECTORIO_PLANTILLA.
                     getSelectedFile();
             if (Util.isDirectorioValido(this.directorioSeleccionado)) {
-                boolean correcto = this.archivoExcel.descargarPlantilla(
-                        this.directorioSeleccionado);
-                if (correcto) {
-                    JOptionPane.showMessageDialog(this, "Se ha descargado "
-                            + "satisfactoriamente la plantilla \n"
-                            + "Plantilla_MantPriorVias.xlsx en el directorio "
-                            + "seleccionado.", "Plantilla descargada",
-                            JOptionPane.INFORMATION_MESSAGE, INFORMATION_IMAGE);
-                } else {
+                try {
+                    boolean correcto = this.archivoExcel.descargarPlantilla(
+                            this.directorioSeleccionado);
+                    if (correcto) {
+                        JOptionPane.showMessageDialog(this, "Se ha descargado "
+                                + "satisfactoriamente la plantilla \n"
+                                + "Plantilla_MantPriorVias.xlsx en el directorio "
+                                + "seleccionado.", "Plantilla descargada",
+                                JOptionPane.INFORMATION_MESSAGE, INFORMATION_IMAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Se ha generado "
+                                + "un error descargando la plantilla. "
+                                + "Por favor verifique que el directorio exista\n y "
+                                + "que un archivo con el nombre "
+                                + "Plantilla_MantPriorVias.xlsx no esté abierto.",
+                                "Error descargando plantilla",
+                                JOptionPane.ERROR_MESSAGE, ERROR_IMAGE);
+                    }
+                } catch (IOException ex) {
                     JOptionPane.showMessageDialog(this, "Se ha generado "
-                            + "un error descargando la plantilla. "
-                            + "Por favor verifique que el directorio exista\n y "
-                            + "que un archivo con el nombre "
-                            + "Plantilla_MantPriorVias.xlsx no esté abierto.",
+                            + "un error descargando la plantilla.\n\n"
+                            + "Por favor contáctese con el encargado de la "
+                            + "aplicación para dar solución al error.",
                             "Error descargando plantilla",
                             JOptionPane.ERROR_MESSAGE, ERROR_IMAGE);
                 }
@@ -277,20 +286,29 @@ public class Aplicacion extends javax.swing.JFrame {
             this.directorioSeleccionado = FILE_CHOOSER_ALTERNATIVAS_INTERVENCION.
                     getSelectedFile();
             if (Util.isDirectorioValido(this.directorioSeleccionado)) {
-                boolean correcto = this.archivoExcel.descargarAlternativasIntervencion(
-                        this.directorioSeleccionado);
-                if (correcto) {
-                    JOptionPane.showMessageDialog(this, "Se ha descargado "
-                            + "satisfactoriamente la plantilla \n"
-                            + "Alternativas_Intervencion.xlsx en el directorio "
-                            + "seleccionado.", "Plantilla descargada",
-                            JOptionPane.INFORMATION_MESSAGE, INFORMATION_IMAGE);
-                } else {
+                try {
+                    boolean correcto = this.archivoExcel.descargarAlternativasIntervencion(
+                            this.directorioSeleccionado);
+                    if (correcto) {
+                        JOptionPane.showMessageDialog(this, "Se ha descargado "
+                                + "satisfactoriamente la plantilla \n"
+                                + "Alternativas_Intervencion.xlsx en el directorio "
+                                + "seleccionado.", "Plantilla descargada",
+                                JOptionPane.INFORMATION_MESSAGE, INFORMATION_IMAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Se ha generado "
+                                + "un error descargando la plantilla. "
+                                + "Por favor verifique que el directorio exista\n y "
+                                + "que un archivo con el nombre "
+                                + "Alternativas_Intervencion.xlsx no esté abierto.",
+                                "Error descargando plantilla",
+                                JOptionPane.ERROR_MESSAGE, ERROR_IMAGE);
+                    }
+                } catch (IOException ex) {
                     JOptionPane.showMessageDialog(this, "Se ha generado "
-                            + "un error descargando la plantilla. "
-                            + "Por favor verifique que el directorio exista\n y "
-                            + "que un archivo con el nombre "
-                            + "Alternativas_Intervencion.xlsx no esté abierto.",
+                            + "un error descargando la las aternativas de intervención.\n\n"
+                            + "Por favor contáctese con el encargado de la "
+                            + "aplicación para dar solución al error.",
                             "Error descargando plantilla",
                             JOptionPane.ERROR_MESSAGE, ERROR_IMAGE);
                 }

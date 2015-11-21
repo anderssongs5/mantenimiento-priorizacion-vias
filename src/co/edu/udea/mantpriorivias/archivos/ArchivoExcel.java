@@ -16,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -93,19 +94,18 @@ public class ArchivoExcel {
         }
 
         /*Sheet hojaCostosMantenimiento = workbook.getSheet("Costos de mantenimiento");
-        List<InfoItem> items = new ArrayList<>();
-        if (null == hojaCostosMantenimiento) {
-            mensajesErrorArchivo.add("No existe la hoja Costos de mantenimiento.");
-        } else {
-            items = this.obtenerInfoCostosMantenimiento(hojaCostosMantenimiento);
-            ValidadorCostosMantenimiento vcs = new ValidadorCostosMantenimiento();
-            if (!vcs.contieneTodosLosItems(items)) {
-                mensajesErrorHojaCostosMantenimiento += "La hoja Costos de "
-                        + "mantenimiento no contiene todos los ítems establecidos "
-                        + "para la misma.";
-            }
-        }*/
-
+         List<InfoItem> items = new ArrayList<>();
+         if (null == hojaCostosMantenimiento) {
+         mensajesErrorArchivo.add("No existe la hoja Costos de mantenimiento.");
+         } else {
+         items = this.obtenerInfoCostosMantenimiento(hojaCostosMantenimiento);
+         ValidadorCostosMantenimiento vcs = new ValidadorCostosMantenimiento();
+         if (!vcs.contieneTodosLosItems(items)) {
+         mensajesErrorHojaCostosMantenimiento += "La hoja Costos de "
+         + "mantenimiento no contiene todos los ítems establecidos "
+         + "para la misma.";
+         }
+         }*/
         System.out.println("Errores de archivo:");
         mensajesErrorArchivo.stream().forEach((String s) -> {
             System.out.println("\t" + s);
@@ -115,7 +115,7 @@ public class ArchivoExcel {
         mensajesErrorHojaPresupuesto.stream().forEach((String s) -> {
             System.out.println("\t" + s);
         });
-        if(vias.isEmpty()){
+        if (vias.isEmpty()) {
             System.out.println("\tNo existe ninguna vía.");
         }
 
@@ -129,16 +129,16 @@ public class ArchivoExcel {
         }
 
         /*System.out.println("\nErrores en Hoja Costos de mantenimiento:");
-        for (InfoItem ii : items) {
-            System.out.println("Número de fila: " + ii.getFila());
-            System.out.println("Código ítem: " + ii.getItem().getCodigo());
-            System.out.println("Errores: " + ii.getErroresItem());
-        }
+         for (InfoItem ii : items) {
+         System.out.println("Número de fila: " + ii.getFila());
+         System.out.println("Código ítem: " + ii.getItem().getCodigo());
+         System.out.println("Errores: " + ii.getErroresItem());
+         }
 
-        mantPriorViasInfo = new MantPriorViasInfo(mensajesErrorArchivo,
-                mensajesErrorHojaPresupuesto,
-                mensajesErrorHojaPriorizacion, presupuesto, vias,
-                items, mensajesErrorHojaCostosMantenimiento);*/
+         mantPriorViasInfo = new MantPriorViasInfo(mensajesErrorArchivo,
+         mensajesErrorHojaPresupuesto,
+         mensajesErrorHojaPriorizacion, presupuesto, vias,
+         items, mensajesErrorHojaCostosMantenimiento);*/
         mantPriorViasInfo = new MantPriorViasInfo(mensajesErrorArchivo,
                 mensajesErrorHojaPresupuesto,
                 mensajesErrorHojaPriorizacion, presupuesto, vias);
@@ -254,7 +254,7 @@ public class ArchivoExcel {
                         String cd89 = this.obtenerValorCelda(cell);
                         via.getDanioVia().setCabezasDuras89(
                                 cd89 == null || cd89.trim().isEmpty()
-                                || "N".equals(cd89.trim()) ? "N" : "");
+                                || "N".equals(cd89.trim()) ? "N" : "S");
                         break;
                     case PROBABILIDAD_DERRUMBES_90:
                         via.getDanioVia().setProbabilidadDerrumbes90(
@@ -303,7 +303,6 @@ public class ArchivoExcel {
 //
 //        return items;
 //    }
-
     public boolean validarArchivo(File archivo) {
 
         return (null != archivo && archivo.exists() && archivo.isFile()
@@ -324,10 +323,10 @@ public class ArchivoExcel {
         }
     }
 
-    public boolean descargarPlantilla(File directorio) {
-        InputStream inputStream = ArchivoExcel.class.getClassLoader().
-                getResourceAsStream("./co/edu/udea/mantpriorivias/archivos/"
-                        + "recursos/Plantilla_MantPriorVias.xlsx");
+    public boolean descargarPlantilla(File directorio) throws IOException {
+        URL url = ArchivoExcel.class.getResource("/co/edu/udea/mantpriorivias/archivos/"
+                + "recursos/Plantilla_MantPriorVias.xlsx");
+        InputStream inputStream = url.openStream();
 
         boolean respuesta = this.descargarArchivo(inputStream, directorio,
                 "Plantilla_MantPriorVias.xlsx");
@@ -339,12 +338,12 @@ public class ArchivoExcel {
 
         return respuesta;
     }
-    
-    public boolean descargarAlternativasIntervencion(File directorio){        
-        InputStream inputStream = ArchivoExcel.class.getClassLoader().
-                getResourceAsStream("./co/edu/udea/mantpriorivias/archivos/"
-                        + "recursos/Alternativas_Intervencion.xlsx");
-        
+
+    public boolean descargarAlternativasIntervencion(File directorio) throws IOException {
+        URL url = ArchivoExcel.class.getResource("/co/edu/udea/mantpriorivias/archivos/"
+                + "recursos/Alternativas_Intervencion.xlsx");
+        InputStream inputStream = url.openStream();
+
         boolean respuesta = this.descargarArchivo(inputStream, directorio,
                 "Alternativas_Intervencion.xlsx");
         try {

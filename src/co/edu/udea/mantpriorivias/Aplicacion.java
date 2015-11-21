@@ -52,6 +52,8 @@ public class Aplicacion extends javax.swing.JFrame {
 
     public Aplicacion() {
         initComponents();
+
+        this.setTitle("Priorización y Mantenimiento de Vías");
     }
 
     @SuppressWarnings("unchecked")
@@ -72,7 +74,7 @@ public class Aplicacion extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         labelTitulo.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        labelTitulo.setText("Mantenimiento y Priorización de Vías");
+        labelTitulo.setText("Priorización y Mantenimiento de Vías");
 
         labelSeleccioneArchivo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         labelSeleccioneArchivo.setText("Seleccione el archivo a analizar:");
@@ -102,7 +104,7 @@ public class Aplicacion extends javax.swing.JFrame {
         });
         menuArchivo.add(menuItemDescargarPlantilla);
 
-        menuItemDescargarAlternativasIntervencion.setText("Descargar alternativas de intervencion");
+        menuItemDescargarAlternativasIntervencion.setText("Descargar alternativas de intervención");
         menuItemDescargarAlternativasIntervencion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemDescargarAlternativasIntervencionActionPerformed(evt);
@@ -368,7 +370,7 @@ public class Aplicacion extends javax.swing.JFrame {
                         }
                     } else {
                         System.out.println("");
-                        
+
                         Collections.sort(mantPriorViasInfo.getVias(), (InfoVia o1, InfoVia o2) -> {
                             Double sum1 = o1.getSumatoriaValores();
                             Double sum2 = o2.getSumatoriaValores();
@@ -380,12 +382,12 @@ public class Aplicacion extends javax.swing.JFrame {
                         if (mantPriorViasInfo == null) {
                             JOptionPane.showMessageDialog(this,
                                     "Usted ha decidido cerrar la ventana de "
-                                    + "los ítems de mantenimiento y mejoras.\n"
+                                    + "los ítems de mantenimiento y mejoramiento.\n"
                                     + "Por lo tanto no podrá continuar con el proceso.",
                                     "No se puede continuar con proceso",
                                     JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
                         } else {
-                            System.out.println("Gato man.");
+                            this.abrirPantallaMantenimientoYMejoramiento(mantPriorViasInfo);
                         }
                     }
                 } catch (IOException ex) {
@@ -527,5 +529,12 @@ public class Aplicacion extends javax.swing.JFrame {
                 = new CostosMantenimientoJDialog(this, true, mantPriorViasInfo);
 
         return costosMantenimientoJDialog.iniciarVentanta();
+    }
+
+    private void abrirPantallaMantenimientoYMejoramiento(MantPriorViasInfo mantPriorViasInfo) {
+        MantenimientoJDialog mantenimientoJDialog = new MantenimientoJDialog(this, 
+                true, mantPriorViasInfo);
+        
+        mantenimientoJDialog.iniciarVentanta();
     }
 }

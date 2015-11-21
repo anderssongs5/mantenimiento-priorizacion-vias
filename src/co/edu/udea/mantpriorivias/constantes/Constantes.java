@@ -16,6 +16,7 @@ public class Constantes {
     public static final Map<String, Item> ITEMS = new HashMap<>();
     public static final Map<String, String> ALTERNATIVAS_INTERVENCION_MANTENIMIENTO = new HashMap<>();
     public static final Map<String, Double> VIAS_ALTERNAS_VALORES = new HashMap<>();
+    public static final Map<String, String> NOMBRES_DANIOS = new HashMap<>();
 
     static {
         ITEMS.put("ME1", new Item("ME1", "Slurry Seal"));
@@ -102,5 +103,17 @@ public class Constantes {
 
         VIAS_ALTERNAS_VALORES.put("S", 0.5);
         VIAS_ALTERNAS_VALORES.put("N", 1.0);
+
+        NOMBRES_DANIOS.put("81", "Sección Transversal Inapropiada");
+        NOMBRES_DANIOS.put("82", "Drenaje Longitudinal Inadecuado");
+        NOMBRES_DANIOS.put("83", "Drenaje Transversla Inadecuado");
+        NOMBRES_DANIOS.put("84", "Corrugaciones");
+        NOMBRES_DANIOS.put("85", "Polvo");
+        NOMBRES_DANIOS.put("86", "Baches / Huecos");
+        NOMBRES_DANIOS.put("87", "Ahuellamiento / Surcos");
+        NOMBRES_DANIOS.put("88", "Agregado Suelto");
+        NOMBRES_DANIOS.put("89", "Cabezas Duras");
+        NOMBRES_DANIOS.put("90", "Probabilidad de Derrumbes");
+        NOMBRES_DANIOS.put("91", "Daños en la Banca");
     }
 }

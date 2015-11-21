@@ -27,6 +27,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ArchivoExcel {
 
+    public static final String ARCHIVO_ALTERNATIVAS_INTERVENCION = 
+            "Alternativas_Intervencion.xlsx";
+    
     private static final int NUMERO_COLUMNAS_PRIORIZACION = 22;
     private static final int CODIGO_VIA = 0;
     private static final int DE_COMERCIAL = 1;
@@ -341,11 +344,11 @@ public class ArchivoExcel {
 
     public boolean descargarAlternativasIntervencion(File directorio) throws IOException {
         URL url = ArchivoExcel.class.getResource("/co/edu/udea/mantpriorivias/archivos/"
-                + "recursos/Alternativas_Intervencion.xlsx");
+                + "recursos/" + ARCHIVO_ALTERNATIVAS_INTERVENCION);
         InputStream inputStream = url.openStream();
 
         boolean respuesta = this.descargarArchivo(inputStream, directorio,
-                "Alternativas_Intervencion.xlsx");
+                ARCHIVO_ALTERNATIVAS_INTERVENCION);
         try {
             inputStream.close();
         } catch (IOException ex) {

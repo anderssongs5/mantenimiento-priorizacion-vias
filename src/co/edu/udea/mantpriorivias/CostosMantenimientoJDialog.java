@@ -60,6 +60,8 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
         this.setLocationRelativeTo(parent);
         this.setResizable(false);
         this.armarTablaCostosMantenimiento();
+        
+        this.setTitle("Alternativas de Intervención");
     }
 
     /**
@@ -111,7 +113,7 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
         }
 
         labelTitulo.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        labelTitulo.setText("Mantenimiento y Priorización de Vías");
+        labelTitulo.setText("Priorización y Mantenimiento de Vías");
 
         labelIngresoInfo.setText("Por favor ingrese la información correspondiente a cada una de las alternativas de mantenimiento:");
 
@@ -328,18 +330,18 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
                     || valorUnitario == null || valorUnitario.trim().isEmpty()
                     || !Util.isNumerico(valorUnitario)
                     || (Util.isNumerico(valorUnitario)
-                    && Double.parseDouble(valorUnitario.replaceAll(",", ".")) <= 0)) {
+                    && Double.parseDouble(valorUnitario.replaceAll(",", ".")) < 0)) {
                 if ((unidad == null || unidad.trim().isEmpty()
                         || !Constantes.UNIDADES_POSIBLES.contains(unidad.trim()))
                         && (valorUnitario == null || valorUnitario.trim().isEmpty()
                         || !Util.isNumerico(valorUnitario)
                         || (Util.isNumerico(valorUnitario)
-                        && Double.parseDouble(valorUnitario) <= 0))) {
+                        && Double.parseDouble(valorUnitario) < 0))) {
                     if (Util.isNumerico(valorUnitario)
-                            && Double.parseDouble(valorUnitario.replaceAll(",", ".")) <= 0) {
+                            && Double.parseDouble(valorUnitario.replaceAll(",", ".")) < 0) {
                         errores += "* " + codigo + ": no tiene unidad ni valor unitario, "
-                                + "ninguno de los dos es válido o no tiene unidad "
-                                + "válida y el valor es menor o igual a cero."
+                                + "ninguno de los dos es válido, no tiene unidad "
+                                + "válida o el valor no es válido o es menor que cero."
                                 + separadorLinea;
                         continue;
                     }
@@ -359,8 +361,8 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
                     errores += "* " + codigo + ": no tiene valor unitario o es no "
                             + "válido." + separadorLinea;
                 } else if (Util.isNumerico(valorUnitario)
-                        && Double.parseDouble(valorUnitario.replaceAll(",", ".")) <= 0) {
-                    errores += "* " + codigo + ": el valor unitario es menor o igual "
+                        && Double.parseDouble(valorUnitario.replaceAll(",", ".")) < 0) {
+                    errores += "* " + codigo + ": el valor unitario es menor "
                             + "que cero." + separadorLinea;
                 }
             } else {

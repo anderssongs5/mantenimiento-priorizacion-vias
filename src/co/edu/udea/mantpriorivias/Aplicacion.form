@@ -27,7 +27,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemDescargarAlternativasIntervencion">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Descargar alternativas de intervencion"/>
+                <Property name="text" type="java.lang.String" value="Descargar alternativas de intervenci&#xf3;n"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemDescargarAlternativasIntervencionActionPerformed"/>
@@ -123,7 +123,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="15" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Mantenimiento y Priorizaci&#xf3;n de V&#xed;as"/>
+        <Property name="text" type="java.lang.String" value="Priorizaci&#xf3;n y Mantenimiento de V&#xed;as"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="labelSeleccioneArchivo">

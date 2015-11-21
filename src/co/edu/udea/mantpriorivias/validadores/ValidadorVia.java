@@ -1,5 +1,6 @@
 package co.edu.udea.mantpriorivias.validadores;
 
+import co.edu.udea.mantpriorivias.constantes.Constantes;
 import co.edu.udea.mantpriorivias.general.Util;
 import co.edu.udea.mantpriorivias.entidades.Via;
 import co.edu.udea.mantpriorivias.entidades.InfoVia;
@@ -315,5 +316,26 @@ public class ValidadorVia {
         }
 
         return false;
+    }
+
+    public static double sumarValoresVia(InfoVia via) {
+        double suma = 0.0;
+        suma += Double.parseDouble(via.getVia().getDesarrolloEconomico().getAgropecuario());
+        suma += Double.parseDouble(via.getVia().getDesarrolloEconomico().getComercial());
+        suma += Double.parseDouble(via.getVia().getDesarrolloEconomico().getIndustrial());
+        suma += Double.parseDouble(via.getVia().getDesarrolloEconomico().getMinero());
+        suma += Double.parseDouble(via.getVia().getDesarrolloEconomico().getServicios());
+
+        suma += Double.parseDouble(via.getVia().getConectividad());
+
+        suma += Double.parseDouble(via.getVia().getTpd());
+
+        suma += Constantes.VIAS_ALTERNAS_VALORES.get(via.getVia().getViasAlternas().trim());
+        
+        suma += Double.parseDouble(via.getVia().getPersonasTransportadasDia());
+        
+        suma += Double.parseDouble(via.getVia().getUrci());
+
+        return suma;
     }
 }

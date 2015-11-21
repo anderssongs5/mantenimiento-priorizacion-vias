@@ -7,6 +7,7 @@ public class InfoVia {
     private Via via;
     private int filaVia;
     private String erroresVia;
+    private double sumatoriaValores;
     private List<String> daniosSeleccionados;
 
     public Via getVia() {
@@ -31,6 +32,14 @@ public class InfoVia {
 
     public void setErroresVia(String erroresVia) {
         this.erroresVia = erroresVia;
+    }
+
+    public double getSumatoriaValores() {
+        return sumatoriaValores;
+    }
+
+    public void setSumatoriaValores(double sumatoriaValores) {
+        this.sumatoriaValores = sumatoriaValores;
     }
 
     public List<String> getDaniosSeleccionados() {

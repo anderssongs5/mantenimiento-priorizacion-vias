@@ -15,6 +15,7 @@ public class Constantes {
     public static final List<String> UNIDADES_POSIBLES = new ArrayList<>();
     public static final Map<String, Item> ITEMS = new HashMap<>();
     public static final Map<String, String> ALTERNATIVAS_INTERVENCION_MANTENIMIENTO = new HashMap<>();
+    public static final Map<String, Double> VIAS_ALTERNAS_VALORES = new HashMap<>();
 
     static {
         ITEMS.put("ME1", new Item("ME1", "Slurry Seal"));
@@ -98,5 +99,8 @@ public class Constantes {
         UNIDADES_POSIBLES.add("M2");
         UNIDADES_POSIBLES.add("M3");
         UNIDADES_POSIBLES.add("KM");
+
+        VIAS_ALTERNAS_VALORES.put("S", 0.5);
+        VIAS_ALTERNAS_VALORES.put("N", 1.0);
     }
 }

@@ -11,8 +11,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
@@ -177,7 +175,7 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
                     + separadorLinea + resultadoValidacion;
 
             String rutaTemporal = Util.getRutaTemporal();
-            String fullPath = rutaTemporal + "Errores_Items.txt";
+            String fullPath = rutaTemporal + "/Errores_Items.txt";
             ArchivoTextoPlano creadorArchivoTextoPlano
                     = new ArchivoTextoPlano();
             if (creadorArchivoTextoPlano.crearArchivo(resultadoValidacion,

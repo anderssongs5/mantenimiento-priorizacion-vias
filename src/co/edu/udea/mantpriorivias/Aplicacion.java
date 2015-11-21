@@ -8,6 +8,7 @@ import co.edu.udea.mantpriorivias.general.Util;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -366,6 +367,14 @@ public class Aplicacion extends javax.swing.JFrame {
                                     JOptionPane.ERROR_MESSAGE, ERROR_IMAGE);
                         }
                     } else {
+                        System.out.println("");
+                        
+                        Collections.sort(mantPriorViasInfo.getVias(), (InfoVia o1, InfoVia o2) -> {
+                            Double sum1 = o1.getSumatoriaValores();
+                            Double sum2 = o2.getSumatoriaValores();
+                            return sum2.compareTo(sum1);
+                        });
+
                         mantPriorViasInfo = this.abrirPantallaCostosMantenimiento(mantPriorViasInfo);
 
                         if (mantPriorViasInfo == null) {

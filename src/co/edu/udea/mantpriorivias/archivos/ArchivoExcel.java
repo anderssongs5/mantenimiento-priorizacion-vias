@@ -1,12 +1,9 @@
 package co.edu.udea.mantpriorivias.archivos;
 
-import co.edu.udea.mantpriorivias.entidades.InfoItem;
 import co.edu.udea.mantpriorivias.entidades.MantPriorViasInfo;
 import co.edu.udea.mantpriorivias.entidades.Presupuesto;
 import co.edu.udea.mantpriorivias.entidades.Via;
 import co.edu.udea.mantpriorivias.entidades.InfoVia;
-import co.edu.udea.mantpriorivias.entidades.Item;
-import co.edu.udea.mantpriorivias.validadores.ValidadorCostosMantenimiento;
 import co.edu.udea.mantpriorivias.validadores.ValidadorPresupuesto;
 import co.edu.udea.mantpriorivias.validadores.ValidadorVia;
 import java.io.File;
@@ -273,6 +270,9 @@ public class ArchivoExcel {
             infoVia.setErroresVia(ValidadorVia.getInstance().
                     validarInformacion(via, daniosSeleccionados));
             infoVia.setDaniosSeleccionados(daniosSeleccionados);
+            if(infoVia.getErroresVia().isEmpty()){
+                infoVia.setSumatoriaValores(ValidadorVia.sumarValoresVia(infoVia));
+            }            
             vias.add(infoVia);
         }
 

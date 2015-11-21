@@ -38,6 +38,13 @@ public class MantenimientoPriorizacionVias {
         
         String s = "-155000,9";
         System.out.println("Resultado : " + Util.isNumerico(s));
+        
+        String temporal = System.getProperty("java.io.tmpdir");
+        String home = System.getProperty("user.home");
+        File file = new File(temporal);
+
+        String path = (file != null && file.canWrite()) ? temporal : home;
+        System.out.println(path);
     }
 
 }

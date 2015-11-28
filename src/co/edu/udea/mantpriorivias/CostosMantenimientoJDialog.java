@@ -298,13 +298,13 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
         String[][] datos = new String[itemsMantenimiento.size()
                 + Constantes.CANTIDAD_ITEMS_MEJORAS][Constantes.CANTIDAD_COLUMNAS];
         int mejora = 1;
-        while (mejora <= Constantes.CANTIDAD_ITEMS_MEJORAS) {
-            Item item = Constantes.ITEMS.get("ME" + mejora);
-            datos[mejora - 1][0] = item.getCodigo();
-            datos[mejora - 1][1] = item.getItem();
-
-            mejora++;
-        }
+//        while (mejora <= Constantes.CANTIDAD_ITEMS_MEJORAS) {
+//            Item item = Constantes.ITEMS.get("ME" + mejora);
+//            datos[mejora - 1][0] = item.getCodigo();
+//            datos[mejora - 1][1] = item.getItem();
+//
+//            mejora++;
+//        }
 
         int i = mejora - 1;
         while (i < datos.length) {

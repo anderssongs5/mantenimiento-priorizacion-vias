@@ -27,9 +27,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ArchivoExcel {
 
-    public static final String ARCHIVO_ALTERNATIVAS_INTERVENCION = 
-            "Alternativas_Intervencion.xlsx";
-    
+    public static final String ARCHIVO_ALTERNATIVAS_INTERVENCION
+            = "Alternativas_Intervencion.xlsx";
+
     private static final int NUMERO_COLUMNAS_PRIORIZACION = 22;
     private static final int CODIGO_VIA = 0;
     private static final int DE_COMERCIAL = 1;
@@ -170,7 +170,7 @@ public class ArchivoExcel {
             throws IOException {
         List<InfoVia> vias = new ArrayList<>();
 
-        Iterator<Row> rows = hojaPriorizacion.iterator();
+        Iterator<Row> rows = hojaPriorizacion.rowIterator();
         rows.next();
         rows.next();
         while (rows.hasNext()) {
@@ -267,15 +267,19 @@ public class ArchivoExcel {
                 }
             }
 
+            if (ValidadorVia.getInstance().isVacia(via)) {
+                continue;
+            }
+
             List<String> daniosSeleccionados = new ArrayList<>();
             infoVia.setFilaVia(row.getRowNum() + 1);
             infoVia.setVia(via);
             infoVia.setErroresVia(ValidadorVia.getInstance().
                     validarInformacion(via, daniosSeleccionados));
             infoVia.setDaniosSeleccionados(daniosSeleccionados);
-            if(infoVia.getErroresVia().isEmpty()){
+            if (infoVia.getErroresVia().isEmpty()) {
                 infoVia.setSumatoriaValores(ValidadorVia.sumarValoresVia(infoVia));
-            }            
+            }
             vias.add(infoVia);
         }
 

@@ -11,7 +11,7 @@ public class Constantes {
     public static final String[] NOMBRES_COLUMNAS = new String[]{"Código",
         "Nombre", "Unidad", "Valor Unitario"};
     public static final int CANTIDAD_COLUMNAS = 4;
-    public static final int CANTIDAD_ITEMS_MEJORAS = 8;
+    public static final int CANTIDAD_ITEMS_MEJORAS = 0;
     public static final List<String> UNIDADES_POSIBLES = new ArrayList<>();
     public static final Map<String, Item> ITEMS = new HashMap<>();
     public static final Map<String, String> ALTERNATIVAS_INTERVENCION_MANTENIMIENTO = new HashMap<>();

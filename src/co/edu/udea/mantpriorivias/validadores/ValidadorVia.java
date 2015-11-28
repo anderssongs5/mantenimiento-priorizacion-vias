@@ -144,8 +144,8 @@ public class ValidadorVia {
         }
 
         if (null == via.getUrci() || via.getUrci().trim().isEmpty()) {
-            if (!this.valoresPosiblesUrciDecimal.contains(via.getUrci().trim())) {
-                if (!this.valoresPosiblesUrci.contains(via.getUrci().trim())) {
+            if (!this.valoresPosiblesUrciDecimal.contains(via.getUrci())) {
+                if (!this.valoresPosiblesUrci.contains(via.getUrci())) {
                     mensajesErrorVia += "     * URCI es vacío "
                             + "o no tiene un valor válido." + separadorLinea;
                 }
@@ -331,11 +331,37 @@ public class ValidadorVia {
         suma += Double.parseDouble(via.getVia().getTpd());
 
         suma += Constantes.VIAS_ALTERNAS_VALORES.get(via.getVia().getViasAlternas().trim());
-        
+
         suma += Double.parseDouble(via.getVia().getPersonasTransportadasDia());
-        
+
         suma += Double.parseDouble(via.getVia().getUrci());
 
         return suma;
+    }
+
+    public boolean isVacia(Via via) {
+
+        return via == null || (via.getCodigoVia() == null && via.getConectividad() == null
+                && via.getPersonasTransportadasDia() == null && via.getTpd() == null
+                && via.getUrci() == null && via.getViasAlternas() == null
+                && (via.getDanioVia() == null
+                || (via.getDanioVia().getAhuellamientoSurcos87() == null
+                && via.getDanioVia().getSeccionTransversalInapropiada81() == null
+                && via.getDanioVia().getDrenajeLongitudinalInadecuado82() == null
+                && via.getDanioVia().getDrenajeTransversalInadecuado83() == null
+                && via.getDanioVia().getCorrugaciones84() == null
+                && via.getDanioVia().getPolvo85() == null
+                && via.getDanioVia().getBachesHuecos86() == null
+                && via.getDanioVia().getAgregadoSuelto88() == null
+                && (via.getDanioVia().getCabezasDuras89() == null
+                || via.getDanioVia().getCabezasDuras89().equals("N"))
+                && via.getDanioVia().getProbabilidadDerrumbes90() == null
+                && via.getDanioVia().getDanioBanca91() == null))
+                && (via.getDesarrolloEconomico() == null
+                || (via.getDesarrolloEconomico().getAgropecuario() == null
+                && via.getDesarrolloEconomico().getComercial() == null
+                && via.getDesarrolloEconomico().getIndustrial() == null
+                && via.getDesarrolloEconomico().getMinero() == null
+                && via.getDesarrolloEconomico().getServicios() == null)));
     }
 }

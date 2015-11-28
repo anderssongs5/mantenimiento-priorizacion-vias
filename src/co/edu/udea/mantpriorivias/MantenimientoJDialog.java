@@ -34,6 +34,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
     private String via;
     private int posicionDanio;
     private double presupuestoActual;
+    private double presupuestoAdicional = 0.0;
     private double valorUnitario;
     private Item itemSeleccionado;
     private Item itemVacio = new Item("Seleccione", "");
@@ -87,6 +88,8 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         this.restringirValoresCampos();
         this.aplicarMantenimientoButton.setEnabled(false);
         this.presupuestoActualTextField.setBackground(Color.green);
+        this.presupuestoAdicionalTextField.setText(
+                String.valueOf(this.presupuestoAdicional));
     }
 
     /**
@@ -119,6 +122,8 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         aplicarMantenimientoButton = new javax.swing.JButton();
         presupuestoActualTextField = new javax.swing.JTextField();
         presupuestoActualLabel = new javax.swing.JLabel();
+        presupuestoAdicionalLabel = new javax.swing.JLabel();
+        presupuestoAdicionalTextField = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         archivoMenu = new javax.swing.JMenu();
         abrirAlternativasIntervencionMenuItem = new javax.swing.JMenuItem();
@@ -233,6 +238,12 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
 
         presupuestoActualLabel.setText("Presupuesto actual");
 
+        presupuestoAdicionalLabel.setText("Presupuesto adicional");
+
+        presupuestoAdicionalTextField.setEditable(false);
+        presupuestoAdicionalTextField.setForeground(java.awt.Color.black);
+        presupuestoAdicionalTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
         archivoMenu.setText("Archivo");
 
         abrirAlternativasIntervencionMenuItem.setText("Abrir alternativas intervención");
@@ -254,85 +265,90 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(codigosViasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(viasLabel))
+                        .addGap(30, 30, 30)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(313, 313, 313)
                         .addComponent(labelTitulo))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(119, 119, 119)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(presupuestoTotlaInicialLabel)
+                            .addComponent(presupuestoTotalInicialTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(66, 66, 66)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(porcentajeAdministracionLabel)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(porcentajeImprevistosTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(105, 105, 105)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(porcentajeImprevistosLabel)
+                            .addComponent(porcentajeAdministracionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(75, 75, 75)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(porcentajeUtilidadesLabel)
+                            .addComponent(porcentajeUtilidadesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(50, 50, 50)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(presupuestoDisponibleLabel)
+                            .addComponent(presupuestoDisponibleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(385, 385, 385)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(presupuestoTotlaInicialLabel)
-                                            .addComponent(presupuestoTotalInicialTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(66, 66, 66)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(porcentajeAdministracionLabel)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(20, 20, 20)
-                                                .addComponent(porcentajeImprevistosTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(presupuestoActualTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                .addGap(9, 9, 9)
-                                                .addComponent(presupuestoActualLabel)))
-                                        .addGap(11, 11, 11)))
-                                .addGap(105, 105, 105)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(porcentajeImprevistosLabel)
-                                    .addComponent(porcentajeAdministracionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(75, 75, 75)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(porcentajeUtilidadesLabel)
-                                    .addComponent(porcentajeUtilidadesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(50, 50, 50)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(presupuestoDisponibleLabel)
-                                    .addComponent(presupuestoDisponibleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(codigosViasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(viasLabel))
-                                .addGap(30, 30, 30)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(228, 228, 228)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(presupuestoActualTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(presupuestoActualLabel)))
+                        .addGap(57, 57, 57)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(presupuestoAdicionalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(presupuestoAdicionalLabel))))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(labelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(presupuestoDisponibleLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(presupuestoDisponibleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(presupuestoTotlaInicialLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(presupuestoTotalInicialTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(porcentajeAdministracionLabel)
+                                .addComponent(porcentajeImprevistosLabel))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(porcentajeAdministracionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(porcentajeImprevistosTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(porcentajeUtilidadesLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(porcentajeUtilidadesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(presupuestoTotlaInicialLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(presupuestoTotalInicialTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(porcentajeAdministracionLabel)
-                                    .addComponent(porcentajeImprevistosLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(porcentajeAdministracionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(porcentajeImprevistosTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(porcentajeUtilidadesLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(porcentajeUtilidadesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(28, 28, 28)
-                .addComponent(presupuestoActualLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(presupuestoActualTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                        .addComponent(presupuestoActualLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(presupuestoActualTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(presupuestoAdicionalLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(presupuestoAdicionalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(viasLabel)
@@ -477,10 +493,26 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                 return;
             } else {
                 alternativas.remove(mantenimiento);
-                this.presupuestoActual = this.presupuestoActual + (mantenimiento.getCantidad()
-                        * this.buscarPrecioDadoCodigoItem(mantenimiento.getItem()));
+                if (this.presupuestoActual == 0.0) {
+                    double t = mantenimiento.getCantidad()
+                            * this.buscarPrecioDadoCodigoItem(mantenimiento.getItem());
+                    if (t < this.presupuestoAdicional) {
+                        this.presupuestoAdicional = this.presupuestoAdicional - t;
+                    } else if (t == this.presupuestoAdicional) {
+                        this.presupuestoAdicional = 0.0;
+                    } else {
+                        double p = t - this.presupuestoAdicional;
+                        this.presupuestoAdicional = 0;
+                        this.presupuestoActual = this.presupuestoActual + p;
+                    }
+                } else {
+                    this.presupuestoActual = this.presupuestoActual + (mantenimiento.getCantidad()
+                            * this.buscarPrecioDadoCodigoItem(mantenimiento.getItem()));
+                }
+
                 this.establecerColorPresupuestoActual();
                 this.presupuestoActualTextField.setText("$ " + this.presupuestoActual);
+                this.presupuestoAdicionalTextField.setText("$ " + this.presupuestoAdicional);
                 JOptionPane.showMessageDialog(this,
                         "Se ha eliminado el mantenimiento aplicado correctamente",
                         "Mantenimiento aplicado eliminado",
@@ -509,6 +541,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
 
         double cantidad = Double.parseDouble(
                 this.cantidadMantenimientoMejoraTextField.getText().trim());
+        double cantidadTemp = cantidad;
         if (mantenimiento != null) {
             if (mantenimiento.getCantidad() == cantidad) {
                 JOptionPane.showMessageDialog(this,
@@ -518,15 +551,16 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
 
                 return;
             } else {
-                double cantidadTemp = cantidad;
                 cantidad = cantidadTemp - mantenimiento.getCantidad();
                 mantenimiento.setCantidad(cantidadTemp);
+                double t = cantidad * this.valorUnitario;
+                // Aquí voy
             }
         }
 
-        this.presupuestoActual = presupuestoActual - (cantidad * this.valorUnitario);
         this.establecerColorPresupuestoActual();
         this.presupuestoActualTextField.setText("$ " + this.presupuestoActual);
+        this.presupuestoAdicionalTextField.setText("$ " + this.presupuestoAdicional);
 
         Alternativa alternativa = new Alternativa();
         alternativa.setCodigoVia(this.via);
@@ -556,6 +590,8 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
     private javax.swing.JTextField precioMantenimientoMejoraTextField;
     private javax.swing.JLabel presupuestoActualLabel;
     private javax.swing.JTextField presupuestoActualTextField;
+    private javax.swing.JLabel presupuestoAdicionalLabel;
+    private javax.swing.JTextField presupuestoAdicionalTextField;
     private javax.swing.JLabel presupuestoDisponibleLabel;
     private javax.swing.JTextField presupuestoDisponibleTextField;
     private javax.swing.JTextField presupuestoTotalInicialTextField;

@@ -32,7 +32,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
     private List<Alternativa> alternativas = new ArrayList<>();
     private String via;
     private int posicionDanio;
-    private double presupuetoActual;
+    private double presupuestoActual;
     private double valorUnitario;
     private Item itemSeleccionado;
     private Item itemVacio = new Item("Seleccione", "");
@@ -42,6 +42,9 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
     private static final ImageIcon WARNING_IMAGE = new ImageIcon(Aplicacion.class
             .getResource("/co/edu/udea/mantpriorivias/recursos/imagenes/"
                     + "ic_dialog_warning.png"));
+    private static final ImageIcon INFORMATION_IMAGE = new ImageIcon(Aplicacion.class
+            .getResource("/co/edu/udea/mantpriorivias/recursos/imagenes/"
+                    + "info_48.png"));
     private final ListCellRenderer mantenimientosComboRenderer = new DefaultListCellRenderer() {
         @Override
         public Component getListCellRendererComponent(JList<?> list,
@@ -445,14 +448,31 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_mantenimientosComboBoxActionPerformed
 
     private void aplicarMantenimientoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aplicarMantenimientoButtonActionPerformed
+        Alternativa mantenimiento = this.buscarMantenimientoAplicadoDadoViaItemMantenimiento(
+                this.via, this.listaDaniosComboBox.get(this.posicionDanio),
+                this.cantidadMantenimientoMejoraTextField.getText());
+
         if (this.cantidadMantenimientoMejoraTextField.getText() == null
                 || this.cantidadMantenimientoMejoraTextField.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this,
-                    "No se ha agregado el mantenimiento porque no se ha ingresado"
-                    + " la cantidad", "No se aplicó mantenimiento.",
-                    JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
+            if (mantenimiento == null) {
+                JOptionPane.showMessageDialog(this,
+                        "No se ha agregado el mantenimiento porque no se ha ingresado"
+                        + " la cantidad", "No se aplicó mantenimiento.",
+                        JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
 
-            return;
+                return;
+            } else {
+                alternativas.remove(mantenimiento);
+                this.presupuestoActual = this.presupuestoActual + (mantenimiento.getCantidad()
+                        * this.buscarPrecioDadoCodigoItem(mantenimiento.getItem()));
+                this.presupuestoActualTextField.setText("$ " + this.presupuestoActual);
+                JOptionPane.showMessageDialog(this,
+                        "Se ha eliminado el mantenimiento aplicado correctamente",
+                        "Mantenimiento aplicado eliminado",
+                        JOptionPane.INFORMATION_MESSAGE, INFORMATION_IMAGE);
+
+                return;
+            }
         }
 
         if (!Util.isNumerico(this.cantidadMantenimientoMejoraTextField.getText())) {
@@ -474,15 +494,15 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
 
         double cantidad = Double.parseDouble(
                 this.cantidadMantenimientoMejoraTextField.getText().trim());
-        this.presupuetoActual = presupuetoActual - (cantidad * this.valorUnitario);
-        this.presupuestoActualTextField.setText("$ " + this.presupuetoActual);
+        this.presupuestoActual = presupuestoActual - (cantidad * this.valorUnitario);
+        this.presupuestoActualTextField.setText("$ " + this.presupuestoActual);
 
         Alternativa alternativa = new Alternativa();
         alternativa.setCodigoVia(this.via);
         alternativa.setItem(this.itemSeleccionado.getCodigo());
         alternativa.setDanio(this.listaDaniosComboBox.get(this.posicionDanio));
         alternativa.setCantidad(cantidad);
-        alternativas.add(alternativa);
+        this.alternativas.add(alternativa);
     }//GEN-LAST:event_aplicarMantenimientoButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -532,7 +552,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         this.presupuestoActualTextField.setText("$ "
                 + presupuesto.getPresupuestoDisponible());
 
-        this.presupuetoActual = presupuesto.getPresupuestoDisponible();
+        this.presupuestoActual = presupuesto.getPresupuestoDisponible();
     }
 
     private void setCodigosVias(List<InfoVia> vias) {
@@ -579,5 +599,18 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         }
 
         return precio;
+    }
+
+    private Alternativa buscarMantenimientoAplicadoDadoViaItemMantenimiento(String via,
+            String danio, String item) {
+        Alternativa alternativa = null;
+        for (Alternativa a : this.alternativas) {
+            if (via.equals(a.getCodigoVia()) && danio.equals(a.getDanio())
+                    && item.equals(a.getItem())) {
+                return a;
+            }
+        }
+
+        return alternativa;
     }
 }

@@ -8,6 +8,7 @@ import co.edu.udea.mantpriorivias.entidades.Item;
 import co.edu.udea.mantpriorivias.entidades.MantPriorViasInfo;
 import co.edu.udea.mantpriorivias.entidades.Presupuesto;
 import co.edu.udea.mantpriorivias.general.Util;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.event.KeyAdapter;
@@ -85,6 +86,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
 
         this.restringirValoresCampos();
         this.aplicarMantenimientoButton.setEnabled(false);
+        this.presupuestoActualTextField.setBackground(Color.green);
     }
 
     /**
@@ -226,6 +228,8 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         );
 
         presupuestoActualTextField.setEditable(false);
+        presupuestoActualTextField.setForeground(java.awt.Color.black);
+        presupuestoActualTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         presupuestoActualLabel.setText("Presupuesto actual");
 
@@ -434,6 +438,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         if (posicionItemSeleccionado <= 0) {
             this.cantidadMantenimientoMejoraTextField.setEditable(false);
             this.cantidadMantenimientoMejoraTextField.setText("");
+            this.precioMantenimientoMejoraTextField.setText("");
             this.aplicarMantenimientoButton.setEnabled(false);
         } else {
             this.aplicarMantenimientoButton.setEnabled(true);
@@ -444,13 +449,22 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                     this.itemSeleccionado.getCodigo());
             this.precioMantenimientoMejoraTextField.setText("$ "
                     + String.valueOf(this.valorUnitario));
+
+            Alternativa mantenimiento = this.buscarMantenimientoAplicadoDadoViaItemMantenimiento(
+                    this.via, this.listaDaniosComboBox.get(this.posicionDanio),
+                    this.itemSeleccionado.getCodigo());
+
+            if (mantenimiento != null) {
+                this.cantidadMantenimientoMejoraTextField.setText(
+                        String.valueOf(mantenimiento.getCantidad()).replace(".0", ""));
+            }
         }
     }//GEN-LAST:event_mantenimientosComboBoxActionPerformed
 
     private void aplicarMantenimientoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aplicarMantenimientoButtonActionPerformed
         Alternativa mantenimiento = this.buscarMantenimientoAplicadoDadoViaItemMantenimiento(
                 this.via, this.listaDaniosComboBox.get(this.posicionDanio),
-                this.cantidadMantenimientoMejoraTextField.getText());
+                this.itemSeleccionado.getCodigo());
 
         if (this.cantidadMantenimientoMejoraTextField.getText() == null
                 || this.cantidadMantenimientoMejoraTextField.getText().trim().isEmpty()) {
@@ -465,6 +479,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                 alternativas.remove(mantenimiento);
                 this.presupuestoActual = this.presupuestoActual + (mantenimiento.getCantidad()
                         * this.buscarPrecioDadoCodigoItem(mantenimiento.getItem()));
+                this.establecerColorPresupuestoActual();
                 this.presupuestoActualTextField.setText("$ " + this.presupuestoActual);
                 JOptionPane.showMessageDialog(this,
                         "Se ha eliminado el mantenimiento aplicado correctamente",
@@ -494,7 +509,23 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
 
         double cantidad = Double.parseDouble(
                 this.cantidadMantenimientoMejoraTextField.getText().trim());
+        if (mantenimiento != null) {
+            if (mantenimiento.getCantidad() == cantidad) {
+                JOptionPane.showMessageDialog(this,
+                        "No se ha aplicado el mantenimiento porque ya existe uno con "
+                        + "los mismos valores", "Mantenimiento no aplicado",
+                        JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
+
+                return;
+            } else {
+                double cantidadTemp = cantidad;
+                cantidad = cantidadTemp - mantenimiento.getCantidad();
+                mantenimiento.setCantidad(cantidadTemp);
+            }
+        }
+
         this.presupuestoActual = presupuestoActual - (cantidad * this.valorUnitario);
+        this.establecerColorPresupuestoActual();
         this.presupuestoActualTextField.setText("$ " + this.presupuestoActual);
 
         Alternativa alternativa = new Alternativa();
@@ -612,5 +643,20 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         }
 
         return alternativa;
+    }
+
+    private void establecerColorPresupuestoActual() {
+        double porcentaje = this.presupuestoActual
+                / this.mantPriorViasInfo.getPresupuesto().getPresupuestoDisponible();
+        if (porcentaje > 0.6) {
+            // Verde
+            this.presupuestoActualTextField.setBackground(Color.green);
+        } else if (porcentaje > 0.2 && porcentaje <= 0.6) {
+            // Naranja
+            this.presupuestoActualTextField.setBackground(Color.orange);
+        } else {
+            // Rojo
+            this.presupuestoActualTextField.setBackground(Color.red);
+        }
     }
 }

@@ -32,7 +32,7 @@ public class Constantes {
         ITEMS.put("MA2", new Item("MA2", "Perfilado del terreno y adición de m"
                 + "aterial"));
         ITEMS.put("MA3", new Item("MA3", "Corte de la base existente y adición "
-                + "de agregado. Incluye conformación y compactación "));
+                + "de agregado. Incluye conformación y compactación"));
         ITEMS.put("MA4", new Item("MA4", "Limpieza de cunetas "));
         ITEMS.put("MA5", new Item("MA5", "Conformación y ampliación de las cunetas"));
         ITEMS.put("MA6", new Item("MA6", "Construcción e instalación de sistemas "
@@ -44,11 +44,10 @@ public class Constantes {
         ITEMS.put("MA10", new Item("MA10", "Adición de agua"));
         ITEMS.put("MA11", new Item("MA11", "Reaplicación localizada de grava"));
         ITEMS.put("MA12", new Item("MA12", "Adición de estabilizante control polvo"));
-        ITEMS.put("MA13", new Item("MA13", "Corte de la base, adición de agregado "
-                + "y estabilizante control polvo, incluye conformación y compactación"));
-        ITEMS.put("MA14", new Item("MA14", "Perfilado y adición de materiales "
-                + "(agua y agregado, ó 50/50 mezcla de algún estabilizante con grava), "
-                + "incluye conformación y compactación"));
+        ITEMS.put("MA13", new Item("MA13", "Corte de la base existente y adición "
+                + "de agregado. Incluye conformación y compactación"));
+        ITEMS.put("MA14", new Item("MA14", "Perfilado del terreno y adición de m"
+                + "aterial"));
         ITEMS.put("MA15", new Item("MA15", "Perfilado y revegetalización de taludes"));
         ITEMS.put("MA16", new Item("MA16", "Construcción de sistemas de drenaje "
                 + "para taludes"));

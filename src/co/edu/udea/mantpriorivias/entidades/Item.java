@@ -13,6 +13,8 @@ public class Item {
         this.item = item;
         this.unidad = unidad;
         this.valorUnitarioString = valorUnitarioString;
+
+        this.valorUnitario = Double.parseDouble(valorUnitarioString);
     }
 
     public Item(String codigo, String item, String unidad, double valorUnitario) {

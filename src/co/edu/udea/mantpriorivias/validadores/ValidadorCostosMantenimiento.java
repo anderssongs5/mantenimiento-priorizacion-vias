@@ -1,7 +1,6 @@
 package co.edu.udea.mantpriorivias.validadores;
 
 import co.edu.udea.mantpriorivias.entidades.InfoItem;
-import co.edu.udea.mantpriorivias.entidades.Item;
 import co.edu.udea.mantpriorivias.general.Util;
 import java.io.IOException;
 import java.io.InputStream;

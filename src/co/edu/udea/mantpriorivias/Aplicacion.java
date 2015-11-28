@@ -379,7 +379,9 @@ public class Aplicacion extends javax.swing.JFrame {
 
                         mantPriorViasInfo = this.abrirPantallaCostosMantenimiento(mantPriorViasInfo);
 
-                        if (mantPriorViasInfo == null) {
+                        if (mantPriorViasInfo == null
+                                || mantPriorViasInfo.getItems() == null
+                                || mantPriorViasInfo.getItems().isEmpty()) {
                             JOptionPane.showMessageDialog(this,
                                     "Usted ha decidido cerrar la ventana de "
                                     + "los ítems de mantenimiento y mejoramiento.\n"
@@ -532,9 +534,9 @@ public class Aplicacion extends javax.swing.JFrame {
     }
 
     private void abrirPantallaMantenimientoYMejoramiento(MantPriorViasInfo mantPriorViasInfo) {
-        MantenimientoJDialog mantenimientoJDialog = new MantenimientoJDialog(this, 
+        MantenimientoJDialog mantenimientoJDialog = new MantenimientoJDialog(this,
                 true, mantPriorViasInfo);
-        
+
         mantenimientoJDialog.iniciarVentanta();
     }
 }

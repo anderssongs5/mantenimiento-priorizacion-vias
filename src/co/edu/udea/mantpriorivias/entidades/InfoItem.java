@@ -6,6 +6,10 @@ public class InfoItem {
     private String erroresItem;
     private int fila;
 
+    public InfoItem() {
+        super();
+    }
+
     public InfoItem(Item item, String erroresItem, int fila) {
         this.item = item;
         this.erroresItem = erroresItem;

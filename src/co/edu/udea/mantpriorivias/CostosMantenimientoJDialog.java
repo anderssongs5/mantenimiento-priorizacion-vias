@@ -24,6 +24,7 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
 
     private final ValidadorPriorizacion validadorPriorizacion = new ValidadorPriorizacion();
     private final MantPriorViasInfo mantPriorViasInfo;
+    private List<Item> items = new ArrayList<>();
     private final JComboBox comboBox = new JComboBox();
     private final DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
     private final DefaultTableModel modeloTablaItems = new DefaultTableModel() {
@@ -213,6 +214,7 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
                         JOptionPane.ERROR_MESSAGE, ERROR_IMAGE);
             }
         } else {
+            this.mantPriorViasInfo.setItems(this.items);
             this.dispose();
         }
     }//GEN-LAST:event_botonSiguienteActionPerformed
@@ -317,6 +319,7 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
 
     private String validarInformacionItems() {
         String errores = "";
+        this.items.clear();
         String separadorLinea = System.getProperty("line.separator");
         this.mantPriorViasInfo.setItems(new ArrayList<>());
         for (int fila = 0; fila < this.tablaAlternativasMantenimiento.getRowCount(); fila++) {
@@ -366,8 +369,7 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
                             + "que cero." + separadorLinea;
                 }
             } else {
-                this.mantPriorViasInfo.getItems().add(new Item(codigo, item,
-                        unidad, valorUnitario));
+                this.items.add(new Item(codigo, item, unidad, valorUnitario));
             }
         }
 

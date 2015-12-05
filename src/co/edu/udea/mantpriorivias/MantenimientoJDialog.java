@@ -503,16 +503,14 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                     } else {
                         double p = t - this.presupuestoAdicional;
                         this.presupuestoAdicional = 0;
-                        this.presupuestoActual = this.presupuestoActual + p;
+                        this.presupuestoActual += p;
                     }
                 } else {
                     this.presupuestoActual = this.presupuestoActual + (mantenimiento.getCantidad()
                             * this.buscarPrecioDadoCodigoItem(mantenimiento.getItem()));
                 }
 
-                this.establecerColorPresupuestoActual();
-                this.presupuestoActualTextField.setText("$ " + this.presupuestoActual);
-                this.presupuestoAdicionalTextField.setText("$ " + this.presupuestoAdicional);
+                this.establecerPresupuesto();
                 JOptionPane.showMessageDialog(this,
                         "Se ha eliminado el mantenimiento aplicado correctamente",
                         "Mantenimiento aplicado eliminado",
@@ -541,7 +539,6 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
 
         double cantidad = Double.parseDouble(
                 this.cantidadMantenimientoMejoraTextField.getText().trim());
-        double cantidadTemp = cantidad;
         if (mantenimiento != null) {
             if (mantenimiento.getCantidad() == cantidad) {
                 JOptionPane.showMessageDialog(this,
@@ -551,16 +548,61 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
 
                 return;
             } else {
+                this.alternativas.remove(mantenimiento);
+                double cantidadTemp = cantidad;
                 cantidad = cantidadTemp - mantenimiento.getCantidad();
                 mantenimiento.setCantidad(cantidadTemp);
-                double t = cantidad * this.valorUnitario;
-                // Aquí voy
+                double precioMantenimiento = Math.abs(cantidad * this.valorUnitario);
+                if (cantidad < 0) {
+                    if (this.presupuestoAdicional > 0) {
+                        double t = this.presupuestoAdicional - precioMantenimiento;
+                        if (t > 0) {
+                            this.presupuestoAdicional = t;
+                        } else if (t == 0) {
+                            this.presupuestoAdicional = 0;
+                        } else {
+                            this.presupuestoAdicional = 0;
+                            this.presupuestoActual += Math.abs(t);
+                        }
+                    } else {
+                        this.presupuestoActual += precioMantenimiento;
+                    }
+                } else {
+                    if (this.presupuestoAdicional > 0) {
+                        this.presupuestoAdicional += precioMantenimiento;
+                    } else {
+                        double t = this.presupuestoActual - precioMantenimiento;
+                        if (t > 0) {
+                            this.presupuestoActual = t;
+                        } else if (t == 0) {
+                            this.presupuestoActual = 0;
+                        } else {
+                            this.presupuestoActual = 0;
+                            this.presupuestoAdicional = Math.abs(t);
+                        }
+                    }
+                }
+                this.alternativas.add(mantenimiento);
+
+                this.establecerPresupuesto();
+
+                return;
             }
         }
 
-        this.establecerColorPresupuestoActual();
-        this.presupuestoActualTextField.setText("$ " + this.presupuestoActual);
-        this.presupuestoAdicionalTextField.setText("$ " + this.presupuestoAdicional);
+        if (this.presupuestoAdicional > 0) {
+            this.presupuestoAdicional += cantidad * this.valorUnitario;
+        } else {
+            double t = this.presupuestoActual - cantidad * this.valorUnitario;
+            if (t >= 0) {
+                this.presupuestoActual = t;
+            } else {
+                this.presupuestoActual = 0;
+                this.presupuestoAdicional = Math.abs(t);
+            }
+        }
+
+        this.establecerPresupuesto();
 
         Alternativa alternativa = new Alternativa();
         alternativa.setCodigoVia(this.via);
@@ -694,5 +736,11 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
             // Rojo
             this.presupuestoActualTextField.setBackground(Color.red);
         }
+    }
+
+    private void establecerPresupuesto() {
+        this.establecerColorPresupuestoActual();
+        this.presupuestoActualTextField.setText("$ " + this.presupuestoActual);
+        this.presupuestoAdicionalTextField.setText("$ " + this.presupuestoAdicional);
     }
 }

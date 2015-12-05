@@ -851,16 +851,13 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                 List<Alternativa> a = new ArrayList<>();
                 a.add(alternativa);
                 r.getAlternativasPorDanio().add(a);
-//                this.viasResumen.set(posicion, r);
             } else {
                 int pd = r.getDaniosPorVia().indexOf(alternativa.getDanio());
                 List<Alternativa> alts = r.getAlternativasPorDanio().get(pd);
-                int p = r.getAlternativasPorDanio().indexOf(alts);
-                if (this.contieneAlternativa(alts, alternativa) < 0) {
+                int posicionAlternativa = this.contieneAlternativa(alts, alternativa);
+                if (posicionAlternativa < 0) {
                     alts.add(alternativa);
-//                    r.getAlternativasPorDanio().set(p, alts);
                 } else {
-                    int posicionAlternativa = this.contieneAlternativa(alts, alternativa);
                     alts.set(posicionAlternativa, alternativa);
                 }
             }

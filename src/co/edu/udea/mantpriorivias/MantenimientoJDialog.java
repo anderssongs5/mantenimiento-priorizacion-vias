@@ -863,7 +863,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                 }
             }
         }
-        
+
         this.mostrarResumen();
     }
 
@@ -881,7 +881,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         } else {
             r.getAlternativasPorDanio().get(pd).remove(pa);
         }
-        
+
         this.mostrarResumen();
     }
 
@@ -909,19 +909,31 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         return -1;
     }
 
-    private void mostrarResumen() {        
+    private void mostrarResumen() {
         String separadorLinea = System.getProperty("line.separator");
-        this.resumen = "RESUMEN" + separadorLinea + "-----------------------" 
+        this.resumen = "RESUMEN" + separadorLinea + "-----------------------"
                 + separadorLinea + separadorLinea;
-        for(Resumen r : this.viasResumen){
-            this.resumen += r.getVia();
+        this.viasResumen.stream().map((viasResumen1) -> {
+            this.resumen += viasResumen1.getVia();
+            return viasResumen1;
+        }).forEach((viasResumen1) -> {
             this.resumen += separadorLinea;
-            for(int i = 0; i < r.getDaniosPorVia().size(); i++){
-                this.resumen += r.getDaniosPorVia().get(i);
+            for (int j = 0; j < viasResumen1.getDaniosPorVia().size(); j++) {
+                this.resumen += "\t* " + viasResumen1.getDaniosPorVia().get(j);
                 this.resumen += separadorLinea;
-                List<List<Alternativa>> alternativasPorDanio = r.getAlternativasPorDanio();
-                
+                List<Alternativa> alternativasPorDanio = viasResumen1.getAlternativasPorDanio().get(j);
+                alternativasPorDanio.stream().map((al) -> {
+                    this.resumen += "\t\t- " + "Mantenimiento: " + al.getItem()
+                            + separadorLinea;
+                    return al;
+                }).forEach((al) -> {
+                    this.resumen += "\t\tCantidad: " + al.getCantidad()
+                            + separadorLinea + separadorLinea;
+                });
+                this.resumen += separadorLinea + separadorLinea;
             }
-        }
+        });
+
+        this.resumenTextArea.setText(this.resumen);
     }
 }

@@ -573,7 +573,6 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                         "Mantenimiento aplicado eliminado",
                         JOptionPane.INFORMATION_MESSAGE, INFORMATION_IMAGE);
 
-                this.crearResumenMantenimientoMejoras();
                 this.eliminarAlternativaResumen(mantenimiento);
 
                 return;
@@ -645,7 +644,6 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                 this.alternativasMantenimiento.add(mantenimiento);
 
                 this.establecerPresupuesto();
-                this.crearResumenMantenimientoMejoras();
                 this.agregarAlternativaResumen(mantenimiento);
 
                 return;
@@ -827,12 +825,6 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         this.establecerColorPresupuestoActual();
         this.presupuestoActualTextField.setText("$ " + this.presupuestoActual);
         this.presupuestoAdicionalTextField.setText("$ " + this.presupuestoAdicional);
-    }
-
-    private void crearResumenMantenimientoMejoras() {
-        String separadorLinea = System.getProperty("line.separator");
-        String resumen = "MANTENIMIENTO APLICADO:" + separadorLinea + separadorLinea;
-
     }
 
     private void agregarAlternativaResumen(Alternativa alternativa) {

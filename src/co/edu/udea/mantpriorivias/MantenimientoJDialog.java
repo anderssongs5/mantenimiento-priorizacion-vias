@@ -33,6 +33,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
     private List<String> listaDaniosComboBox = new ArrayList<>();
     private List<Alternativa> alternativasMantenimiento = new ArrayList<>();
     private List<Resumen> viasResumen = new ArrayList<>();
+    private String resumen = null;
     private String via;
     private String unidad;
     private int posicionDanio;
@@ -862,6 +863,8 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                 }
             }
         }
+        
+        this.mostrarResumen();
     }
 
     private void eliminarAlternativaResumen(Alternativa alternativa) {
@@ -878,6 +881,8 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         } else {
             r.getAlternativasPorDanio().get(pd).remove(pa);
         }
+        
+        this.mostrarResumen();
     }
 
     private int contieneAlternativa(List<Alternativa> alternativas, Alternativa alternativa) {
@@ -902,5 +907,21 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         }
 
         return -1;
+    }
+
+    private void mostrarResumen() {        
+        String separadorLinea = System.getProperty("line.separator");
+        this.resumen = "RESUMEN" + separadorLinea + "-----------------------" 
+                + separadorLinea + separadorLinea;
+        for(Resumen r : this.viasResumen){
+            this.resumen += r.getVia();
+            this.resumen += separadorLinea;
+            for(int i = 0; i < r.getDaniosPorVia().size(); i++){
+                this.resumen += r.getDaniosPorVia().get(i);
+                this.resumen += separadorLinea;
+                List<List<Alternativa>> alternativasPorDanio = r.getAlternativasPorDanio();
+                
+            }
+        }
     }
 }

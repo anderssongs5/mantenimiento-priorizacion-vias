@@ -24,6 +24,10 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[1575, 677]"/>
+    </Property>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>
@@ -45,138 +49,158 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="codigosViasComboBox" alignment="0" min="-2" pref="124" max="-2" attributes="0"/>
-                  <Component id="viasLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="385" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="presupuestoActualTextField" min="-2" pref="145" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="daniosAsociadosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="daniosComboBox" alignment="0" min="-2" pref="283" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="precioMantenimientoMejoraTextField" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="costoUnitarioMantenimientoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="unidadMedidaMantenimientoLabel" max="32767" attributes="0"/>
-                                  <Component id="unidadMedidaMantenimientoTextField" min="-2" pref="227" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cantidadMantenimientosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cantidadMantenimientoMejoraTextField" alignment="0" min="-2" pref="142" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cantidadTratamientosSuperficialesRiegosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cantidadTratamientosSuperficialesRiegosTextField" alignment="0" min="-2" pref="142" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="69" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cantidadEstabilizacionAfirmadosTextField" min="-2" pref="142" max="-2" attributes="0"/>
-                                  <Component id="cantidadEstabilizacionAfirmadosLabel" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="514" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                      <Component id="presupuestoActualLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-          </Group>
-          <Group type="102" attributes="0">
+              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="313" max="-2" attributes="0"/>
-                      <Component id="labelTitulo" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="presupuestoTotlaInicialLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="presupuestoTotalInicialTextField" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="porcentajeAdministracionLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                              <Component id="porcentajeAdministracionTextField" min="-2" pref="76" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="porcentajeImprevistosTextField" min="-2" pref="76" max="-2" attributes="0"/>
-                          <Component id="porcentajeImprevistosLabel" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="porcentajeUtilidadesLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="porcentajeUtilidadesTextField" alignment="0" min="-2" pref="76" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="presupuestoDisponibleLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="presupuestoDisponibleTextField" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="385" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="aplicarMantenimientoButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="496" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="mantenimientosRecomendadosLabel" min="-2" max="-2" attributes="0"/>
-                                      <Component id="mantenimientosComboBox" min="-2" pref="156" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="presupuestoActualTextField" min="-2" pref="145" max="-2" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                                              <Component id="presupuestoActualLabel" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="presupuestoAdicionalTextField" min="-2" pref="145" max="-2" attributes="0"/>
-                                          <Component id="presupuestoAdicionalLabel" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="-2" pref="123" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="tratamientosSuperficialesRiegosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="tratamientosSuperficialesRiegosComboBox" alignment="0" min="-2" pref="170" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="estabilizacionAfirmadosLabel" max="32767" attributes="0"/>
-                          <Component id="estabilizacionAfirmadosComboBox" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
+                  <Component id="presupuestoAdicionalTextField" min="-2" pref="145" max="-2" attributes="0"/>
+                  <Component id="presupuestoAdicionalLabel" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
+              <Component id="jDesktopPane1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="313" max="-2" attributes="0"/>
+                              <Component id="labelTitulo" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="presupuestoTotlaInicialLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="presupuestoTotalInicialTextField" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="porcentajeAdministracionLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                                                          <Component id="porcentajeAdministracionTextField" min="-2" pref="76" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                                  <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Group type="102" attributes="0">
+                                                          <Group type="103" groupAlignment="0" attributes="0">
+                                                              <Component id="porcentajeImprevistosTextField" min="-2" pref="76" max="-2" attributes="0"/>
+                                                              <Component id="porcentajeImprevistosLabel" min="-2" max="-2" attributes="0"/>
+                                                          </Group>
+                                                          <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+                                                          <Group type="103" groupAlignment="0" attributes="0">
+                                                              <Component id="porcentajeUtilidadesLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                              <Component id="porcentajeUtilidadesTextField" alignment="0" min="-2" pref="76" max="-2" attributes="0"/>
+                                                          </Group>
+                                                      </Group>
+                                                      <Component id="costoUnitarioMantenimientoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="cantidadMantenimientosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                                          <Component id="precioMantenimientoMejoraTextField" alignment="0" max="32767" attributes="0"/>
+                                                          <Component id="cantidadMantenimientoMejoraTextField" alignment="0" pref="142" max="32767" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="daniosAsociadosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="daniosComboBox" alignment="0" min="-2" pref="283" max="-2" attributes="0"/>
+                                                      <Component id="codigosViasComboBox" alignment="0" min="-2" pref="124" max="-2" attributes="0"/>
+                                                      <Component id="viasLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace pref="58" max="32767" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Group type="103" groupAlignment="1" attributes="0">
+                                                          <Component id="unidadMedidaMantenimientoTextField" min="-2" pref="200" max="-2" attributes="0"/>
+                                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                              <Component id="mantenimientosRecomendadosLabel" max="32767" attributes="0"/>
+                                                              <Component id="mantenimientosComboBox" min="-2" pref="198" max="-2" attributes="0"/>
+                                                          </Group>
+                                                      </Group>
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                                          <Component id="unidadMedidaMantenimientoLabel" min="-2" pref="152" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                                  <EmptySpace min="-2" pref="268" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="presupuestoDisponibleLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="presupuestoDisponibleTextField" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Component id="tratamientosSuperficialesRiegosLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="763" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="unidadMedidaMejoraTRSLabel" alignment="0" min="-2" pref="227" max="-2" attributes="0"/>
+                                          <Component id="unidadMedidaMejoraTSRTextField" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                                          <Component id="tratamientosSuperficialesRiegosComboBox" alignment="0" min="-2" pref="225" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="precioMejoraTSRTextField" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="costoUnitarioMejoraTSRLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="cantidadTratamientosSuperficialesRiegosLabel" min="-2" max="-2" attributes="0"/>
+                                          <Component id="cantidadTratamientosSuperficialesRiegosTextField" alignment="0" min="-2" pref="142" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="estabilizacionAfirmadosLabel" max="32767" attributes="0"/>
+                              <Component id="estabilizacionAfirmadosComboBox" min="-2" pref="170" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="unidadMedidaMejoraEATextField" alignment="0" min="-2" pref="166" max="-2" attributes="0"/>
+                          <Component id="unidadMedidaMejoraTRSLabel1" alignment="0" min="-2" pref="136" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" min="-2" pref="752" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="cantidadEstabilizacionAfirmadosLabel" min="-2" max="-2" attributes="0"/>
+                  <Component id="cantidadEstabilizacionAfirmadosTextField" min="-2" pref="142" max="-2" attributes="0"/>
+                  <Component id="precioMejoraEATextField" alignment="0" max="32767" attributes="0"/>
+                  <Component id="costoUnitarioMejoraTSRLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="181" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="470" max="-2" attributes="0"/>
+              <Component id="aplicarMantenimientoButton" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="aplicarMejorasButton" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="486" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -229,60 +253,108 @@
                       <Component id="presupuestoAdicionalTextField" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="daniosAsociadosLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="daniosComboBox" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="mantenimientosRecomendadosLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="mantenimientosComboBox" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="tratamientosSuperficialesRiegosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="estabilizacionAfirmadosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="tratamientosSuperficialesRiegosComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="estabilizacionAfirmadosComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="viasLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="codigosViasComboBox" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="daniosAsociadosLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="daniosComboBox" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="costoUnitarioMantenimientoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="unidadMedidaMantenimientoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cantidadMantenimientosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cantidadTratamientosSuperficialesRiegosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cantidadEstabilizacionAfirmadosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="tratamientosSuperficialesRiegosLabel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="mantenimientosRecomendadosLabel" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="mantenimientosComboBox" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="costoUnitarioMantenimientoLabel" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="precioMantenimientoMejoraTextField" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="costoUnitarioMejoraTSRLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="precioMejoraTSRTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tratamientosSuperficialesRiegosComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="cantidadMantenimientoMejoraTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="unidadMedidaMantenimientoTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                          <Component id="cantidadMantenimientosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="unidadMedidaMantenimientoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="cantidadTratamientosSuperficialesRiegosLabel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="cantidadTratamientosSuperficialesRiegosTextField" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="unidadMedidaMejoraTRSLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="unidadMedidaMejoraTSRTextField" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="viasLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="codigosViasComboBox" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="estabilizacionAfirmadosLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="estabilizacionAfirmadosComboBox" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="unidadMedidaMejoraTRSLabel1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="unidadMedidaMejoraEATextField" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="costoUnitarioMejoraTSRLabel1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="precioMejoraEATextField" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="cantidadEstabilizacionAfirmadosLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="cantidadEstabilizacionAfirmadosTextField" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+              <Component id="jDesktopPane1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="precioMantenimientoMejoraTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="unidadMedidaMantenimientoTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cantidadMantenimientoMejoraTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cantidadTratamientosSuperficialesRiegosTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cantidadEstabilizacionAfirmadosTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="aplicarMantenimientoButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="aplicarMejorasButton" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="aplicarMantenimientoButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+              <EmptySpace pref="43" max="32767" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="208" max="-2" attributes="0"/>
-              <EmptySpace pref="23" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -405,17 +477,20 @@
     </Component>
     <Component class="javax.swing.JLabel" name="costoUnitarioMantenimientoLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Costo unitario del mantenimiento"/>
+        <Property name="text" type="java.lang.String" value="Costo unitario"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="precioMantenimientoMejoraTextField">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="precioMantenimientoMejoraTextFieldActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="unidadMedidaMantenimientoLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Unidad de medida del matenimiento"/>
+        <Property name="text" type="java.lang.String" value="Unidad de medida "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="unidadMedidaMantenimientoTextField">
@@ -483,6 +558,9 @@
           <StringArray count="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tratamientosSuperficialesRiegosComboBoxActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="tratamientosSuperficialesRiegosLabel">
       <Properties>
@@ -500,6 +578,9 @@
           <StringArray count="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="estabilizacionAfirmadosComboBoxActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cantidadTratamientosSuperficialesRiegosTextField">
       <Properties>
@@ -525,6 +606,62 @@
     <Component class="javax.swing.JLabel" name="cantidadEstabilizacionAfirmadosLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cantidad"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JDesktopPane" name="jDesktopPane1">
+    </Component>
+    <Component class="javax.swing.JButton" name="aplicarMejorasButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Aplicar Mejora(s)"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aplicarMejorasButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="costoUnitarioMejoraTSRLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Costo unitario"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="precioMejoraTSRTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="unidadMedidaMejoraTRSLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Unidad de medida "/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="unidadMedidaMejoraTSRTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="unidadMedidaMejoraTSRTextFieldActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="precioMejoraEATextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="costoUnitarioMejoraTSRLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Costo unitario"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="unidadMedidaMejoraEATextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="unidadMedidaMejoraEATextFieldActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="unidadMedidaMejoraTRSLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Unidad de medida "/>
       </Properties>
     </Component>
   </SubComponents>

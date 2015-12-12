@@ -3,7 +3,7 @@ package co.edu.udea.mantpriorivias.entidades;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Resumen {
+public class ResumenMantenimiento {
 
     private String via;
     private List<String> daniosPorVia = new ArrayList<>();

@@ -7,7 +7,8 @@ import co.edu.udea.mantpriorivias.entidades.InfoVia;
 import co.edu.udea.mantpriorivias.entidades.Item;
 import co.edu.udea.mantpriorivias.entidades.MantPriorViasInfo;
 import co.edu.udea.mantpriorivias.entidades.Presupuesto;
-import co.edu.udea.mantpriorivias.entidades.Resumen;
+import co.edu.udea.mantpriorivias.entidades.ResumenMantenimiento;
+import co.edu.udea.mantpriorivias.entidades.ResumenMejora;
 import co.edu.udea.mantpriorivias.general.Util;
 import java.awt.Color;
 import java.awt.Component;
@@ -34,7 +35,8 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
     private List<Alternativa> alternativasMantenimiento = new ArrayList<>();
     private List<Alternativa> alternativasMejorasTSR = new ArrayList<>();
     private List<Alternativa> alternativasMejorasEA = new ArrayList<>();
-    private List<Resumen> viasResumen = new ArrayList<>();
+    private List<ResumenMantenimiento> viasResumenMantenimiento = new ArrayList<>();
+    private List<ResumenMejora> viasResumenMejora = new ArrayList<>();
     private List<Item> tratamientosSuperficialesRiegos = new ArrayList<>();
     private List<Item> estabilizacionAfirmados = new ArrayList<>();
     private String resumen = null;
@@ -46,7 +48,8 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
     private double presupuestoActual;
     private double presupuestoAdicional = 0.0;
     private double valorUnitarioMantenimiento;
-    private double valorUnitarioMejoraEA;;
+    private double valorUnitarioMejoraEA;
+    ;
     private double valorUnitarioMejoraTSR;
     private Item itemSeleccionadoMantenimiento;
     private Item itemSeleccionadoMejoraEA;
@@ -142,7 +145,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         precioMantenimientoMejoraTextField = new javax.swing.JTextField();
         unidadMedidaMantenimientoLabel = new javax.swing.JLabel();
         unidadMedidaMantenimientoTextField = new javax.swing.JTextField();
-        cantidadMantenimientoMejoraTextField = new javax.swing.JTextField();
+        cantidadMantenimientoTextField = new javax.swing.JTextField();
         cantidadMantenimientosLabel = new javax.swing.JLabel();
         mantenimientosRecomendadosLabel = new javax.swing.JLabel();
         mantenimientosComboBox = new javax.swing.JComboBox();
@@ -247,10 +250,10 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
             }
         });
 
-        cantidadMantenimientoMejoraTextField.setEditable(false);
-        cantidadMantenimientoMejoraTextField.addActionListener(new java.awt.event.ActionListener() {
+        cantidadMantenimientoTextField.setEditable(false);
+        cantidadMantenimientoTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cantidadMantenimientoMejoraTextFieldActionPerformed(evt);
+                cantidadMantenimientoTextFieldActionPerformed(evt);
             }
         });
 
@@ -310,6 +313,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         cantidadEstabilizacionAfirmadosLabel.setText("Cantidad");
 
         aplicarMejorasButton.setText("Aplicar Mejora(s)");
+        aplicarMejorasButton.setEnabled(false);
         aplicarMejorasButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aplicarMejorasButtonActionPerformed(evt);
@@ -411,7 +415,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                                                         .addComponent(cantidadMantenimientosLabel)
                                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                                             .addComponent(precioMantenimientoMejoraTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addComponent(cantidadMantenimientoMejoraTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))))
+                                                            .addComponent(cantidadMantenimientoTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))))
                                                 .addGroup(layout.createSequentialGroup()
                                                     .addContainerGap()
                                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -551,7 +555,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                                         .addGroup(layout.createSequentialGroup()
                                             .addGap(21, 21, 21)
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(cantidadMantenimientoMejoraTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(cantidadMantenimientoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(unidadMedidaMantenimientoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(cantidadMantenimientosLabel)
@@ -584,9 +588,9 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                 .addGap(17, 17, 17)
                 .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(aplicarMantenimientoButton)
-                    .addComponent(aplicarMejorasButton))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(aplicarMejorasButton)
+                    .addComponent(aplicarMantenimientoButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -632,7 +636,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         this.tratamientosSuperficialesRiegosComboBox.addItem(this.itemVacio);
         this.estabilizacionAfirmadosComboBox.removeAllItems();
         this.estabilizacionAfirmadosComboBox.addItem(this.itemVacio);
-        if (this.via != null && !this.via.isEmpty() && !this.via.equals("Seleccione")) {
+        if (this.via != null && !this.via.equals("Seleccione")) {
             this.tratamientosSuperficialesRiegos.stream().forEach(t -> {
                 this.tratamientosSuperficialesRiegosComboBox.addItem(t);
             });
@@ -641,6 +645,10 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                 this.estabilizacionAfirmadosComboBox.addItem(t);
             });
         }
+
+        this.itemSeleccionadoMejoraEA = null;
+        this.itemSeleccionadoMejoraTSR = null;
+        this.aplicarMejorasButton.setEnabled(false);
     }//GEN-LAST:event_codigosViasComboBoxActionPerformed
 
     private void daniosComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daniosComboBoxActionPerformed
@@ -675,20 +683,20 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_daniosComboBoxActionPerformed
 
-    private void cantidadMantenimientoMejoraTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadMantenimientoMejoraTextFieldActionPerformed
-    }//GEN-LAST:event_cantidadMantenimientoMejoraTextFieldActionPerformed
+    private void cantidadMantenimientoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadMantenimientoTextFieldActionPerformed
+    }//GEN-LAST:event_cantidadMantenimientoTextFieldActionPerformed
 
     private void mantenimientosComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mantenimientosComboBoxActionPerformed
         int posicionItemSeleccionado = this.mantenimientosComboBox.getSelectedIndex();
         if (posicionItemSeleccionado <= 0) {
-            this.cantidadMantenimientoMejoraTextField.setEditable(false);
-            this.cantidadMantenimientoMejoraTextField.setText("");
+            this.cantidadMantenimientoTextField.setEditable(false);
+            this.cantidadMantenimientoTextField.setText("");
             this.precioMantenimientoMejoraTextField.setText("");
             this.unidadMedidaMantenimientoTextField.setText("");
             this.aplicarMantenimientoButton.setEnabled(false);
         } else {
             this.aplicarMantenimientoButton.setEnabled(true);
-            this.cantidadMantenimientoMejoraTextField.setEditable(true);
+            this.cantidadMantenimientoTextField.setEditable(true);
             this.itemSeleccionadoMantenimiento = (Item) this.mantenimientosComboBox.
                     getSelectedItem();
             this.valorUnitarioMantenimiento = this.buscarPrecioDadoCodigoItem(
@@ -704,10 +712,10 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                     this.itemSeleccionadoMantenimiento.getCodigo());
 
             if (mantenimiento != null) {
-                this.cantidadMantenimientoMejoraTextField.setText(
+                this.cantidadMantenimientoTextField.setText(
                         String.valueOf(mantenimiento.getCantidad()).replace(".0", ""));
             } else {
-                this.cantidadMantenimientoMejoraTextField.setText("");
+                this.cantidadMantenimientoTextField.setText("");
             }
         }
     }//GEN-LAST:event_mantenimientosComboBoxActionPerformed
@@ -717,8 +725,8 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                 this.via, this.listaDaniosComboBox.get(this.posicionDanio),
                 this.itemSeleccionadoMantenimiento.getCodigo());
 
-        if (this.cantidadMantenimientoMejoraTextField.getText() == null
-                || this.cantidadMantenimientoMejoraTextField.getText().trim().isEmpty()) {
+        if (this.cantidadMantenimientoTextField.getText() == null
+                || this.cantidadMantenimientoTextField.getText().trim().isEmpty()) {
             if (mantenimiento == null) {
                 JOptionPane.showMessageDialog(this,
                         "No se ha agregado el mantenimiento porque no se ha ingresado"
@@ -757,7 +765,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
             }
         }
 
-        if (!Util.isNumerico(this.cantidadMantenimientoMejoraTextField.getText())) {
+        if (!Util.isNumerico(this.cantidadMantenimientoTextField.getText())) {
             JOptionPane.showMessageDialog(this,
                     "El valor ingresado no es un número válido", "Valor no numérico",
                     JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
@@ -765,8 +773,8 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
             return;
         }
 
-        if (Util.isNumerico(this.cantidadMantenimientoMejoraTextField.getText())
-                && Double.parseDouble(this.cantidadMantenimientoMejoraTextField.getText()) <= 0) {
+        if (Util.isNumerico(this.cantidadMantenimientoTextField.getText())
+                && Double.parseDouble(this.cantidadMantenimientoTextField.getText()) <= 0) {
             JOptionPane.showMessageDialog(this,
                     "El valor ingresado debe ser mayor que cero", "Valor no válido",
                     JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
@@ -775,7 +783,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         }
 
         double cantidad = Double.parseDouble(
-                this.cantidadMantenimientoMejoraTextField.getText().trim());
+                this.cantidadMantenimientoTextField.getText().trim());
         if (mantenimiento != null) {
             if (mantenimiento.getCantidad() == cantidad) {
                 JOptionPane.showMessageDialog(this,
@@ -822,7 +830,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                 this.alternativasMantenimiento.add(mantenimiento);
 
                 this.establecerPresupuesto();
-                this.agregarAlternativaResumen(mantenimiento);
+                this.agregarAlternativaResumenMantenimiento(mantenimiento);
 
                 return;
             }
@@ -849,7 +857,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         alternativa.setCantidad(cantidad);
         this.alternativasMantenimiento.add(alternativa);
 
-        this.agregarAlternativaResumen(alternativa);
+        this.agregarAlternativaResumenMantenimiento(alternativa);
     }//GEN-LAST:event_aplicarMantenimientoButtonActionPerformed
 
     private void unidadMedidaMantenimientoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unidadMedidaMantenimientoTextFieldActionPerformed
@@ -865,117 +873,137 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
 
     private void aplicarMejorasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aplicarMejorasButtonActionPerformed
         Alternativa mejoraTSR = null;
+        if (this.itemSeleccionadoMejoraTSR != null) {
+            mejoraTSR = this.buscarMejoraTSRAplicadaDadoViaMejora(via,
+                    this.itemSeleccionadoMejoraTSR.getCodigo());
+        }
         Alternativa mejoraEA = null;
+        if (this.itemSeleccionadoMejoraEA != null) {
+            mejoraEA = this.buscarMejoraEAAplicadaDadoViaMejora(via,
+                    this.itemSeleccionadoMejoraEA.getCodigo());
+        }
 
         boolean mejoraTSREliminada = false;
         boolean mejoraEAEliminada = false;
         if ((this.cantidadTratamientosSuperficialesRiegosTextField.getText() == null
-                || this.cantidadTratamientosSuperficialesRiegosLabel.getText().trim().isEmpty())
+                || this.cantidadTratamientosSuperficialesRiegosTextField.getText().trim().isEmpty())
                 && (this.cantidadEstabilizacionAfirmadosTextField.getText() == null
-                || this.cantidadEstabilizacionAfirmadosTextField.getText().trim().isEmpty())) {
-            if (mejoraEA == null && mejoraTSR == null) {
-                JOptionPane.showMessageDialog(this,
-                        "No se han agregado las mejoras porque no se han ingresado"
-                        + " las cantidades", "No se aplicaron mejoras.",
-                        JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
+                || this.cantidadEstabilizacionAfirmadosTextField.getText().trim().isEmpty())
+                && mejoraEA == null && mejoraTSR == null) {
+            JOptionPane.showMessageDialog(this,
+                    "No se han agregado las mejoras porque no se han ingresado"
+                    + " las cantidades", "No se aplicaron mejoras.",
+                    JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
 
-                return;
-            }
+            return;
         } else {
             double totalARecuperar = 0.0;
-            if (mejoraEA != null) {
+            if (mejoraEA != null
+                    && (this.cantidadEstabilizacionAfirmadosTextField.getText() == null
+                    || this.cantidadEstabilizacionAfirmadosTextField.getText().trim().isEmpty())) {
+                this.eliminarAlternativaResumenMejoras(mejoraEA);
                 this.alternativasMejorasEA.remove(mejoraEA);
                 totalARecuperar += mejoraEA.getCantidad()
                         * this.buscarPrecioDadoCodigoItem(mejoraEA.getItem());
                 mejoraEAEliminada = true;
-
-//            this.eliminarAlternativaResumen(mantenimiento);
             }
 
-            if (mejoraTSR != null) {
+            if (mejoraTSR != null
+                    && (this.cantidadTratamientosSuperficialesRiegosTextField.getText() == null
+                    || this.cantidadTratamientosSuperficialesRiegosTextField.getText().trim().isEmpty())) {
+                this.eliminarAlternativaResumenMejoras(mejoraTSR);
                 this.alternativasMejorasTSR.remove(mejoraTSR);
                 totalARecuperar += mejoraTSR.getCantidad()
                         * this.buscarPrecioDadoCodigoItem(mejoraTSR.getItem());
                 mejoraTSREliminada = true;
-
-//            this.eliminarAlternativaResumen(mantenimiento);
             }
 
-            if (this.presupuestoActual == 0.0) {
-                if (totalARecuperar < this.presupuestoAdicional) {
-                    this.presupuestoAdicional = this.presupuestoAdicional - totalARecuperar;
-                } else if (totalARecuperar == this.presupuestoAdicional) {
-                    this.presupuestoAdicional = 0.0;
+            if (mejoraEAEliminada || mejoraTSREliminada) {
+                if (this.presupuestoActual == 0.0) {
+                    if (totalARecuperar < this.presupuestoAdicional) {
+                        this.presupuestoAdicional = this.presupuestoAdicional - totalARecuperar;
+                    } else if (totalARecuperar == this.presupuestoAdicional) {
+                        this.presupuestoAdicional = 0.0;
+                    } else {
+                        double p = totalARecuperar - this.presupuestoAdicional;
+                        this.presupuestoAdicional = 0.0;
+                        this.presupuestoActual += p;
+                    }
                 } else {
-                    double p = totalARecuperar - this.presupuestoAdicional;
-                    this.presupuestoAdicional = 0.0;
-                    this.presupuestoActual += p;
+                    this.presupuestoActual += totalARecuperar;
                 }
-            } else {
-                this.presupuestoActual += totalARecuperar;
-            }
 
-            this.establecerPresupuesto();
-            JOptionPane.showMessageDialog(this,
-                    "Se han eliminado las mejoras correctamente.",
-                    "Mejoras aplicadas eliminadas",
-                    JOptionPane.INFORMATION_MESSAGE, INFORMATION_IMAGE);
+                this.establecerPresupuesto();
+                JOptionPane.showMessageDialog(this,
+                        "Se han eliminado las mejoras correctamente.",
+                        "Mejoras aplicadas eliminadas",
+                        JOptionPane.INFORMATION_MESSAGE, INFORMATION_IMAGE);
+            }
         }
 
-        if (mejoraEAEliminada || mejoraTSREliminada) {
-            if (!mejoraEAEliminada) {
-                double cantidad = Double.parseDouble(
-                        this.cantidadEstabilizacionAfirmadosTextField.getText().trim());
-                if (mejoraEA != null) {
-                    if (mejoraEA.getCantidad() == cantidad) {
-//                        JOptionPane.showMessageDialog(this,
-//                                "No se ha aplicado el mantenimiento porque ya existe uno con "
-//                                + "los mismos valores", "Mantenimiento no aplicado",
-//                                JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
+        boolean actualizadaEA = false;
+        boolean igualEA = false;
+        if (!mejoraEAEliminada
+                && this.cantidadEstabilizacionAfirmadosTextField != null
+                && !this.cantidadEstabilizacionAfirmadosTextField.getText().trim().isEmpty()) {
+            if (!Util.isNumerico(this.cantidadEstabilizacionAfirmadosTextField.getText())) {
+                JOptionPane.showMessageDialog(this,
+                        "Por favor verique que las cantidades ingresadas sean numéricas.",
+                        "Cantidades no válidas",
+                        JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
 
-//                        return;
-                    } else {
-                        this.alternativasMejorasEA.remove(mejoraEA);
-                        double cantidadTemp = cantidad;
-                        cantidad = cantidadTemp - mejoraEA.getCantidad();
-                        mejoraEA.setCantidad(cantidadTemp);
-                        double precioMejora = Math.abs(cantidad * this.valorUnitarioMejoraEA);
-                        if (cantidad < 0) {
-                            if (this.presupuestoAdicional > 0) {
-                                double t = this.presupuestoAdicional - precioMejora;
-                                if (t > 0) {
-                                    this.presupuestoAdicional = t;
-                                } else if (t == 0) {
-                                    this.presupuestoAdicional = 0;
-                                } else {
-                                    this.presupuestoAdicional = 0;
-                                    this.presupuestoActual += Math.abs(t);
-                                }
+                return;
+            }
+
+            double cantidad = Double.parseDouble(
+                    this.cantidadEstabilizacionAfirmadosTextField.getText().trim());
+            if (mejoraEA != null) {
+                if (mejoraEA.getCantidad() == cantidad) {
+                    igualEA = true;
+                } else {
+                    this.alternativasMejorasEA.remove(mejoraEA);
+                    double cantidadTemp = cantidad;
+                    cantidad = cantidadTemp - mejoraEA.getCantidad();
+                    mejoraEA.setCantidad(cantidadTemp);
+                    double precioMejora = Math.abs(cantidad * this.valorUnitarioMejoraEA);
+                    if (cantidad < 0) {
+                        if (this.presupuestoAdicional > 0) {
+                            double t = this.presupuestoAdicional - precioMejora;
+                            if (t > 0) {
+                                this.presupuestoAdicional = t;
+                            } else if (t == 0) {
+                                this.presupuestoAdicional = 0;
                             } else {
-                                this.presupuestoActual += precioMejora;
+                                this.presupuestoAdicional = 0;
+                                this.presupuestoActual += Math.abs(t);
                             }
                         } else {
-                            if (this.presupuestoAdicional > 0) {
-                                this.presupuestoAdicional += precioMejora;
+                            this.presupuestoActual += precioMejora;
+                        }
+                    } else {
+                        if (this.presupuestoAdicional > 0) {
+                            this.presupuestoAdicional += precioMejora;
+                        } else {
+                            double t = this.presupuestoActual - precioMejora;
+                            if (t > 0) {
+                                this.presupuestoActual = t;
+                            } else if (t == 0) {
+                                this.presupuestoActual = 0;
                             } else {
-                                double t = this.presupuestoActual - precioMejora;
-                                if (t > 0) {
-                                    this.presupuestoActual = t;
-                                } else if (t == 0) {
-                                    this.presupuestoActual = 0;
-                                } else {
-                                    this.presupuestoActual = 0;
-                                    this.presupuestoAdicional = Math.abs(t);
-                                }
+                                this.presupuestoActual = 0;
+                                this.presupuestoAdicional = Math.abs(t);
                             }
                         }
-                        this.alternativasMejorasEA.add(mejoraEA);
-
-                        this.establecerPresupuesto();
-//                        this.agregarAlternativaResumen(mejoraEA);
                     }
-                }
+                    this.alternativasMejorasEA.add(mejoraEA);
+                    this.agregarAlternativaResumenMejoras(mejoraEA);
 
+                    this.establecerPresupuesto();
+                    actualizadaEA = true;
+                }
+            }
+
+            if (!actualizadaEA && !mejoraEAEliminada && !igualEA) {
                 if (this.presupuestoAdicional > 0) {
                     this.presupuestoAdicional += cantidad * this.valorUnitarioMejoraEA;
                 } else {
@@ -993,66 +1021,76 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                 Alternativa alternativa = new Alternativa();
                 alternativa.setCodigoVia(this.via);
                 alternativa.setItem(this.itemSeleccionadoMejoraEA.getCodigo());
-                alternativa.setDanio(this.listaDaniosComboBox.get(this.posicionDanio));
                 alternativa.setCantidad(cantidad);
                 this.alternativasMejorasEA.add(alternativa);
 
-//                this.agregarAlternativaResumen(alternativa);
+                this.agregarAlternativaResumenMejoras(alternativa);
             }
+        }
 
-            if (!mejoraTSREliminada) {
-                double cantidad = Double.parseDouble(
-                        this.cantidadTratamientosSuperficialesRiegosTextField.getText().trim());
-                if (mejoraTSR != null) {
-                    if (mejoraTSR.getCantidad() == cantidad) {
-//                        JOptionPane.showMessageDialog(this,
-//                                "No se ha aplicado el mantenimiento porque ya existe uno con "
-//                                + "los mismos valores", "Mantenimiento no aplicado",
-//                                JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
-//
-//                        return;
-                    } else {
-                        this.alternativasMejorasTSR.remove(mejoraTSR);
-                        double cantidadTemp = cantidad;
-                        cantidad = cantidadTemp - mejoraTSR.getCantidad();
-                        mejoraTSR.setCantidad(cantidadTemp);
-                        double precioMejora = Math.abs(cantidad * this.valorUnitarioMejoraTSR);
-                        if (cantidad < 0) {
-                            if (this.presupuestoAdicional > 0) {
-                                double t = this.presupuestoAdicional - precioMejora;
-                                if (t > 0) {
-                                    this.presupuestoAdicional = t;
-                                } else if (t == 0) {
-                                    this.presupuestoAdicional = 0;
-                                } else {
-                                    this.presupuestoAdicional = 0;
-                                    this.presupuestoActual += Math.abs(t);
-                                }
+        boolean actualizadaTSR = false;
+        boolean igualTSR = false;
+        if (!mejoraTSREliminada
+                && this.cantidadTratamientosSuperficialesRiegosTextField != null
+                && !this.cantidadTratamientosSuperficialesRiegosTextField.getText().trim().isEmpty()) {
+            if (!Util.isNumerico(this.cantidadTratamientosSuperficialesRiegosTextField.getText())) {
+                JOptionPane.showMessageDialog(this,
+                        "Por favor verique que las cantidades ingresadas sean numéricas.",
+                        "Cantidades no válidas",
+                        JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
+
+                return;
+            }
+            double cantidad = Double.parseDouble(
+                    this.cantidadTratamientosSuperficialesRiegosTextField.getText().trim());
+            if (mejoraTSR != null) {
+                if (mejoraTSR.getCantidad() == cantidad) {
+                    igualTSR = true;
+                } else {
+                    this.alternativasMejorasTSR.remove(mejoraTSR);
+                    double cantidadTemp = cantidad;
+                    cantidad = cantidadTemp - mejoraTSR.getCantidad();
+                    mejoraTSR.setCantidad(cantidadTemp);
+                    double precioMejora = Math.abs(cantidad * this.valorUnitarioMejoraTSR);
+                    if (cantidad < 0) {
+                        if (this.presupuestoAdicional > 0) {
+                            double t = this.presupuestoAdicional - precioMejora;
+                            if (t > 0) {
+                                this.presupuestoAdicional = t;
+                            } else if (t == 0) {
+                                this.presupuestoAdicional = 0;
                             } else {
-                                this.presupuestoActual += precioMejora;
+                                this.presupuestoAdicional = 0;
+                                this.presupuestoActual += Math.abs(t);
                             }
                         } else {
-                            if (this.presupuestoAdicional > 0) {
-                                this.presupuestoAdicional += precioMejora;
+                            this.presupuestoActual += precioMejora;
+                        }
+                    } else {
+                        if (this.presupuestoAdicional > 0) {
+                            this.presupuestoAdicional += precioMejora;
+                        } else {
+                            double t = this.presupuestoActual - precioMejora;
+                            if (t > 0) {
+                                this.presupuestoActual = t;
+                            } else if (t == 0) {
+                                this.presupuestoActual = 0;
                             } else {
-                                double t = this.presupuestoActual - precioMejora;
-                                if (t > 0) {
-                                    this.presupuestoActual = t;
-                                } else if (t == 0) {
-                                    this.presupuestoActual = 0;
-                                } else {
-                                    this.presupuestoActual = 0;
-                                    this.presupuestoAdicional = Math.abs(t);
-                                }
+                                this.presupuestoActual = 0;
+                                this.presupuestoAdicional = Math.abs(t);
                             }
                         }
-                        this.alternativasMejorasTSR.add(mejoraTSR);
-
-                        this.establecerPresupuesto();
-//                        this.agregarAlternativaResumen(mejoraTSR);
                     }
-                }
+                    this.alternativasMejorasTSR.add(mejoraTSR);
 
+                    this.establecerPresupuesto();
+                    actualizadaTSR = true;
+
+                    this.agregarAlternativaResumenMejoras(mejoraTSR);
+                }
+            }
+
+            if (!actualizadaTSR && !mejoraTSREliminada && !igualTSR) {
                 if (this.presupuestoAdicional > 0) {
                     this.presupuestoAdicional += cantidad * this.valorUnitarioMejoraTSR;
                 } else {
@@ -1070,11 +1108,10 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                 Alternativa alternativa = new Alternativa();
                 alternativa.setCodigoVia(this.via);
                 alternativa.setItem(this.itemSeleccionadoMejoraTSR.getCodigo());
-                alternativa.setDanio(this.listaDaniosComboBox.get(this.posicionDanio));
                 alternativa.setCantidad(cantidad);
                 this.alternativasMejorasTSR.add(alternativa);
 
-//                this.agregarAlternativaResumen(alternativa);
+                this.agregarAlternativaResumenMejoras(alternativa);
             }
         }
     }//GEN-LAST:event_aplicarMejorasButtonActionPerformed
@@ -1090,10 +1127,16 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
     private void tratamientosSuperficialesRiegosComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tratamientosSuperficialesRiegosComboBoxActionPerformed
         int posicionItemSeleccionado = this.tratamientosSuperficialesRiegosComboBox.getSelectedIndex();
         if (posicionItemSeleccionado <= 0) {
+            this.itemSeleccionadoMejoraTSR = null;
             this.cantidadTratamientosSuperficialesRiegosTextField.setEditable(false);
             this.cantidadTratamientosSuperficialesRiegosTextField.setText("");
             this.precioMejoraTSRTextField.setText("");
             this.unidadMedidaMejoraTSRTextField.setText("");
+
+            if (this.itemSeleccionadoMejoraTSR == null
+                    && this.itemSeleccionadoMejoraEA == null) {
+                this.aplicarMejorasButton.setEnabled(false);
+            }
         } else {
             this.aplicarMejorasButton.setEnabled(true);
             this.cantidadTratamientosSuperficialesRiegosTextField.setEditable(true);
@@ -1107,15 +1150,14 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                     + String.valueOf(this.itemSeleccionadoMejoraTSR.getValorUnitario()));
             this.unidadMedidaMejoraTSRTextField.setText(this.unidadMejoraTSR);
 
-            Alternativa mejora = this.buscarMantenimientoAplicadoDadoViaItemMantenimiento(
-                    this.via, this.listaDaniosComboBox.get(this.posicionDanio),
-                    this.itemSeleccionadoMantenimiento.getCodigo());
+            Alternativa mejora = this.buscarMejoraTSRAplicadaDadoViaMejora(via,
+                    this.itemSeleccionadoMejoraTSR.getCodigo());
 
             if (mejora != null) {
-                this.cantidadMantenimientoMejoraTextField.setText(
+                this.cantidadTratamientosSuperficialesRiegosTextField.setText(
                         String.valueOf(mejora.getCantidad()).replace(".0", ""));
             } else {
-                this.cantidadMantenimientoMejoraTextField.setText("");
+                this.cantidadTratamientosSuperficialesRiegosTextField.setText("");
             }
         }
     }//GEN-LAST:event_tratamientosSuperficialesRiegosComboBoxActionPerformed
@@ -1125,12 +1167,18 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_precioMantenimientoMejoraTextFieldActionPerformed
 
     private void estabilizacionAfirmadosComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estabilizacionAfirmadosComboBoxActionPerformed
-                int posicionItemSeleccionado = this.estabilizacionAfirmadosComboBox.getSelectedIndex();
+        int posicionItemSeleccionado = this.estabilizacionAfirmadosComboBox.getSelectedIndex();
         if (posicionItemSeleccionado <= 0) {
+            this.itemSeleccionadoMejoraEA = null;
             this.cantidadEstabilizacionAfirmadosTextField.setEditable(false);
             this.cantidadEstabilizacionAfirmadosTextField.setText("");
             this.precioMejoraEATextField.setText("");
             this.unidadMedidaMejoraEATextField.setText("");
+
+            if (this.itemSeleccionadoMejoraTSR == null
+                    && this.itemSeleccionadoMejoraEA == null) {
+                this.aplicarMejorasButton.setEnabled(false);
+            }
         } else {
             this.aplicarMejorasButton.setEnabled(true);
             this.cantidadEstabilizacionAfirmadosTextField.setEditable(true);
@@ -1142,11 +1190,10 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                     this.itemSeleccionadoMejoraEA.getCodigo());
             this.precioMejoraEATextField.setText("$ "
                     + String.valueOf(this.itemSeleccionadoMejoraEA.getValorUnitario()));
-            this.unidadMedidaMejoraTSRTextField.setText(this.unidadMejoraEA);
+            this.unidadMedidaMejoraEATextField.setText(this.unidadMejoraEA);
 
-            Alternativa mejora = this.buscarMejoraEAAplicadaDadoViaItemMejora(
-                    this.via, this.listaDaniosComboBox.get(this.posicionDanio),
-                    this.itemSeleccionadoMantenimiento.getCodigo());
+            Alternativa mejora = this.buscarMejoraEAAplicadaDadoViaMejora(
+                    this.via, this.itemSeleccionadoMejoraEA.getCodigo());
 
             if (mejora != null) {
                 this.cantidadEstabilizacionAfirmadosTextField.setText(
@@ -1164,7 +1211,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
     private javax.swing.JMenu archivoMenu;
     private javax.swing.JLabel cantidadEstabilizacionAfirmadosLabel;
     private javax.swing.JTextField cantidadEstabilizacionAfirmadosTextField;
-    private javax.swing.JTextField cantidadMantenimientoMejoraTextField;
+    private javax.swing.JTextField cantidadMantenimientoTextField;
     private javax.swing.JLabel cantidadMantenimientosLabel;
     private javax.swing.JLabel cantidadTratamientosSuperficialesRiegosLabel;
     private javax.swing.JTextField cantidadTratamientosSuperficialesRiegosTextField;
@@ -1256,7 +1303,31 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
     }
 
     private void restringirValoresCampos() {
-        this.cantidadMantenimientoMejoraTextField.addKeyListener(new KeyAdapter() {
+        this.cantidadMantenimientoTextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE)
+                        || (c == KeyEvent.VK_DELETE) || c == KeyEvent.VK_PERIOD)) {
+                    getToolkit().beep();
+                    e.consume();
+                }
+            }
+        });
+
+        this.cantidadTratamientosSuperficialesRiegosTextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE)
+                        || (c == KeyEvent.VK_DELETE) || c == KeyEvent.VK_PERIOD)) {
+                    getToolkit().beep();
+                    e.consume();
+                }
+            }
+        });
+
+        this.cantidadEstabilizacionAfirmadosTextField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
@@ -1325,18 +1396,18 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         this.presupuestoAdicionalTextField.setText("$ " + this.presupuestoAdicional);
     }
 
-    private void agregarAlternativaResumen(Alternativa alternativa) {
-        int posicion = this.contieneVia(alternativa.getCodigoVia());
+    private void agregarAlternativaResumenMantenimiento(Alternativa alternativa) {
+        int posicion = this.contieneViaMantenimiento(alternativa.getCodigoVia());
         if (posicion < 0) {
-            Resumen r = new Resumen();
+            ResumenMantenimiento r = new ResumenMantenimiento();
             r.setVia(alternativa.getCodigoVia());
             r.getDaniosPorVia().add(alternativa.getDanio());
             List<Alternativa> a = new ArrayList<>();
             a.add(alternativa);
             r.getAlternativasPorDanio().add(a);
-            this.viasResumen.add(r);
+            this.viasResumenMantenimiento.add(r);
         } else {
-            Resumen r = this.viasResumen.get(posicion);
+            ResumenMantenimiento r = this.viasResumenMantenimiento.get(posicion);
             if (!r.getDaniosPorVia().contains(alternativa.getDanio())) {
                 r.getDaniosPorVia().add(alternativa.getDanio());
                 List<Alternativa> a = new ArrayList<>();
@@ -1358,15 +1429,15 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
     }
 
     private void eliminarAlternativaResumen(Alternativa alternativa) {
-        int posVia = this.contieneVia(alternativa.getCodigoVia());
-        Resumen r = this.viasResumen.get(posVia);
+        int posVia = this.contieneViaMantenimiento(alternativa.getCodigoVia());
+        ResumenMantenimiento r = this.viasResumenMantenimiento.get(posVia);
         int pd = r.getDaniosPorVia().indexOf(alternativa.getDanio());
         int pa = r.getAlternativasPorDanio().get(pd).indexOf(alternativa);
         if (r.getAlternativasPorDanio().get(pd).size() == 1) {
             r.getAlternativasPorDanio().remove(pa);
             r.getDaniosPorVia().remove(pd);
             if (0 == r.getDaniosPorVia().size()) {
-                this.viasResumen.remove(posVia);
+                this.viasResumenMantenimiento.remove(posVia);
             }
         } else {
             r.getAlternativasPorDanio().get(pd).remove(pa);
@@ -1388,9 +1459,9 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         return -1;
     }
 
-    private int contieneVia(String via) {
-        for (int i = 0; i < this.viasResumen.size(); i++) {
-            if (this.viasResumen.get(i).getVia().equals(via)) {
+    private int contieneViaMantenimiento(String via) {
+        for (int i = 0; i < this.viasResumenMantenimiento.size(); i++) {
+            if (this.viasResumenMantenimiento.get(i).getVia().equals(via)) {
 
                 return i;
             }
@@ -1403,7 +1474,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         String separadorLinea = System.getProperty("line.separator");
         this.resumen = "RESUMEN" + separadorLinea + "-----------------------"
                 + separadorLinea + separadorLinea;
-        this.viasResumen.stream().map((viasResumen1) -> {
+        this.viasResumenMantenimiento.stream().map((viasResumen1) -> {
             this.resumen += viasResumen1.getVia();
             return viasResumen1;
         }).forEach((viasResumen1) -> {
@@ -1417,8 +1488,10 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                             + separadorLinea;
                     return al;
                 }).forEach((al) -> {
-                    this.resumen += "\t\tCantidad: " + al.getCantidad()
-                            + separadorLinea + separadorLinea;
+                    this.resumen += "\t\t Cantidad: " + al.getCantidad()
+                            + separadorLinea;
+                    this.resumen += "\t\t Costo : $" + (al.getCantidad()
+                            * this.buscarPrecioDadoCodigoItem(al.getItem()));
                 });
                 this.resumen += separadorLinea + separadorLinea;
             }
@@ -1470,27 +1543,75 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         }
     }
 
-    private Alternativa buscarMejoraEAAplicadaDadoViaItemMejora(String via, String danio, String item) {
+    private Alternativa buscarMejoraEAAplicadaDadoViaMejora(String via, String item) {
         Alternativa alternativa = null;
         for (Alternativa a : this.alternativasMejorasEA) {
-            if (via.equals(a.getCodigoVia()) && danio.equals(a.getDanio())
-                    && item.equals(a.getItem())) {
+            if (via.equals(a.getCodigoVia()) && item.equals(a.getItem())) {
                 return a;
             }
         }
 
         return alternativa;
     }
-    
-    private Alternativa buscarMejoraTSRAplicadaDadoViaItemMejora(String via, String danio, String item) {
+
+    private Alternativa buscarMejoraTSRAplicadaDadoViaMejora(String via, String item) {
         Alternativa alternativa = null;
         for (Alternativa a : this.alternativasMejorasTSR) {
-            if (via.equals(a.getCodigoVia()) && danio.equals(a.getDanio())
-                    && item.equals(a.getItem())) {
+            if (via.equals(a.getCodigoVia()) && item.equals(a.getItem())) {
                 return a;
             }
         }
 
         return alternativa;
+    }
+
+    private void agregarAlternativaResumenMejoras(Alternativa mejora) {
+        int posicion = this.contieneViaMejora(mejora.getCodigoVia());
+        if (posicion < 0) {
+            ResumenMejora resumenMejora = new ResumenMejora();
+            resumenMejora.setVia(mejora.getCodigoVia());
+            List<Alternativa> alternativas = new ArrayList<>();
+            alternativas.add(mejora);
+            resumenMejora.setAlternativas(alternativas);
+            this.viasResumenMejora.add(resumenMejora);
+        } else {
+            ResumenMejora rm = this.viasResumenMejora.get(posicion);
+            int pos = this.contieneMejora(rm.getAlternativas(), mejora.getItem());
+            if (pos < 0) {
+                rm.getAlternativas().add(mejora);
+            } else {
+                rm.getAlternativas().set(pos, mejora);
+            }
+        }
+    }
+
+    private void eliminarAlternativaResumenMejoras(Alternativa mejora) {
+        int posicion = this.contieneViaMejora(mejora.getCodigoVia());
+        this.viasResumenMejora.get(posicion).getAlternativas().remove(mejora);
+        if (this.viasResumenMejora.get(posicion).getAlternativas().isEmpty()) {
+            this.viasResumenMejora.remove(posicion);
+        }
+    }
+
+    private int contieneViaMejora(String codigoVia) {
+        for (int i = 0; i < this.viasResumenMejora.size(); i++) {
+            if (this.viasResumenMejora.get(i).getVia().equals(codigoVia)) {
+
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    private int contieneMejora(List<Alternativa> alternativas, String alternativa) {
+        for (int i = 0; i < alternativas.size(); i++) {
+            if (alternativas.get(i).getItem().equals(alternativa)) {
+
+                return i;
+            }
+        }
+
+        return -1;
     }
 }

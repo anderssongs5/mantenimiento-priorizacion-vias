@@ -111,7 +111,7 @@
                                                       <Component id="cantidadMantenimientosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                                       <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                                           <Component id="precioMantenimientoMejoraTextField" alignment="0" max="32767" attributes="0"/>
-                                                          <Component id="cantidadMantenimientoMejoraTextField" alignment="0" pref="142" max="32767" attributes="0"/>
+                                                          <Component id="cantidadMantenimientoTextField" alignment="0" pref="142" max="32767" attributes="0"/>
                                                       </Group>
                                                   </Group>
                                               </Group>
@@ -301,7 +301,7 @@
                                       <Group type="102" alignment="1" attributes="0">
                                           <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="cantidadMantenimientoMejoraTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="cantidadMantenimientoTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="unidadMedidaMantenimientoTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
@@ -348,9 +348,9 @@
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               <Component id="jDesktopPane1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="aplicarMantenimientoButton" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="aplicarMejorasButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="aplicarMantenimientoButton" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="43" max="32767" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="208" max="-2" attributes="0"/>
@@ -501,12 +501,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="unidadMedidaMantenimientoTextFieldActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="cantidadMantenimientoMejoraTextField">
+    <Component class="javax.swing.JTextField" name="cantidadMantenimientoTextField">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cantidadMantenimientoMejoraTextFieldActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cantidadMantenimientoTextFieldActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="cantidadMantenimientosLabel">
@@ -613,6 +613,7 @@
     <Component class="javax.swing.JButton" name="aplicarMejorasButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Aplicar Mejora(s)"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aplicarMejorasButtonActionPerformed"/>

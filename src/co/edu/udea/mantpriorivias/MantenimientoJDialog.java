@@ -44,12 +44,12 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
     private String unidadMantenimiento;
     private String unidadMejoraTSR;
     private String unidadMejoraEA;
+    private boolean tieneMejoras;
     private int posicionDanio;
     private double presupuestoActual;
     private double presupuestoAdicional = 0.0;
     private double valorUnitarioMantenimiento;
     private double valorUnitarioMejoraEA;
-    ;
     private double valorUnitarioMejoraTSR;
     private Item itemSeleccionadoMantenimiento;
     private Item itemSeleccionadoMejoraEA;
@@ -539,10 +539,10 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(cantidadMantenimientoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(unidadMedidaMantenimientoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(aplicarMantenimientoButton, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(cantidadMantenimientosLabel)
-                                        .addComponent(unidadMedidaMantenimientoLabel)
-                                        .addComponent(aplicarMantenimientoButton)))))
+                                        .addComponent(unidadMedidaMantenimientoLabel)))))
                         .addGap(17, 17, 17)
                         .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -646,35 +646,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_codigosViasComboBoxActionPerformed
 
     private void daniosComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daniosComboBoxActionPerformed
-        this.posicionDanio = this.daniosComboBox.getSelectedIndex();
-        if (this.listaDaniosComboBox != null && !this.listaDaniosComboBox.isEmpty()
-                && this.posicionDanio >= 0) {
-            String danioSeleccionado = this.listaDaniosComboBox.get(this.posicionDanio);
-            String alternativasIntervencion = Constantes.ALTERNATIVAS_INTERVENCION_MANTENIMIENTO.get(
-                    danioSeleccionado);
-            if (alternativasIntervencion != null) {
-                List<String> mantenimientosMejoras = Util.tokenizar(
-                        alternativasIntervencion, ",");
-                List<Item> itemsObject = new ArrayList<>();
-                this.mantPriorViasInfo.getItems().stream().forEach(i -> {
-                    mantenimientosMejoras.stream().forEach(m -> {
-                        if (m.equals(i.getCodigo())) {
-                            itemsObject.add(i);
-                        }
-                    });
-                });
-
-                this.mantenimientosComboBox.removeAllItems();
-                this.mantenimientosComboBox.addItem(this.itemVacio);
-                itemsObject.stream().forEach(i -> {
-                    this.mantenimientosComboBox.addItem(i);
-                });
-                this.mantenimientosComboBox.setRenderer(this.comboRenderer);
-            } else {
-                this.mantenimientosComboBox.removeAllItems();
-                this.mantenimientosComboBox.addItem(this.itemVacio);
-            }
-        }
+        this.cargarMantenimientos();
     }//GEN-LAST:event_daniosComboBoxActionPerformed
 
     private void cantidadMantenimientoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadMantenimientoTextFieldActionPerformed
@@ -1528,14 +1500,15 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
 
     private void setDaniosAsociados() {
         this.via = (String) this.codigosViasComboBox.getSelectedItem();
+        if (this.codigosViasComboBox.getSelectedIndex() > 0) {
+            this.tieneMejoras = this.contieneViaMejora(this.via) >= 0;
+        }
         this.mantenimientosComboBox.removeAllItems();
         this.mantenimientosComboBox.addItem(this.itemVacio);
         this.mantenimientosComboBox.setRenderer(this.comboRenderer);
 
         List<String> danios = this.obtenerDaniosDadoUnaVia(this.via);
-        if (danios.contains("89N")) {
-            danios.remove("89N");
-        }
+        this.eliminarDanios(danios);
 
         this.daniosComboBox.removeAllItems();
         this.listaDaniosComboBox.clear();
@@ -1600,6 +1573,9 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
             alternativas.add(mejora);
             resumenMejora.setAlternativas(alternativas);
             this.viasResumenMejora.add(resumenMejora);
+            this.eliminarMantenimientosAsociados(mejora.getCodigoVia());
+            this.tieneMejoras = true;
+            this.setDaniosAsociados();
         } else {
             ResumenMejora rm = this.viasResumenMejora.get(posicion);
             int pos = this.contieneMejora(rm.getAlternativas(), mejora.getItem());
@@ -1618,6 +1594,8 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         this.viasResumenMejora.get(posicion).getAlternativas().remove(mejora);
         if (this.viasResumenMejora.get(posicion).getAlternativas().isEmpty()) {
             this.viasResumenMejora.remove(posicion);
+            this.tieneMejoras = false;
+            this.setDaniosAsociados();
         }
 
         this.mostrarResumen();
@@ -1643,5 +1621,98 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         }
 
         return -1;
+    }
+
+    private void cargarMantenimientos() {
+        this.posicionDanio = this.daniosComboBox.getSelectedIndex();
+        if (this.listaDaniosComboBox != null && !this.listaDaniosComboBox.isEmpty()
+                && this.posicionDanio > 0) {
+            String danioSeleccionado = this.listaDaniosComboBox.get(this.posicionDanio);
+            String alternativasIntervencion = Constantes.ALTERNATIVAS_INTERVENCION_MANTENIMIENTO.get(
+                    danioSeleccionado);
+            if (alternativasIntervencion != null) {
+                List<String> mantenimientosMejoras = Util.tokenizar(
+                        alternativasIntervencion, ",");
+                List<Item> itemsObject = new ArrayList<>();
+                this.mantPriorViasInfo.getItems().stream().forEach(i -> {
+                    mantenimientosMejoras.stream().forEach(m -> {
+                        if (m.equals(i.getCodigo())) {
+                            itemsObject.add(i);
+                        }
+                    });
+                });
+
+                this.mantenimientosComboBox.removeAllItems();
+                this.mantenimientosComboBox.addItem(this.itemVacio);
+                itemsObject.stream().forEach(i -> {
+                    this.mantenimientosComboBox.addItem(i);
+                });
+                this.mantenimientosComboBox.setRenderer(this.comboRenderer);
+            } else {
+                this.mantenimientosComboBox.removeAllItems();
+                this.mantenimientosComboBox.addItem(this.itemVacio);
+            }
+        }
+    }
+
+    private void eliminarDanios(List<String> danios) {
+        if (danios.contains("89N")) {
+            danios.remove("89N");
+        }
+
+        // Se eliminan los daños 82, 83, 90 y 91
+        if (this.tieneMejoras) {
+            for (String DANIOS_PERMANECEN_POR_MEJORAS : Constantes.DANIOS_PERMANECEN_POR_MEJORAS) {
+                for (int j = 0; j < danios.size(); j++) {
+                    if (danios.get(j).substring(0, danios.get(j).length() - 1).equals(DANIOS_PERMANECEN_POR_MEJORAS)) {
+                        danios.remove(j);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    private void eliminarMantenimientosAsociados(String codigoVia) {
+        int posicion = this.contieneViaMantenimiento(codigoVia);
+        if (posicion >= 0) {
+            double dineroRecuperar = 0.0;
+            ResumenMantenimiento rm = this.viasResumenMantenimiento.get(posicion);
+            List<String> danios = rm.getDaniosPorVia();
+            for (int i = 0; i < danios.size(); i++) {
+                String danio = danios.get(i);
+                if (Constantes.DANIOS_PERMANECEN_POR_MEJORAS.contains(danio.
+                        substring(0, danio.length() - 1))) {
+                    List<Alternativa> alternativas = rm.getAlternativasPorDanio().get(i);
+                    dineroRecuperar = alternativas.stream().map((a) -> a.getCantidad()
+                            * this.buscarPrecioDadoCodigoItem(a.getItem())).reduce(dineroRecuperar, (accumulator, _item) -> accumulator + _item);
+                    rm.getDaniosPorVia().remove(i);
+                    rm.getAlternativasPorDanio().remove(i);
+                }
+            }
+
+            if (dineroRecuperar > 0.0) {
+                this.recuperarDinero(dineroRecuperar);
+            }
+
+            if (rm.getDaniosPorVia().isEmpty()) {
+                this.viasResumenMantenimiento.remove(posicion);
+            }
+        }
+
+    }
+
+    private void recuperarDinero(double dinero) {
+        if (this.presupuestoAdicional > 0.0) {
+            double p = this.presupuestoAdicional - dinero;
+            if (p >= 0.0) {
+                this.presupuestoAdicional = p;
+            } else {
+                this.presupuestoAdicional = 0.0;
+                this.presupuestoActual += Math.abs(p);
+            }
+        } else {
+            this.presupuestoActual += dinero;
+        }
     }
 }

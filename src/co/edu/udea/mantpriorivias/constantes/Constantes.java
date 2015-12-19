@@ -21,6 +21,7 @@ public class Constantes {
     public static final Map<String, String> ALTERNATIVAS_INTERVENCION_MANTENIMIENTO = new HashMap<>();
     public static final Map<String, Double> VIAS_ALTERNAS_VALORES = new HashMap<>();
     public static final Map<String, String> NOMBRES_DANIOS = new HashMap<>();
+    public static final List<String> DANIOS_PERMANECEN_POR_MEJORAS = new ArrayList<>();
 
     static {
         ITEMS.put("ME1", new Item("ME1", "Slurry Seal"));
@@ -118,5 +119,10 @@ public class Constantes {
         NOMBRES_DANIOS.put("89", "Cabezas Duras");
         NOMBRES_DANIOS.put("90", "Probabilidad de Derrumbes");
         NOMBRES_DANIOS.put("91", "Daños en la Banca");
+
+        DANIOS_PERMANECEN_POR_MEJORAS.add("82");
+        DANIOS_PERMANECEN_POR_MEJORAS.add("83");
+        DANIOS_PERMANECEN_POR_MEJORAS.add("90");
+        DANIOS_PERMANECEN_POR_MEJORAS.add("91");
     }
 }

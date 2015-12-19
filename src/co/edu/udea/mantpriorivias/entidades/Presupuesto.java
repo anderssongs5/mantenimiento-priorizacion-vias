@@ -14,7 +14,7 @@ public class Presupuesto {
     double presupuestoTotal;
     double porcentajeAdministracion;
     double porcentajeImprevistos;
-    double porcentajeUtiliadades;
+    double porcentajeUtilidades;
     double presupuestoDisponible;
 
     public Presupuesto(double presupuestoTotal, double porcentajeAdministracion,
@@ -22,7 +22,7 @@ public class Presupuesto {
         this.presupuestoTotal = presupuestoTotal;
         this.porcentajeAdministracion = porcentajeAdministracion;
         this.porcentajeImprevistos = porcentajeImprevistos;
-        this.porcentajeUtiliadades = porcentajeUtiliadades;
+        this.porcentajeUtilidades = porcentajeUtiliadades;
 
         this.presupuestoDisponible = presupuestoTotal - presupuestoTotal
                 * (porcentajeAdministracion + porcentajeImprevistos
@@ -53,12 +53,12 @@ public class Presupuesto {
         this.porcentajeImprevistos = porcentajeImprevistos;
     }
 
-    public double getPorcentajeUtiliadades() {
-        return porcentajeUtiliadades;
+    public double getPorcentajeUtilidades() {
+        return porcentajeUtilidades;
     }
 
-    public void setPorcentajeUtiliadades(double porcentajeUtiliadades) {
-        this.porcentajeUtiliadades = porcentajeUtiliadades;
+    public void setPorcentajeUtilidades(double porcentajeUtilidades) {
+        this.porcentajeUtilidades = porcentajeUtilidades;
     }
 
     public double getPresupuestoDisponible() {

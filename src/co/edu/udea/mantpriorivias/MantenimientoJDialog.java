@@ -1,7 +1,9 @@
 package co.edu.udea.mantpriorivias;
 
 import co.edu.udea.mantpriorivias.archivos.ArchivoExcel;
+import co.edu.udea.mantpriorivias.archivos.ArchivoTextoPlano;
 import co.edu.udea.mantpriorivias.constantes.Constantes;
+import static co.edu.udea.mantpriorivias.constantes.Constantes.NOMBRES_DANIOS;
 import co.edu.udea.mantpriorivias.entidades.Alternativa;
 import co.edu.udea.mantpriorivias.entidades.InfoVia;
 import co.edu.udea.mantpriorivias.entidades.Item;
@@ -18,8 +20,8 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListCellRenderer;
@@ -40,6 +42,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
     private List<ResumenMejora> viasResumenMejora = new ArrayList<>();
     private List<Item> tratamientosSuperficialesRiegos = new ArrayList<>();
     private List<Item> estabilizacionAfirmados = new ArrayList<>();
+    private ArchivoTextoPlano creadorArchivoTextoPlano = new ArchivoTextoPlano();
     private String resumen = null;
     private String via;
     private String unidadMantenimiento;
@@ -174,6 +177,9 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         jMenuBar1 = new javax.swing.JMenuBar();
         archivoMenu = new javax.swing.JMenu();
         abrirAlternativasIntervencionMenuItem = new javax.swing.JMenuItem();
+        exportarMenu = new javax.swing.JMenu();
+        txtMenuItem = new javax.swing.JMenuItem();
+        docxMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1575, 677));
@@ -356,6 +362,21 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
             }
         });
         archivoMenu.add(abrirAlternativasIntervencionMenuItem);
+
+        exportarMenu.setText("Exportar");
+
+        txtMenuItem.setText("TXT");
+        txtMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMenuItemActionPerformed(evt);
+            }
+        });
+        exportarMenu.add(txtMenuItem);
+
+        docxMenuItem.setText("Docx");
+        exportarMenu.add(docxMenuItem);
+
+        archivoMenu.add(exportarMenu);
 
         jMenuBar1.add(archivoMenu);
 
@@ -1171,6 +1192,10 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_estabilizacionAfirmadosComboBoxActionPerformed
 
+    private void txtMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMenuItemActionPerformed
+        this.estructurarInformacionTXT();
+    }//GEN-LAST:event_txtMenuItemActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem abrirAlternativasIntervencionMenuItem;
     private javax.swing.JButton aplicarMantenimientoButton;
@@ -1188,8 +1213,10 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel costoUnitarioMejoraTSRLabel1;
     private javax.swing.JLabel daniosAsociadosLabel;
     private javax.swing.JComboBox daniosComboBox;
+    private javax.swing.JMenuItem docxMenuItem;
     private javax.swing.JComboBox estabilizacionAfirmadosComboBox;
     private javax.swing.JLabel estabilizacionAfirmadosLabel;
+    private javax.swing.JMenu exportarMenu;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -1216,6 +1243,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
     private javax.swing.JTextArea resumenTextArea;
     private javax.swing.JComboBox tratamientosSuperficialesRiegosComboBox;
     private javax.swing.JLabel tratamientosSuperficialesRiegosLabel;
+    private javax.swing.JMenuItem txtMenuItem;
     private javax.swing.JLabel unidadMedidaMantenimientoLabel;
     private javax.swing.JTextField unidadMedidaMantenimientoTextField;
     private javax.swing.JTextField unidadMedidaMejoraEATextField;
@@ -1267,7 +1295,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         }
 
         List<String> daniosVia = new ArrayList<>(danios);
-        
+
         return daniosVia;
     }
 
@@ -1450,16 +1478,16 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
             this.resumen += separadorLinea;
             for (int j = 0; j < this.viasResumenMantenimiento.get(i).
                     getDaniosPorVia().size(); j++) {
-                this.resumen += "\t* " + this.viasResumenMantenimiento.get(i).getDaniosPorVia().get(j);
+                this.resumen += "        * " + this.viasResumenMantenimiento.get(i).getDaniosPorVia().get(j);
                 this.resumen += separadorLinea;
                 List<Alternativa> alternativas = this.viasResumenMantenimiento.get(i)
                         .getAlternativasPorDanio().get(j);
                 for (int k = 0; k < alternativas.size(); k++) {
-                    this.resumen += "\t\t- " + "Mantenimiento: " + alternativas.get(k).getItem()
+                    this.resumen += "                - " + "Mantenimiento: " + alternativas.get(k).getItem()
                             + separadorLinea;
-                    this.resumen += "\t\t Cantidad: "
+                    this.resumen += "                 Cantidad: "
                             + alternativas.get(k).getCantidad() + separadorLinea;
-                    this.resumen += "\t\t Costo : $ " + (alternativas.get(k).getCantidad()
+                    this.resumen += "         Costo : $ " + (alternativas.get(k).getCantidad()
                             * this.buscarPrecioDadoCodigoItem(alternativas.get(k).getItem()));
                     this.resumen += separadorLinea + separadorLinea;
                 }
@@ -1471,9 +1499,9 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                         get(posicion).getAlternativas();
                 for (int j = 0; j < alternativas.size(); j++) {
                     viasImpresas.add(v);
-                    this.resumen += "\t* Mejoramiento: " + alternativas.get(j).getItem() + separadorLinea;
-                    this.resumen += "\t  Cantidad: " + alternativas.get(j).getCantidad() + separadorLinea;
-                    this.resumen += "\t  Costo: $ " + (alternativas.get(j).getCantidad()
+                    this.resumen += "        * Mejoramiento: " + alternativas.get(j).getItem() + separadorLinea;
+                    this.resumen += "          Cantidad: " + alternativas.get(j).getCantidad() + separadorLinea;
+                    this.resumen += "          Costo: $ " + (alternativas.get(j).getCantidad()
                             * this.buscarPrecioDadoCodigoItem(alternativas.get(j).getItem()));
                     this.resumen += separadorLinea + separadorLinea;
                 }
@@ -1488,9 +1516,9 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                 this.resumen += separadorLinea;
                 List<Alternativa> alternativas = this.viasResumenMejora.get(i).getAlternativas();
                 for (int j = 0; j < alternativas.size(); j++) {
-                    this.resumen += "\t* Mejoramiento: " + alternativas.get(j).getItem() + separadorLinea;
-                    this.resumen += "\t  Cantidad: " + alternativas.get(j).getCantidad() + separadorLinea;
-                    this.resumen += "\t  Costo: $ " + (alternativas.get(j).getCantidad()
+                    this.resumen += "        * Mejoramiento: " + alternativas.get(j).getItem() + separadorLinea;
+                    this.resumen += "          Cantidad: " + alternativas.get(j).getCantidad() + separadorLinea;
+                    this.resumen += "          Costo: $ " + (alternativas.get(j).getCantidad()
                             * this.buscarPrecioDadoCodigoItem(alternativas.get(j).getItem())) + separadorLinea;
                     this.resumen += separadorLinea;
                 }
@@ -1723,5 +1751,44 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         } else {
             this.presupuestoActual += dinero;
         }
+    }
+
+    private String estructurarInformacionTXT() {
+        String separadorLinea = System.getProperty("line.separator");
+        String texto = this.resumen + separadorLinea + separadorLinea;
+
+        texto += "Daños" + separadorLinea;
+        texto += "Código  Nombre" + separadorLinea;
+        for (Map.Entry<String, String> entry : Constantes.NOMBRES_DANIOS.entrySet()) {
+            String codigo = entry.getKey();
+            String nombre = entry.getValue();
+            texto += " " + codigo + "     " + nombre + separadorLinea;
+        }
+        texto += separadorLinea + separadorLinea;
+
+        texto += "Mantenimientos y Mejoramientos" + separadorLinea;
+        texto += "Código  Nombre                                                  "
+                + "                                   " + "Precio ($)" + separadorLinea;
+        for (Item i : this.mantPriorViasInfo.getItems()) {
+            texto += " " + i.getCodigo();
+            if(i.getCodigo().length() == 3){
+                texto += "    ";
+            } else {
+                texto += "   ";
+            }
+            
+            texto += i.getItem();
+            int t = 91 - i.getItem().length();
+            String s = "";
+            for(int j = 0; j < t; j++){
+                s += " ";
+            }
+            texto += s;
+            
+            texto += i.getValorUnitario() + separadorLinea;
+        }
+        texto += separadorLinea + separadorLinea;
+
+        return texto;
     }
 }

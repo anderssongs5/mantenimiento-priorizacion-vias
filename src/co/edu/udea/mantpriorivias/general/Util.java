@@ -37,6 +37,6 @@ public class Util {
 
     public static boolean isDirectorioValido(File archivo) {
 
-        return (null != archivo && archivo.isDirectory());
+        return (null != archivo && archivo.isDirectory() && archivo.canWrite());
     }
 }

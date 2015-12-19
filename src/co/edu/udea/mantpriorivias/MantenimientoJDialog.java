@@ -3,7 +3,6 @@ package co.edu.udea.mantpriorivias;
 import co.edu.udea.mantpriorivias.archivos.ArchivoExcel;
 import co.edu.udea.mantpriorivias.archivos.ArchivoTextoPlano;
 import co.edu.udea.mantpriorivias.constantes.Constantes;
-import static co.edu.udea.mantpriorivias.constantes.Constantes.NOMBRES_DANIOS;
 import co.edu.udea.mantpriorivias.entidades.Alternativa;
 import co.edu.udea.mantpriorivias.entidades.InfoVia;
 import co.edu.udea.mantpriorivias.entidades.Item;
@@ -26,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListCellRenderer;
@@ -43,6 +43,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
     private List<Item> tratamientosSuperficialesRiegos = new ArrayList<>();
     private List<Item> estabilizacionAfirmados = new ArrayList<>();
     private ArchivoTextoPlano creadorArchivoTextoPlano = new ArchivoTextoPlano();
+    private static final JFileChooser FILE_CHOOSER_EXPORTAR;
     private String resumen = null;
     private String via;
     private String unidadMantenimiento;
@@ -84,6 +85,12 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                     isSelected, cellHasFocus);
         }
     };
+
+    static {
+        FILE_CHOOSER_EXPORTAR = new JFileChooser();
+        FILE_CHOOSER_EXPORTAR.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        FILE_CHOOSER_EXPORTAR.setDialogTitle("Seleccionar directorio...");
+    }
 
     /**
      * Creates new form CostosMantenimientoJDialog
@@ -1193,7 +1200,21 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_estabilizacionAfirmadosComboBoxActionPerformed
 
     private void txtMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMenuItemActionPerformed
-        this.estructurarInformacionTXT();
+        String texto = this.estructurarInformacionTXT();
+        int retorno = FILE_CHOOSER_EXPORTAR.showOpenDialog(this);
+        if (JFileChooser.APPROVE_OPTION == retorno) {
+            File file = FILE_CHOOSER_EXPORTAR.getSelectedFile();
+            if(Util.isDirectorioValido(file)){
+                if(this.creadorArchivoTextoPlano.crearArchivo(texto, 
+                        file.getAbsolutePath() + "/Resumen.txt")){
+                    
+                } else {
+                    
+                }
+            } else {
+                
+            }
+        }
     }//GEN-LAST:event_txtMenuItemActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1771,20 +1792,20 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                 + "                                   " + "Precio ($)" + separadorLinea;
         for (Item i : this.mantPriorViasInfo.getItems()) {
             texto += " " + i.getCodigo();
-            if(i.getCodigo().length() == 3){
+            if (i.getCodigo().length() == 3) {
                 texto += "    ";
             } else {
                 texto += "   ";
             }
-            
+
             texto += i.getItem();
             int t = 91 - i.getItem().length();
             String s = "";
-            for(int j = 0; j < t; j++){
+            for (int j = 0; j < t; j++) {
                 s += " ";
             }
             texto += s;
-            
+
             texto += i.getValorUnitario() + separadorLinea;
         }
         texto += separadorLinea + separadorLinea;

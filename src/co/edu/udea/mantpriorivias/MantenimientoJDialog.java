@@ -18,6 +18,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -1265,7 +1266,9 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
             }
         }
 
-        return danios;
+        List<String> daniosVia = new ArrayList<>(danios);
+        
+        return daniosVia;
     }
 
     private void restringirValoresCampos() {
@@ -1661,13 +1664,18 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         }
 
         // Se eliminan los daños 82, 83, 90 y 91
-        if (this.tieneMejoras) {
-            for (String DANIOS_PERMANECEN_POR_MEJORAS : Constantes.DANIOS_PERMANECEN_POR_MEJORAS) {
-                for (int j = 0; j < danios.size(); j++) {
-                    if (danios.get(j).substring(0, danios.get(j).length() - 1).equals(DANIOS_PERMANECEN_POR_MEJORAS)) {
-                        danios.remove(j);
-                        break;
-                    }
+        if (!danios.isEmpty()) {
+            if (this.tieneMejoras) {
+                List<String> daniosABorrar = new ArrayList<>();
+                danios.stream().filter((danio) -> (!Constantes.DANIOS_PERMANECEN_POR_MEJORAS.contains(
+                        danio.substring(0, danio.length() - 1)))).forEach((danio) -> {
+                            daniosABorrar.add(danio);
+                        });
+
+                if (!daniosABorrar.isEmpty()) {
+                    daniosABorrar.stream().forEach((daniosABorrar1) -> {
+                        danios.remove(daniosABorrar1);
+                    });
                 }
             }
         }
@@ -1681,7 +1689,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
             List<String> danios = rm.getDaniosPorVia();
             for (int i = 0; i < danios.size(); i++) {
                 String danio = danios.get(i);
-                if (Constantes.DANIOS_PERMANECEN_POR_MEJORAS.contains(danio.
+                if (!Constantes.DANIOS_PERMANECEN_POR_MEJORAS.contains(danio.
                         substring(0, danio.length() - 1))) {
                     List<Alternativa> alternativas = rm.getAlternativasPorDanio().get(i);
                     dineroRecuperar = alternativas.stream().map((a) -> a.getCantidad()
@@ -1693,6 +1701,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
 
             if (dineroRecuperar > 0.0) {
                 this.recuperarDinero(dineroRecuperar);
+                this.establecerPresupuesto();
             }
 
             if (rm.getDaniosPorVia().isEmpty()) {

@@ -30,7 +30,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListCellRenderer;
 
-public class MantenimientoJDialog extends javax.swing.JDialog {
+public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
 
     private final MantPriorViasInfo mantPriorViasInfo;
     private ArchivoExcel archivoExcel = new ArchivoExcel();
@@ -93,13 +93,13 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
     }
 
     /**
-     * Creates new form CostosMantenimientoJDialog
+     * Creates new form PriorizacionMantenimientoJDialog
      *
      * @param parent
      * @param modal
      * @param mantPriorViasInfo
      */
-    public MantenimientoJDialog(java.awt.Frame parent, boolean modal,
+    public PriorizacionMantenimientoJDialog(java.awt.Frame parent, boolean modal,
             MantPriorViasInfo mantPriorViasInfo) {
         super(parent, modal);
         this.mantPriorViasInfo = mantPriorViasInfo;
@@ -133,55 +133,58 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        labelTitulo = new javax.swing.JLabel();
+        tituloLabel = new javax.swing.JLabel();
         presupuestoTotlaInicialLabel = new javax.swing.JLabel();
         presupuestoTotalInicialTextField = new javax.swing.JTextField();
         porcentajeAdministracionLabel = new javax.swing.JLabel();
         porcentajeAdministracionTextField = new javax.swing.JTextField();
         porcentajeImprevistosLabel = new javax.swing.JLabel();
-        porcentajeUtilidadesTextField = new javax.swing.JTextField();
+        porcentajeImprevistosTextField = new javax.swing.JTextField();
         porcentajeUtilidadesLabel = new javax.swing.JLabel();
+        porcentajeUtilidadesTextField = new javax.swing.JTextField();
         presupuestoDisponibleLabel = new javax.swing.JLabel();
         presupuestoDisponibleTextField = new javax.swing.JTextField();
-        codigosViasComboBox = new javax.swing.JComboBox();
-        viasLabel = new javax.swing.JLabel();
-        presupuestoActualTextField = new javax.swing.JTextField();
         presupuestoActualLabel = new javax.swing.JLabel();
+        presupuestoActualTextField = new javax.swing.JTextField();
         presupuestoAdicionalLabel = new javax.swing.JLabel();
         presupuestoAdicionalTextField = new javax.swing.JTextField();
-        porcentajeImprevistosTextField = new javax.swing.JTextField();
+        viasLabel = new javax.swing.JLabel();
+        codigosViasComboBox = new javax.swing.JComboBox();
         daniosAsociadosLabel = new javax.swing.JLabel();
         daniosComboBox = new javax.swing.JComboBox();
+        tabbedPane = new javax.swing.JTabbedPane();
+        mantenimientosPanel = new javax.swing.JPanel();
+        mantenimientosRecomendadosLabel = new javax.swing.JLabel();
+        mantenimientosComboBox = new javax.swing.JComboBox();
         costoUnitarioMantenimientoLabel = new javax.swing.JLabel();
         precioMantenimientoMejoraTextField = new javax.swing.JTextField();
         unidadMedidaMantenimientoLabel = new javax.swing.JLabel();
         unidadMedidaMantenimientoTextField = new javax.swing.JTextField();
-        cantidadMantenimientoTextField = new javax.swing.JTextField();
         cantidadMantenimientosLabel = new javax.swing.JLabel();
-        mantenimientosRecomendadosLabel = new javax.swing.JLabel();
-        mantenimientosComboBox = new javax.swing.JComboBox();
+        cantidadMantenimientoTextField = new javax.swing.JTextField();
         aplicarMantenimientoButton = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        resumenTextArea = new javax.swing.JTextArea();
-        tratamientosSuperficialesRiegosComboBox = new javax.swing.JComboBox();
+        mejoramientosPanel = new javax.swing.JPanel();
         tratamientosSuperficialesRiegosLabel = new javax.swing.JLabel();
-        estabilizacionAfirmadosLabel = new javax.swing.JLabel();
-        estabilizacionAfirmadosComboBox = new javax.swing.JComboBox();
-        cantidadTratamientosSuperficialesRiegosTextField = new javax.swing.JTextField();
-        cantidadTratamientosSuperficialesRiegosLabel = new javax.swing.JLabel();
-        cantidadEstabilizacionAfirmadosTextField = new javax.swing.JTextField();
-        cantidadEstabilizacionAfirmadosLabel = new javax.swing.JLabel();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
-        aplicarMejorasButton = new javax.swing.JButton();
+        tratamientosSuperficialesRiegosComboBox = new javax.swing.JComboBox();
         costoUnitarioMejoraTSRLabel = new javax.swing.JLabel();
         precioMejoraTSRTextField = new javax.swing.JTextField();
         unidadMedidaMejoraTRSLabel = new javax.swing.JLabel();
         unidadMedidaMejoraTSRTextField = new javax.swing.JTextField();
+        cantidadTratamientosSuperficialesRiegosLabel = new javax.swing.JLabel();
+        cantidadTratamientosSuperficialesRiegosTextField = new javax.swing.JTextField();
+        estabilizacionAfirmadosLabel = new javax.swing.JLabel();
+        estabilizacionAfirmadosComboBox = new javax.swing.JComboBox();
+        costoUnitarioMejoraEALabel = new javax.swing.JLabel();
         precioMejoraEATextField = new javax.swing.JTextField();
-        costoUnitarioMejoraTSRLabel1 = new javax.swing.JLabel();
+        unidadMedidaMejoraEALabel = new javax.swing.JLabel();
         unidadMedidaMejoraEATextField = new javax.swing.JTextField();
-        unidadMedidaMejoraTRSLabel1 = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        cantidadEstabilizacionAfirmadosLabel = new javax.swing.JLabel();
+        cantidadEstabilizacionAfirmadosTextField = new javax.swing.JTextField();
+        aplicarMejorasButton = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        scrollPaneResumenTextArea = new javax.swing.JScrollPane();
+        resumenTextArea = new javax.swing.JTextArea();
+        menuBar = new javax.swing.JMenuBar();
         archivoMenu = new javax.swing.JMenu();
         abrirAlternativasIntervencionMenuItem = new javax.swing.JMenuItem();
         exportarMenu = new javax.swing.JMenu();
@@ -189,11 +192,9 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         docxMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1575, 677));
-        setResizable(false);
 
-        labelTitulo.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        labelTitulo.setText("Priorización y Mantenimiento de Vías");
+        tituloLabel.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        tituloLabel.setText("Priorización y Mantenimiento de Vías");
 
         presupuestoTotlaInicialLabel.setText("Presupuesto Total Inicial");
 
@@ -207,36 +208,36 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
 
         porcentajeImprevistosLabel.setText("% Imprevistos");
 
-        porcentajeUtilidadesTextField.setEditable(false);
-        porcentajeUtilidadesTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        porcentajeImprevistosTextField.setEditable(false);
+        porcentajeImprevistosTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         porcentajeUtilidadesLabel.setText("% Utilidades");
+
+        porcentajeUtilidadesTextField.setEditable(false);
+        porcentajeUtilidadesTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         presupuestoDisponibleLabel.setText("Presupuesto Disponible");
 
         presupuestoDisponibleTextField.setEditable(false);
         presupuestoDisponibleTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        codigosViasComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                codigosViasComboBoxActionPerformed(evt);
-            }
-        });
-
-        viasLabel.setText("Vías");
+        presupuestoActualLabel.setText("Presupuesto actual");
 
         presupuestoActualTextField.setEditable(false);
         presupuestoActualTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
-        presupuestoActualLabel.setText("Presupuesto actual");
 
         presupuestoAdicionalLabel.setText("Presupuesto adicional");
 
         presupuestoAdicionalTextField.setEditable(false);
         presupuestoAdicionalTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        porcentajeImprevistosTextField.setEditable(false);
-        porcentajeImprevistosTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        viasLabel.setText("Vías");
+
+        codigosViasComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                codigosViasComboBoxActionPerformed(evt);
+            }
+        });
 
         daniosAsociadosLabel.setText("Daños asociados a la vía");
 
@@ -246,33 +247,6 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
             }
         });
 
-        costoUnitarioMantenimientoLabel.setText("Costo unitario");
-
-        precioMantenimientoMejoraTextField.setEditable(false);
-        precioMantenimientoMejoraTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                precioMantenimientoMejoraTextFieldActionPerformed(evt);
-            }
-        });
-
-        unidadMedidaMantenimientoLabel.setText("Unidad de medida ");
-
-        unidadMedidaMantenimientoTextField.setEditable(false);
-        unidadMedidaMantenimientoTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                unidadMedidaMantenimientoTextFieldActionPerformed(evt);
-            }
-        });
-
-        cantidadMantenimientoTextField.setEditable(false);
-        cantidadMantenimientoTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cantidadMantenimientoTextFieldActionPerformed(evt);
-            }
-        });
-
-        cantidadMantenimientosLabel.setText("Cantidad");
-
         mantenimientosRecomendadosLabel.setText("Mantenimientos recomendados");
 
         mantenimientosComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -281,16 +255,77 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
             }
         });
 
+        costoUnitarioMantenimientoLabel.setText("Costo unitario");
+
+        precioMantenimientoMejoraTextField.setEditable(false);
+
+        unidadMedidaMantenimientoLabel.setText("Unidad de medida");
+
+        unidadMedidaMantenimientoTextField.setEditable(false);
+
+        cantidadMantenimientosLabel.setText("Cantidad");
+
+        cantidadMantenimientoTextField.setEditable(false);
+
         aplicarMantenimientoButton.setText("Aplicar Mantenimiento");
+        aplicarMantenimientoButton.setEnabled(false);
         aplicarMantenimientoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aplicarMantenimientoButtonActionPerformed(evt);
             }
         });
 
-        resumenTextArea.setColumns(20);
-        resumenTextArea.setRows(5);
-        jScrollPane1.setViewportView(resumenTextArea);
+        javax.swing.GroupLayout mantenimientosPanelLayout = new javax.swing.GroupLayout(mantenimientosPanel);
+        mantenimientosPanel.setLayout(mantenimientosPanelLayout);
+        mantenimientosPanelLayout.setHorizontalGroup(
+            mantenimientosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mantenimientosPanelLayout.createSequentialGroup()
+                .addGroup(mantenimientosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mantenimientosPanelLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(mantenimientosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(unidadMedidaMantenimientoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(mantenimientosComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(unidadMedidaMantenimientoLabel)
+                            .addComponent(mantenimientosRecomendadosLabel))
+                        .addGap(18, 18, 18)
+                        .addGroup(mantenimientosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cantidadMantenimientoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(precioMantenimientoMejoraTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cantidadMantenimientosLabel)
+                            .addComponent(costoUnitarioMantenimientoLabel)))
+                    .addGroup(mantenimientosPanelLayout.createSequentialGroup()
+                        .addGap(128, 128, 128)
+                        .addComponent(aplicarMantenimientoButton)))
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
+        mantenimientosPanelLayout.setVerticalGroup(
+            mantenimientosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mantenimientosPanelLayout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addGroup(mantenimientosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mantenimientosRecomendadosLabel)
+                    .addComponent(costoUnitarioMantenimientoLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(mantenimientosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mantenimientosComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(precioMantenimientoMejoraTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(mantenimientosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(unidadMedidaMantenimientoLabel)
+                    .addComponent(cantidadMantenimientosLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(mantenimientosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(unidadMedidaMantenimientoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cantidadMantenimientoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addComponent(aplicarMantenimientoButton)
+                .addContainerGap(43, Short.MAX_VALUE))
+        );
+
+        tabbedPane.addTab("Mantenimientos", mantenimientosPanel);
+
+        tratamientosSuperficialesRiegosLabel.setText("Tratamientos Superficiales o Riegos");
 
         tratamientosSuperficialesRiegosComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -298,7 +333,17 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
             }
         });
 
-        tratamientosSuperficialesRiegosLabel.setText("Tratamientos Superficiales o Riegos");
+        costoUnitarioMejoraTSRLabel.setText("Costo unitario");
+
+        precioMejoraTSRTextField.setEditable(false);
+
+        unidadMedidaMejoraTRSLabel.setText("Unidad de medida");
+
+        unidadMedidaMejoraTSRTextField.setEditable(false);
+
+        cantidadTratamientosSuperficialesRiegosLabel.setText("Cantidad");
+
+        cantidadTratamientosSuperficialesRiegosTextField.setEditable(false);
 
         estabilizacionAfirmadosLabel.setText("Estabilización de Afirmados");
 
@@ -308,21 +353,13 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
             }
         });
 
-        cantidadTratamientosSuperficialesRiegosTextField.setEditable(false);
-        cantidadTratamientosSuperficialesRiegosTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cantidadTratamientosSuperficialesRiegosTextFieldActionPerformed(evt);
-            }
-        });
+        costoUnitarioMejoraEALabel.setText("Costo unitario");
 
-        cantidadTratamientosSuperficialesRiegosLabel.setText("Cantidad");
+        precioMejoraEATextField.setEditable(false);
 
-        cantidadEstabilizacionAfirmadosTextField.setEditable(false);
-        cantidadEstabilizacionAfirmadosTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cantidadEstabilizacionAfirmadosTextFieldActionPerformed(evt);
-            }
-        });
+        unidadMedidaMejoraEALabel.setText("Unidad de medida");
+
+        unidadMedidaMejoraEATextField.setEditable(false);
 
         cantidadEstabilizacionAfirmadosLabel.setText("Cantidad");
 
@@ -334,40 +371,100 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
             }
         });
 
-        costoUnitarioMejoraTSRLabel.setText("Costo unitario");
+        javax.swing.GroupLayout mejoramientosPanelLayout = new javax.swing.GroupLayout(mejoramientosPanel);
+        mejoramientosPanel.setLayout(mejoramientosPanelLayout);
+        mejoramientosPanelLayout.setHorizontalGroup(
+            mejoramientosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mejoramientosPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(aplicarMejorasButton)
+                .addGap(159, 159, 159))
+            .addGroup(mejoramientosPanelLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(mejoramientosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mejoramientosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(unidadMedidaMejoraEATextField, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(unidadMedidaMejoraTSRTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(tratamientosSuperficialesRiegosLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tratamientosSuperficialesRiegosComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(unidadMedidaMejoraTRSLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(estabilizacionAfirmadosLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(estabilizacionAfirmadosComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(unidadMedidaMejoraEALabel))
+                .addGap(18, 35, Short.MAX_VALUE)
+                .addGroup(mejoramientosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cantidadEstabilizacionAfirmadosLabel)
+                    .addComponent(costoUnitarioMejoraEALabel)
+                    .addComponent(cantidadTratamientosSuperficialesRiegosLabel)
+                    .addComponent(costoUnitarioMejoraTSRLabel)
+                    .addComponent(precioMejoraTSRTextField)
+                    .addComponent(cantidadTratamientosSuperficialesRiegosTextField)
+                    .addComponent(precioMejoraEATextField)
+                    .addComponent(cantidadEstabilizacionAfirmadosTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32))
+            .addComponent(jSeparator1)
+        );
+        mejoramientosPanelLayout.setVerticalGroup(
+            mejoramientosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mejoramientosPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(mejoramientosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mejoramientosPanelLayout.createSequentialGroup()
+                        .addComponent(tratamientosSuperficialesRiegosLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tratamientosSuperficialesRiegosComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(unidadMedidaMejoraTRSLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(unidadMedidaMejoraTSRTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(mejoramientosPanelLayout.createSequentialGroup()
+                        .addComponent(costoUnitarioMejoraTSRLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(precioMejoraTSRTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cantidadTratamientosSuperficialesRiegosLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cantidadTratamientosSuperficialesRiegosTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(mejoramientosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mejoramientosPanelLayout.createSequentialGroup()
+                        .addComponent(estabilizacionAfirmadosLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(estabilizacionAfirmadosComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(unidadMedidaMejoraEALabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(unidadMedidaMejoraEATextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(mejoramientosPanelLayout.createSequentialGroup()
+                        .addComponent(costoUnitarioMejoraEALabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(precioMejoraEATextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cantidadEstabilizacionAfirmadosLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cantidadEstabilizacionAfirmadosTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(aplicarMejorasButton)
+                .addContainerGap())
+        );
 
-        precioMejoraTSRTextField.setEditable(false);
+        tabbedPane.addTab("Mejoramientos", mejoramientosPanel);
 
-        unidadMedidaMejoraTRSLabel.setText("Unidad de medida ");
-
-        unidadMedidaMejoraTSRTextField.setEditable(false);
-        unidadMedidaMejoraTSRTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                unidadMedidaMejoraTSRTextFieldActionPerformed(evt);
-            }
-        });
-
-        precioMejoraEATextField.setEditable(false);
-
-        costoUnitarioMejoraTSRLabel1.setText("Costo unitario");
-
-        unidadMedidaMejoraEATextField.setEditable(false);
-        unidadMedidaMejoraEATextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                unidadMedidaMejoraEATextFieldActionPerformed(evt);
-            }
-        });
-
-        unidadMedidaMejoraTRSLabel1.setText("Unidad de medida ");
+        resumenTextArea.setEditable(false);
+        resumenTextArea.setColumns(20);
+        resumenTextArea.setRows(5);
+        scrollPaneResumenTextArea.setViewportView(resumenTextArea);
 
         archivoMenu.setText("Archivo");
-
-        abrirAlternativasIntervencionMenuItem.setText("Abrir alternativas intervención");
-        abrirAlternativasIntervencionMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        archivoMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                abrirAlternativasIntervencionMenuItemActionPerformed(evt);
+                archivoMenuActionPerformed(evt);
             }
         });
+
+        abrirAlternativasIntervencionMenuItem.setText("Abrir alternativas intervención");
         archivoMenu.add(abrirAlternativasIntervencionMenuItem);
 
         exportarMenu.setText("Exportar");
@@ -385,234 +482,109 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
 
         archivoMenu.add(exportarMenu);
 
-        jMenuBar1.add(archivoMenu);
+        menuBar.add(archivoMenu);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(313, 313, 313)
-                .addComponent(labelTitulo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(viasLabel)
+                    .addComponent(codigosViasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(daniosAsociadosLabel)
+                    .addComponent(daniosComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addComponent(scrollPaneResumenTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(385, 385, 385)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(presupuestoActualTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addComponent(presupuestoActualLabel)))
-                        .addGap(57, 57, 57)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(presupuestoAdicionalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(presupuestoAdicionalLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(301, 301, 301)
+                        .addComponent(tituloLabel))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(289, 289, 289)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(119, 119, 119)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(presupuestoTotlaInicialLabel)
-                                    .addComponent(presupuestoTotalInicialTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(66, 66, 66)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(porcentajeAdministracionLabel)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(12, 12, 12)
-                                        .addComponent(porcentajeAdministracionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(105, 105, 105)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(porcentajeImprevistosTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(porcentajeImprevistosLabel))
-                                .addGap(75, 75, 75)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(porcentajeUtilidadesLabel)
-                                    .addComponent(porcentajeUtilidadesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(daniosAsociadosLabel)
-                                    .addComponent(daniosComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(codigosViasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(viasLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(unidadMedidaMantenimientoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(mantenimientosRecomendadosLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(mantenimientosComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(2, 2, 2)
-                                        .addComponent(unidadMedidaMantenimientoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(tratamientosSuperficialesRiegosLabel)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(estabilizacionAfirmadosComboBox, 0, 170, Short.MAX_VALUE)
-                                        .addComponent(unidadMedidaMejoraTRSLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(unidadMedidaMejoraEATextField))
-                                    .addComponent(estabilizacionAfirmadosLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(unidadMedidaMejoraTRSLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(unidadMedidaMejoraTSRTextField)
-                                        .addComponent(tratamientosSuperficialesRiegosComboBox, 0, 170, Short.MAX_VALUE)))
-                                .addGap(41, 41, 41)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(costoUnitarioMejoraTSRLabel)
-                                            .addComponent(costoUnitarioMantenimientoLabel)
-                                            .addComponent(cantidadMantenimientosLabel)
-                                            .addComponent(precioMantenimientoMejoraTextField)
-                                            .addComponent(cantidadMantenimientoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(precioMejoraTSRTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addComponent(aplicarMantenimientoButton))
-                                    .addComponent(costoUnitarioMejoraTSRLabel1)
-                                    .addComponent(cantidadTratamientosSuperficialesRiegosLabel)
-                                    .addComponent(cantidadTratamientosSuperficialesRiegosTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cantidadEstabilizacionAfirmadosLabel)
-                                    .addComponent(cantidadEstabilizacionAfirmadosTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(173, 173, 173)
-                                        .addComponent(aplicarMejorasButton))
-                                    .addComponent(precioMejoraEATextField, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(presupuestoActualLabel)
+                            .addComponent(presupuestoActualTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(64, 64, 64)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(74, 74, 74)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(presupuestoDisponibleLabel)
-                                    .addComponent(presupuestoDisponibleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap())
+                            .addComponent(presupuestoAdicionalLabel)
+                            .addComponent(presupuestoAdicionalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(presupuestoTotlaInicialLabel)
+                            .addComponent(presupuestoTotalInicialTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(55, 55, 55)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(porcentajeAdministracionLabel)
+                            .addComponent(porcentajeAdministracionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(49, 49, 49)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(porcentajeImprevistosLabel)
+                            .addComponent(porcentajeImprevistosTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(45, 45, 45)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(porcentajeUtilidadesLabel)
+                            .addComponent(porcentajeUtilidadesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(42, 42, 42)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(presupuestoDisponibleLabel)
+                            .addComponent(presupuestoDisponibleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tituloLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(presupuestoDisponibleLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(presupuestoDisponibleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(presupuestoTotlaInicialLabel)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(presupuestoTotalInicialTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(porcentajeAdministracionLabel)
-                                        .addComponent(porcentajeImprevistosLabel))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(porcentajeAdministracionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(porcentajeImprevistosTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(porcentajeUtilidadesLabel)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(porcentajeUtilidadesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(presupuestoActualLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(presupuestoActualTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(presupuestoAdicionalLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(presupuestoAdicionalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(48, 48, 48)
-                                .addComponent(viasLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(codigosViasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(daniosAsociadosLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(daniosComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
-                                        .addComponent(tratamientosSuperficialesRiegosLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tratamientosSuperficialesRiegosComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(unidadMedidaMejoraTRSLabel)
-                                            .addComponent(cantidadTratamientosSuperficialesRiegosLabel))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(unidadMedidaMejoraTSRTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(cantidadTratamientosSuperficialesRiegosTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(costoUnitarioMejoraTSRLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(precioMejoraTSRTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(mantenimientosRecomendadosLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(mantenimientosComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(costoUnitarioMantenimientoLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(precioMantenimientoMejoraTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(21, 21, 21)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(cantidadMantenimientoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(unidadMedidaMantenimientoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(cantidadMantenimientosLabel)
-                                        .addComponent(unidadMedidaMantenimientoLabel)
-                                        .addComponent(aplicarMantenimientoButton)))
-                                .addGap(160, 160, 160)))
-                        .addComponent(aplicarMejorasButton)
-                        .addGap(8, 8, 8)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(estabilizacionAfirmadosLabel)
-                            .addComponent(costoUnitarioMejoraTSRLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(estabilizacionAfirmadosComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(precioMejoraEATextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(1, 1, 1)
-                        .addComponent(unidadMedidaMejoraTRSLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(6, 6, 6)
-                .addComponent(cantidadEstabilizacionAfirmadosLabel)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(presupuestoTotlaInicialLabel)
+                    .addComponent(porcentajeAdministracionLabel)
+                    .addComponent(porcentajeImprevistosLabel)
+                    .addComponent(porcentajeUtilidadesLabel)
+                    .addComponent(presupuestoDisponibleLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(presupuestoTotalInicialTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(porcentajeAdministracionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(porcentajeImprevistosTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(porcentajeUtilidadesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(presupuestoDisponibleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(presupuestoActualLabel)
+                    .addComponent(presupuestoAdicionalLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(presupuestoActualTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(presupuestoAdicionalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45)
+                .addComponent(viasLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(unidadMedidaMejoraEATextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cantidadEstabilizacionAfirmadosTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(codigosViasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(daniosAsociadosLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(daniosComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tabbedPane))
+                    .addComponent(scrollPaneResumenTextArea))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void abrirAlternativasIntervencionMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirAlternativasIntervencionMenuItemActionPerformed
+    private void archivoMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_archivoMenuActionPerformed
         String ruta = Util.getRutaTemporal();
         try {
             boolean resultado;
@@ -636,9 +608,10 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                         JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
             }
         } catch (IOException ex) {
-            Logger.getLogger(MantenimientoJDialog.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PriorizacionMantenimientoJDialog.class.getName()).
+                    log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_abrirAlternativasIntervencionMenuItemActionPerformed
+    }//GEN-LAST:event_archivoMenuActionPerformed
 
     private void codigosViasComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigosViasComboBoxActionPerformed
         this.setDaniosAsociados();
@@ -665,9 +638,6 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
     private void daniosComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daniosComboBoxActionPerformed
         this.cargarMantenimientos();
     }//GEN-LAST:event_daniosComboBoxActionPerformed
-
-    private void cantidadMantenimientoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadMantenimientoTextFieldActionPerformed
-    }//GEN-LAST:event_cantidadMantenimientoTextFieldActionPerformed
 
     private void mantenimientosComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mantenimientosComboBoxActionPerformed
         int posicionItemSeleccionado = this.mantenimientosComboBox.getSelectedIndex();
@@ -840,17 +810,6 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
 
         this.agregarAlternativaResumenMantenimiento(alternativa);
     }//GEN-LAST:event_aplicarMantenimientoButtonActionPerformed
-
-    private void unidadMedidaMantenimientoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unidadMedidaMantenimientoTextFieldActionPerformed
-    }//GEN-LAST:event_unidadMedidaMantenimientoTextFieldActionPerformed
-
-    private void cantidadTratamientosSuperficialesRiegosTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadTratamientosSuperficialesRiegosTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cantidadTratamientosSuperficialesRiegosTextFieldActionPerformed
-
-    private void cantidadEstabilizacionAfirmadosTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadEstabilizacionAfirmadosTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cantidadEstabilizacionAfirmadosTextFieldActionPerformed
 
     private void aplicarMejorasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aplicarMejorasButtonActionPerformed
         Alternativa mejoraTSR = null;
@@ -1093,14 +1052,6 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_aplicarMejorasButtonActionPerformed
 
-    private void unidadMedidaMejoraTSRTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unidadMedidaMejoraTSRTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_unidadMedidaMejoraTSRTextFieldActionPerformed
-
-    private void unidadMedidaMejoraEATextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unidadMedidaMejoraEATextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_unidadMedidaMejoraEATextFieldActionPerformed
-
     private void tratamientosSuperficialesRiegosComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tratamientosSuperficialesRiegosComboBoxActionPerformed
         int posicionItemSeleccionado = this.tratamientosSuperficialesRiegosComboBox.getSelectedIndex();
         if (posicionItemSeleccionado <= 0) {
@@ -1138,10 +1089,6 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_tratamientosSuperficialesRiegosComboBoxActionPerformed
-
-    private void precioMantenimientoMejoraTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precioMantenimientoMejoraTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_precioMantenimientoMejoraTextFieldActionPerformed
 
     private void estabilizacionAfirmadosComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estabilizacionAfirmadosComboBoxActionPerformed
         int posicionItemSeleccionado = this.estabilizacionAfirmadosComboBox.getSelectedIndex();
@@ -1225,20 +1172,20 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
     private javax.swing.JTextField cantidadTratamientosSuperficialesRiegosTextField;
     private javax.swing.JComboBox codigosViasComboBox;
     private javax.swing.JLabel costoUnitarioMantenimientoLabel;
+    private javax.swing.JLabel costoUnitarioMejoraEALabel;
     private javax.swing.JLabel costoUnitarioMejoraTSRLabel;
-    private javax.swing.JLabel costoUnitarioMejoraTSRLabel1;
     private javax.swing.JLabel daniosAsociadosLabel;
     private javax.swing.JComboBox daniosComboBox;
     private javax.swing.JMenuItem docxMenuItem;
     private javax.swing.JComboBox estabilizacionAfirmadosComboBox;
     private javax.swing.JLabel estabilizacionAfirmadosLabel;
     private javax.swing.JMenu exportarMenu;
-    private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel labelTitulo;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JComboBox mantenimientosComboBox;
+    private javax.swing.JPanel mantenimientosPanel;
     private javax.swing.JLabel mantenimientosRecomendadosLabel;
+    private javax.swing.JPanel mejoramientosPanel;
+    private javax.swing.JMenuBar menuBar;
     private javax.swing.JLabel porcentajeAdministracionLabel;
     private javax.swing.JTextField porcentajeAdministracionTextField;
     private javax.swing.JLabel porcentajeImprevistosLabel;
@@ -1257,14 +1204,17 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
     private javax.swing.JTextField presupuestoTotalInicialTextField;
     private javax.swing.JLabel presupuestoTotlaInicialLabel;
     private javax.swing.JTextArea resumenTextArea;
+    private javax.swing.JScrollPane scrollPaneResumenTextArea;
+    private javax.swing.JTabbedPane tabbedPane;
+    private javax.swing.JLabel tituloLabel;
     private javax.swing.JComboBox tratamientosSuperficialesRiegosComboBox;
     private javax.swing.JLabel tratamientosSuperficialesRiegosLabel;
     private javax.swing.JMenuItem txtMenuItem;
     private javax.swing.JLabel unidadMedidaMantenimientoLabel;
     private javax.swing.JTextField unidadMedidaMantenimientoTextField;
+    private javax.swing.JLabel unidadMedidaMejoraEALabel;
     private javax.swing.JTextField unidadMedidaMejoraEATextField;
     private javax.swing.JLabel unidadMedidaMejoraTRSLabel;
-    private javax.swing.JLabel unidadMedidaMejoraTRSLabel1;
     private javax.swing.JTextField unidadMedidaMejoraTSRTextField;
     private javax.swing.JLabel viasLabel;
     // End of variables declaration//GEN-END:variables
@@ -1502,8 +1452,8 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                     this.resumen += "                - " + "Mantenimiento: " + alternativas.get(k).getItem()
                             + separadorLinea;
                     this.resumen += "                  Cantidad: "
-                            + alternativas.get(k).getCantidad() + " " +
-                            this.obtenerUnidadDadoItem(alternativas.get(k).getItem()) 
+                            + alternativas.get(k).getCantidad() + " "
+                            + this.obtenerUnidadDadoItem(alternativas.get(k).getItem())
                             + separadorLinea;
                     this.resumen += "                  Costo : $ " + (alternativas.get(k).getCantidad()
                             * this.buscarPrecioDadoCodigoItem(alternativas.get(k).getItem()));
@@ -1518,8 +1468,8 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                 for (int j = 0; j < alternativas.size(); j++) {
                     viasImpresas.add(v);
                     this.resumen += "        * Mejoramiento: " + alternativas.get(j).getItem() + separadorLinea;
-                    this.resumen += "          Cantidad: " + alternativas.get(j).getCantidad() + " " + 
-                            this.obtenerUnidadDadoItem(alternativas.get(j).getItem()) 
+                    this.resumen += "          Cantidad: " + alternativas.get(j).getCantidad() + " "
+                            + this.obtenerUnidadDadoItem(alternativas.get(j).getItem())
                             + separadorLinea;
                     this.resumen += "          Costo: $ " + (alternativas.get(j).getCantidad()
                             * this.buscarPrecioDadoCodigoItem(alternativas.get(j).getItem()));
@@ -1527,8 +1477,8 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                 }
             }
 
-            this.resumen += "Costo total intervenciones: $" + 
-                    (this.mantPriorViasInfo.getPresupuesto().getPresupuestoDisponible()
+            this.resumen += "Costo total intervenciones: $"
+                    + (this.mantPriorViasInfo.getPresupuesto().getPresupuestoDisponible()
                     - this.presupuestoActual + this.presupuestoAdicional);
         }
 
@@ -1719,8 +1669,8 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                 List<String> daniosABorrar = new ArrayList<>();
                 danios.stream().filter((danio) -> (!Constantes.DANIOS_PERMANECEN_POR_MEJORAS.contains(
                         danio.substring(0, danio.length() - 1)))).forEach((danio) -> {
-                    daniosABorrar.add(danio);
-                });
+                            daniosABorrar.add(danio);
+                        });
 
                 if (!daniosABorrar.isEmpty()) {
                     daniosABorrar.stream().forEach((daniosABorrar1) -> {
@@ -1777,22 +1727,22 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
 
     private String estructurarInformacionTXT() {
         String separadorLinea = System.getProperty("line.separator");
-        String texto = this.resumen + separadorLinea + separadorLinea +  separadorLinea;
-        
+        String texto = this.resumen + separadorLinea + separadorLinea + separadorLinea;
+
         texto += "Presupuesto" + separadorLinea;
-        texto += "  * Presupuesto Total Inicial: $" + 
-                this.mantPriorViasInfo.getPresupuesto().getPresupuestoTotal() + separadorLinea;
-        texto += "  * Porcentaje Administación: " + 
-                (this.mantPriorViasInfo.getPresupuesto().getPorcentajeAdministracion() * 100) + " %" + separadorLinea;
-        texto += "  * Porcentaje Imprevistos: " + 
-                (this.mantPriorViasInfo.getPresupuesto().getPorcentajeImprevistos()* 100) + " %" + separadorLinea;
-        texto += "  * Porcentaje Utilidades: " + 
-                (this.mantPriorViasInfo.getPresupuesto().getPorcentajeUtilidades()* 100) + " %" + separadorLinea;
-        texto += "  * Presupuesto Disponible: $" + 
-                this.mantPriorViasInfo.getPresupuesto().getPresupuestoDisponible();
+        texto += "  * Presupuesto Total Inicial: $"
+                + this.mantPriorViasInfo.getPresupuesto().getPresupuestoTotal() + separadorLinea;
+        texto += "  * Porcentaje Administación: "
+                + (this.mantPriorViasInfo.getPresupuesto().getPorcentajeAdministracion() * 100) + " %" + separadorLinea;
+        texto += "  * Porcentaje Imprevistos: "
+                + (this.mantPriorViasInfo.getPresupuesto().getPorcentajeImprevistos() * 100) + " %" + separadorLinea;
+        texto += "  * Porcentaje Utilidades: "
+                + (this.mantPriorViasInfo.getPresupuesto().getPorcentajeUtilidades() * 100) + " %" + separadorLinea;
+        texto += "  * Presupuesto Disponible: $"
+                + this.mantPriorViasInfo.getPresupuesto().getPresupuestoDisponible();
         texto += "  * Presupuesto Actual: $" + this.presupuestoActual + separadorLinea;
-        texto += "  * Presupuesto Adicional para Intervención: $" + 
-                this.presupuestoAdicional;
+        texto += "  * Presupuesto Adicional para Intervención: $"
+                + this.presupuestoAdicional;
         texto += separadorLinea + separadorLinea;
 
         texto += "Daños" + separadorLinea;
@@ -1838,7 +1788,7 @@ public class MantenimientoJDialog extends javax.swing.JDialog {
                 break;
             }
         }
-        
+
         return unidad;
     }
 }

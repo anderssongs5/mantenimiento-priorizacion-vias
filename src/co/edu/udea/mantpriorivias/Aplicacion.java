@@ -534,7 +534,7 @@ public class Aplicacion extends javax.swing.JFrame {
     }
 
     private void abrirPantallaMantenimientoYMejoramiento(MantPriorViasInfo mantPriorViasInfo) {
-        MantenimientoJDialog mantenimientoJDialog = new MantenimientoJDialog(this,
+        PriorizacionMantenimientoJDialog mantenimientoJDialog = new PriorizacionMantenimientoJDialog(this,
                 true, mantPriorViasInfo);
 
         mantenimientoJDialog.iniciarVentanta();

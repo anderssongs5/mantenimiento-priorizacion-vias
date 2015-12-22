@@ -1,0 +1,649 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+  <NonVisualComponents>
+    <Menu class="javax.swing.JMenuBar" name="menuBar">
+      <SubComponents>
+        <Menu class="javax.swing.JMenu" name="archivoMenu">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Archivo"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="archivoMenuActionPerformed"/>
+          </Events>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="abrirAlternativasIntervencionMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Abrir alternativas intervenci&#xf3;n"/>
+              </Properties>
+            </MenuItem>
+            <Menu class="javax.swing.JMenu" name="exportarMenu">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Exportar"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="txtMenuItem">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="TXT"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtMenuItemActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="docxMenuItem">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Docx"/>
+                  </Properties>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
+          </SubComponents>
+        </Menu>
+      </SubComponents>
+    </Menu>
+  </NonVisualComponents>
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="menuBar" type="java.lang.String" value="menuBar"/>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="viasLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="codigosViasComboBox" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
+                  <Component id="daniosAsociadosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="daniosComboBox" alignment="0" min="-2" pref="285" max="-2" attributes="0"/>
+                  <Component id="tabbedPane" alignment="0" min="-2" pref="410" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="57" max="32767" attributes="0"/>
+              <Component id="scrollPaneResumenTextArea" min="-2" pref="352" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="301" max="-2" attributes="0"/>
+                      <Component id="tituloLabel" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="289" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="presupuestoActualLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="presupuestoActualTextField" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="presupuestoAdicionalLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="presupuestoAdicionalTextField" min="-2" pref="140" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="presupuestoTotlaInicialLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="presupuestoTotalInicialTextField" min="-2" pref="140" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="porcentajeAdministracionLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="porcentajeAdministracionTextField" min="-2" pref="100" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="porcentajeImprevistosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="porcentajeImprevistosTextField" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="porcentajeUtilidadesLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="porcentajeUtilidadesTextField" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="presupuestoDisponibleLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="presupuestoDisponibleTextField" min="-2" pref="140" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="tituloLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="presupuestoTotlaInicialLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="porcentajeAdministracionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="porcentajeImprevistosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="porcentajeUtilidadesLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="presupuestoDisponibleLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="presupuestoTotalInicialTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="porcentajeAdministracionTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="porcentajeImprevistosTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="porcentajeUtilidadesTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="presupuestoDisponibleTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="presupuestoActualLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="presupuestoAdicionalLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="presupuestoActualTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="presupuestoAdicionalTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+              <Component id="viasLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="codigosViasComboBox" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="daniosAsociadosLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="daniosComboBox" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="tabbedPane" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="scrollPaneResumenTextArea" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JLabel" name="tituloLabel">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="15" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Priorizaci&#xf3;n y Mantenimiento de V&#xed;as"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="presupuestoTotlaInicialLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Presupuesto Total Inicial"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="presupuestoTotalInicialTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="porcentajeAdministracionLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="% Administraci&#xf3;n"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="porcentajeAdministracionTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="porcentajeImprevistosLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="% Imprevistos"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="porcentajeImprevistosTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="porcentajeUtilidadesLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="% Utilidades"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="porcentajeUtilidadesTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="presupuestoDisponibleLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Presupuesto Disponible"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="presupuestoDisponibleTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="presupuestoActualLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Presupuesto actual"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="presupuestoActualTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="presupuestoAdicionalLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Presupuesto adicional"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="presupuestoAdicionalTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="viasLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="V&#xed;as"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="codigosViasComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="codigosViasComboBoxActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="daniosAsociadosLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Da&#xf1;os asociados a la v&#xed;a"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="daniosComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="daniosComboBoxActionPerformed"/>
+      </Events>
+    </Component>
+    <Container class="javax.swing.JTabbedPane" name="tabbedPane">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
+      <SubComponents>
+        <Container class="javax.swing.JPanel" name="mantenimientosPanel">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Mantenimientos">
+                <Property name="tabTitle" type="java.lang.String" value="Mantenimientos"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="unidadMedidaMantenimientoTextField" min="-2" pref="200" max="-2" attributes="0"/>
+                                  <Component id="mantenimientosComboBox" min="-2" pref="200" max="-2" attributes="0"/>
+                                  <Component id="unidadMedidaMantenimientoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mantenimientosRecomendadosLabel" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="cantidadMantenimientoTextField" min="-2" pref="140" max="-2" attributes="0"/>
+                                  <Component id="precioMantenimientoMejoraTextField" min="-2" pref="140" max="-2" attributes="0"/>
+                                  <Component id="cantidadMantenimientosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="costoUnitarioMantenimientoLabel" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="128" max="-2" attributes="0"/>
+                              <Component id="aplicarMantenimientoButton" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="28" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="mantenimientosRecomendadosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="costoUnitarioMantenimientoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="mantenimientosComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="precioMantenimientoMejoraTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="unidadMedidaMantenimientoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cantidadMantenimientosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="unidadMedidaMantenimientoTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cantidadMantenimientoTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="aplicarMantenimientoButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="43" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="mantenimientosRecomendadosLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Mantenimientos recomendados"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="mantenimientosComboBox">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mantenimientosComboBoxActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="costoUnitarioMantenimientoLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Costo unitario"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="precioMantenimientoMejoraTextField">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="unidadMedidaMantenimientoLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Unidad de medida"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="unidadMedidaMantenimientoTextField">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="cantidadMantenimientosLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cantidad"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="cantidadMantenimientoTextField">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="aplicarMantenimientoButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Aplicar Mantenimiento"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aplicarMantenimientoButtonActionPerformed"/>
+              </Events>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="mejoramientosPanel">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Mejoramientos">
+                <Property name="tabTitle" type="java.lang.String" value="Mejoramientos"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="aplicarMejorasButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="159" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="unidadMedidaMejoraEATextField" alignment="0" max="32767" attributes="0"/>
+                              <Component id="unidadMedidaMejoraTSRTextField" alignment="0" max="32767" attributes="0"/>
+                              <Component id="tratamientosSuperficialesRiegosLabel" alignment="0" max="32767" attributes="0"/>
+                              <Component id="tratamientosSuperficialesRiegosComboBox" alignment="0" max="32767" attributes="0"/>
+                              <Component id="unidadMedidaMejoraTRSLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="estabilizacionAfirmadosLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="estabilizacionAfirmadosComboBox" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="unidadMedidaMejoraEALabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" pref="35" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="cantidadEstabilizacionAfirmadosLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="costoUnitarioMejoraEALabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="cantidadTratamientosSuperficialesRiegosLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="costoUnitarioMejoraTSRLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="precioMejoraTSRTextField" max="32767" attributes="0"/>
+                          <Component id="cantidadTratamientosSuperficialesRiegosTextField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="precioMejoraEATextField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cantidadEstabilizacionAfirmadosTextField" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jSeparator1" max="32767" attributes="0"/>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="tratamientosSuperficialesRiegosLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="tratamientosSuperficialesRiegosComboBox" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="unidadMedidaMejoraTRSLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="unidadMedidaMejoraTSRTextField" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="costoUnitarioMejoraTSRLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="precioMejoraTSRTextField" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="cantidadTratamientosSuperficialesRiegosLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="cantidadTratamientosSuperficialesRiegosTextField" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="estabilizacionAfirmadosLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="estabilizacionAfirmadosComboBox" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="unidadMedidaMejoraEALabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="unidadMedidaMejoraEATextField" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="costoUnitarioMejoraEALabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="precioMejoraEATextField" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="cantidadEstabilizacionAfirmadosLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="cantidadEstabilizacionAfirmadosTextField" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="aplicarMejorasButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="tratamientosSuperficialesRiegosLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Tratamientos Superficiales o Riegos"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="tratamientosSuperficialesRiegosComboBox">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tratamientosSuperficialesRiegosComboBoxActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="costoUnitarioMejoraTSRLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Costo unitario"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="precioMejoraTSRTextField">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="unidadMedidaMejoraTRSLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Unidad de medida"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="unidadMedidaMejoraTSRTextField">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="cantidadTratamientosSuperficialesRiegosLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cantidad"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="cantidadTratamientosSuperficialesRiegosTextField">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="estabilizacionAfirmadosLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Estabilizaci&#xf3;n de Afirmados"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="estabilizacionAfirmadosComboBox">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="estabilizacionAfirmadosComboBoxActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="costoUnitarioMejoraEALabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Costo unitario"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="precioMejoraEATextField">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="unidadMedidaMejoraEALabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Unidad de medida"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="unidadMedidaMejoraEATextField">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="cantidadEstabilizacionAfirmadosLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cantidad"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="cantidadEstabilizacionAfirmadosTextField">
+            </Component>
+            <Component class="javax.swing.JButton" name="aplicarMejorasButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Aplicar Mejora(s)"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aplicarMejorasButtonActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JSeparator" name="jSeparator1">
+            </Component>
+          </SubComponents>
+        </Container>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JScrollPane" name="scrollPaneResumenTextArea">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="resumenTextArea">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="rows" type="int" value="5"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>

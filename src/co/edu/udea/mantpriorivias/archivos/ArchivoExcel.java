@@ -366,14 +366,14 @@ public class ArchivoExcel {
             String nombreArchivo) {
         boolean correcto = false;
         try {
-            OutputStream outputStream = new FileOutputStream(directorio
-                    + "/" + nombreArchivo);
-            byte[] buffer = new byte[1024];
-            int longitud;
-            while ((longitud = inputStream.read(buffer)) > 0) {
-                outputStream.write(buffer, 0, longitud);
+            try (OutputStream outputStream = new FileOutputStream(directorio
+                    + "/" + nombreArchivo)) {
+                byte[] buffer = new byte[1024];
+                int longitud;
+                while ((longitud = inputStream.read(buffer)) > 0) {
+                    outputStream.write(buffer, 0, longitud);
+                }
             }
-            outputStream.close();
             correcto = true;
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ArchivoExcel.class.getName()).log(Level.SEVERE, null, ex);

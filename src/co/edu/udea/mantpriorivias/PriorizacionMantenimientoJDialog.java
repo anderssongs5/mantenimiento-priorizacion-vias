@@ -465,6 +465,11 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
         });
 
         abrirAlternativasIntervencionMenuItem.setText("Abrir alternativas intervención");
+        abrirAlternativasIntervencionMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abrirAlternativasIntervencionMenuItemActionPerformed(evt);
+            }
+        });
         archivoMenu.add(abrirAlternativasIntervencionMenuItem);
 
         exportarMenu.setText("Exportar");
@@ -1159,6 +1164,42 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_txtMenuItemActionPerformed
 
+    private void abrirAlternativasIntervencionMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirAlternativasIntervencionMenuItemActionPerformed
+        String ruta = Util.getRutaTemporal();
+        try {
+            boolean resultado;
+            resultado = this.archivoExcel.
+                    descargarAlternativasIntervencion(new File(ruta));
+            if (!resultado) {
+                JOptionPane.showMessageDialog(this, "No se puede descargar el archivo"
+                        + " de alternativas de intervención.\n\nPor favor "
+                        + "conctátese con el administrador de la aplicación.",
+                        "Error en archivo", JOptionPane.ERROR_MESSAGE, ERROR_IMAGE);
+            } else {
+                if (Desktop.isDesktopSupported()) {
+                    Desktop desktop = Desktop.getDesktop();
+                    desktop.open(new File(ruta + "/"
+                            + ArchivoExcel.ARCHIVO_ALTERNATIVAS_INTERVENCION));
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                            "No se puede abrir el archivo"
+                            + " de alternativas de intervención.\n\nPor favor "
+                            + "contáctese con el administrador de la aplicación.",
+                            "No se puede abrir archivos",
+                            JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(PriorizacionMantenimientoJDialog.class.getName()).
+                    log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Se ha presentado un error abriendo el archivo"
+                    + " de alternativas de intervención.\n\nPor favor "
+                    + "contáctese con el administrador de la aplicación.",
+                    "No se puede abrir archivos",
+                    JOptionPane.ERROR_MESSAGE, ERROR_IMAGE);
+        }
+    }//GEN-LAST:event_abrirAlternativasIntervencionMenuItemActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem abrirAlternativasIntervencionMenuItem;
     private javax.swing.JButton aplicarMantenimientoButton;
@@ -1727,7 +1768,10 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
 
     private String estructurarInformacionTXT() {
         String separadorLinea = System.getProperty("line.separator");
-        String texto = this.resumen + separadorLinea + separadorLinea + separadorLinea;
+        String texto = "";
+        if (this.resumen != null) {
+            texto = this.resumen + separadorLinea + separadorLinea + separadorLinea;
+        }
 
         texto += "Presupuesto" + separadorLinea;
         texto += "  * Presupuesto Total Inicial: $"

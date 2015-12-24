@@ -33,10 +33,10 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
             return column > 1;
         }
     };
-    private static final ImageIcon ERROR_IMAGE = new ImageIcon(Aplicacion.class
+    private static final ImageIcon ERROR_IMAGE = new ImageIcon(Inicio.class
             .getResource("/co/edu/udea/mantpriorivias/recursos/imagenes/"
                     + "ic_dialog_error.png"));
-    private static final ImageIcon WARNING_IMAGE = new ImageIcon(Aplicacion.class
+    private static final ImageIcon WARNING_IMAGE = new ImageIcon(Inicio.class
             .getResource("/co/edu/udea/mantpriorivias/recursos/imagenes/"
                     + "ic_dialog_warning.png"));
 

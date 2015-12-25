@@ -1538,7 +1538,7 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
                 for (int j = 0; j < alternativas.size(); j++) {
                     Unidad u = this.obtenerUnidadDadoItem(alternativas.get(j).getItem());
                     this.resumen += "        * Mejoramiento: " + alternativas.get(j).getItem() + separadorLinea;
-                    this.resumen += "          Cantidad: " + alternativas.get(j).getCantidad()
+                    this.resumen += "          Cantidad: " + alternativas.get(j).getCantidad() + " "
                             + u.getUnidad() + " (" + u.getNombre() + ")"
                             + separadorLinea;
                     this.resumen += "          Costo: $ " + (alternativas.get(j).getCantidad()

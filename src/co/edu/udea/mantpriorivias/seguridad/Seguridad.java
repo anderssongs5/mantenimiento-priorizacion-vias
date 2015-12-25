@@ -5,13 +5,14 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class Seguridad {
-    
+
     private static final String PASSWORD = "PASSWORD";
-    
-    public static boolean puedeContinuar(String texto) throws IOException{
+
+    public static boolean puedeContinuar(String texto) throws IOException {
         Properties properties = Seguridad.obtenerPropiedades();
-                
-        return texto.equals(properties.get(PASSWORD));
+
+        return texto != null && !texto.isEmpty()
+                && texto.equals(properties.get(PASSWORD));
     }
 
     private static Properties obtenerPropiedades() throws IOException {
@@ -22,7 +23,7 @@ public class Seguridad {
                 + "recursos/seguridad.properties");
         properties.load(inputStream);
         inputStream.close();
-        
+
         return properties;
     }
 }

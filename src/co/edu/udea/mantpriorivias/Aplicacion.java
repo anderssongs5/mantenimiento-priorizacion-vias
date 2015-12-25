@@ -34,8 +34,8 @@ public class Aplicacion {
                     char[] password = pass.getPassword();
                     StringBuilder sb = new StringBuilder();
                     sb.append(password);
-                    sb.append("PMVias*UdeA*2015");
-                    if (password != null //&& password.length != 0
+//                    sb.append("PMVias*UdeA*2015");
+                    if (password != null
                             && Seguridad.puedeContinuar(sb.toString())) {
                         Inicio inicio = new Inicio();
                         inicio.setResizable(false);

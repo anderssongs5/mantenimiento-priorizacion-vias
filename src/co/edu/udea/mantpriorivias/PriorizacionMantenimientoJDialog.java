@@ -8,10 +8,12 @@ import co.edu.udea.mantpriorivias.entidades.InfoVia;
 import co.edu.udea.mantpriorivias.entidades.Item;
 import co.edu.udea.mantpriorivias.entidades.MantPriorViasInfo;
 import co.edu.udea.mantpriorivias.entidades.Presupuesto;
+import co.edu.udea.mantpriorivias.entidades.Progreso;
 import co.edu.udea.mantpriorivias.entidades.ResumenMantenimiento;
 import co.edu.udea.mantpriorivias.entidades.ResumenMejora;
 import co.edu.udea.mantpriorivias.entidades.Unidad;
 import co.edu.udea.mantpriorivias.general.Util;
+import co.edu.udea.mantpriorivias.recursos.progreso.UtilProgreso;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Desktop;
@@ -36,11 +38,11 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
     private final MantPriorViasInfo mantPriorViasInfo;
     private ArchivoExcel archivoExcel = new ArchivoExcel();
     private List<String> listaDaniosComboBox = new ArrayList<>();
-    private List<Alternativa> alternativasMantenimiento = new ArrayList<>();
-    private List<Alternativa> alternativasMejorasTSR = new ArrayList<>();
-    private List<Alternativa> alternativasMejorasEA = new ArrayList<>();
-    private List<ResumenMantenimiento> viasResumenMantenimiento = new ArrayList<>();
-    private List<ResumenMejora> viasResumenMejora = new ArrayList<>();
+    private List<Alternativa> alternativasMantenimiento;
+    private List<Alternativa> alternativasMejorasTSR;
+    private List<Alternativa> alternativasMejorasEA;
+    private List<ResumenMantenimiento> viasResumenMantenimiento;
+    private List<ResumenMejora> viasResumenMejora;
     private List<Item> tratamientosSuperficialesRiegos = new ArrayList<>();
     private List<Item> estabilizacionAfirmados = new ArrayList<>();
     private ArchivoTextoPlano creadorArchivoTextoPlano = new ArchivoTextoPlano();
@@ -53,7 +55,7 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
     private boolean tieneMejoras;
     private int posicionDanio;
     private double presupuestoActual;
-    private double presupuestoAdicional = 0.0;
+    private double presupuestoAdicional;
     private double valorUnitarioMantenimiento;
     private double valorUnitarioMejoraEA;
     private double valorUnitarioMejoraTSR;
@@ -99,11 +101,51 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
      * @param parent
      * @param modal
      * @param mantPriorViasInfo
+     * @param viasResumenMantenimiento
+     * @param viasResumenMejora
+     * @param alternativasMantenimiento
+     * @param alternativasMejorasTSR
+     * @param alternativasMejorasEA
      */
     public PriorizacionMantenimientoJDialog(java.awt.Frame parent, boolean modal,
-            MantPriorViasInfo mantPriorViasInfo) {
+            MantPriorViasInfo mantPriorViasInfo,
+            List<ResumenMantenimiento> viasResumenMantenimiento,
+            List<ResumenMejora> viasResumenMejora,
+            List<Alternativa> alternativasMantenimiento,
+            List<Alternativa> alternativasMejorasTSR,
+            List<Alternativa> alternativasMejorasEA) {
         super(parent, modal);
         this.mantPriorViasInfo = mantPriorViasInfo;
+        if (viasResumenMantenimiento == null) {
+            this.viasResumenMantenimiento = new ArrayList<>();
+        } else {
+            this.viasResumenMantenimiento = viasResumenMantenimiento;
+        }
+
+        if (viasResumenMejora == null) {
+            this.viasResumenMejora = new ArrayList<>();
+        } else {
+            this.viasResumenMejora = viasResumenMejora;
+        }
+
+        if (alternativasMantenimiento == null) {
+            this.alternativasMantenimiento = new ArrayList<>();
+        } else {
+            this.alternativasMantenimiento = alternativasMantenimiento;
+        }
+
+        if (alternativasMejorasTSR == null) {
+            this.alternativasMejorasTSR = new ArrayList<>();
+        } else {
+            this.alternativasMejorasTSR = alternativasMejorasTSR;
+        }
+
+        if (alternativasMejorasEA == null) {
+            this.alternativasMejorasEA = new ArrayList<>();
+        } else {
+            this.alternativasMejorasEA = alternativasMejorasEA;
+        }
+
         initComponents();
 
         this.setInformacionPresupuesto(this.mantPriorViasInfo.getPresupuesto());
@@ -116,13 +158,13 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
 
         this.restringirValoresCampos();
         this.aplicarMantenimientoButton.setEnabled(false);
-        this.presupuestoActualTextField.setBackground(Color.green);
-        this.presupuestoAdicionalTextField.setText(
-                String.valueOf(this.presupuestoAdicional));
+        this.establecerColorPresupuestoActual();
 
         this.setMejoras();
         this.tratamientosSuperficialesRiegosComboBox.setRenderer(this.comboRenderer);
         this.estabilizacionAfirmadosComboBox.setRenderer(this.comboRenderer);
+
+        this.mostrarResumen();
     }
 
     /**
@@ -188,9 +230,10 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
         menuBar = new javax.swing.JMenuBar();
         archivoMenu = new javax.swing.JMenu();
         abrirAlternativasIntervencionMenuItem = new javax.swing.JMenuItem();
-        exportarMenu = new javax.swing.JMenu();
+        exportarResumenMenu = new javax.swing.JMenu();
         txtMenuItem = new javax.swing.JMenuItem();
         docxMenuItem = new javax.swing.JMenuItem();
+        guardarProgresoMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -473,7 +516,7 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
         });
         archivoMenu.add(abrirAlternativasIntervencionMenuItem);
 
-        exportarMenu.setText("Exportar");
+        exportarResumenMenu.setText("Exportar resumen");
 
         txtMenuItem.setText("TXT");
         txtMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -481,12 +524,20 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
                 txtMenuItemActionPerformed(evt);
             }
         });
-        exportarMenu.add(txtMenuItem);
+        exportarResumenMenu.add(txtMenuItem);
 
         docxMenuItem.setText("Docx");
-        exportarMenu.add(docxMenuItem);
+        exportarResumenMenu.add(docxMenuItem);
 
-        archivoMenu.add(exportarMenu);
+        archivoMenu.add(exportarResumenMenu);
+
+        guardarProgresoMenuItem.setText("Guardar progreso");
+        guardarProgresoMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarProgresoMenuItemActionPerformed(evt);
+            }
+        });
+        archivoMenu.add(guardarProgresoMenuItem);
 
         menuBar.add(archivoMenu);
 
@@ -1142,9 +1193,8 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
 
     private void txtMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMenuItemActionPerformed
         String texto = this.estructurarInformacionTXT();
-        int retorno = FILE_CHOOSER_EXPORTAR.showOpenDialog(this);
-        if (JFileChooser.APPROVE_OPTION == retorno) {
-            File file = FILE_CHOOSER_EXPORTAR.getSelectedFile();
+        File file = this.seleccionarDirectorio();
+        if (file != null) {
             if (Util.isDirectorioValido(file)) {
                 if (this.creadorArchivoTextoPlano.crearArchivo(texto,
                         file.getAbsolutePath() + "/Resumen.txt")) {
@@ -1207,6 +1257,45 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_abrirAlternativasIntervencionMenuItemActionPerformed
 
+    private void guardarProgresoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarProgresoMenuItemActionPerformed
+        File file = this.seleccionarDirectorio();
+        if (file != null) {
+            if (Util.isDirectorioValido(file)) {
+                this.mantPriorViasInfo.getPresupuesto().setPresupuestoActual(
+                        this.presupuestoActual);
+                this.mantPriorViasInfo.getPresupuesto().setPresupuestoAdicional(
+                        this.presupuestoAdicional);
+                Progreso progreso = new Progreso();
+                progreso.setMantPriorViasInfo(this.mantPriorViasInfo);
+                progreso.setViasResumenMantenimiento(this.viasResumenMantenimiento);
+                progreso.setViasResumenMejora(this.viasResumenMejora);
+                progreso.setAlternativasMantenimiento(this.alternativasMantenimiento);
+                progreso.setAlternativasMejorasTSR(this.alternativasMejorasTSR);
+                progreso.setAlternativasMejorasEA(this.alternativasMejorasEA);
+                if (UtilProgreso.guardarProgreso(progreso, file.getAbsolutePath())) {
+                    JOptionPane.showMessageDialog(this, "Se ha guardado "
+                            + "satisfactoriamente el archivo de progreso \n"
+                            + "progreso.ser en el directorio "
+                            + "seleccionado.", "Arhivo progreso guardado",
+                            JOptionPane.INFORMATION_MESSAGE, INFORMATION_IMAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Se ha generado "
+                            + "un error guardando el archivo de progreso. "
+                            + "Por favor verifique que el directorio exista\n y "
+                            + "que un archivo con el nombre "
+                            + "progreso.ser no esté abierto.",
+                            "Error guardando archivo",
+                            JOptionPane.ERROR_MESSAGE, ERROR_IMAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor seleccione un "
+                        + "directorio válido.",
+                        "Directorio inválido",
+                        JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
+            }
+        }
+    }//GEN-LAST:event_guardarProgresoMenuItemActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem abrirAlternativasIntervencionMenuItem;
     private javax.swing.JButton aplicarMantenimientoButton;
@@ -1227,7 +1316,8 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
     private javax.swing.JMenuItem docxMenuItem;
     private javax.swing.JComboBox estabilizacionAfirmadosComboBox;
     private javax.swing.JLabel estabilizacionAfirmadosLabel;
-    private javax.swing.JMenu exportarMenu;
+    private javax.swing.JMenu exportarResumenMenu;
+    private javax.swing.JMenuItem guardarProgresoMenuItem;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JComboBox mantenimientosComboBox;
     private javax.swing.JPanel mantenimientosPanel;
@@ -1285,9 +1375,12 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
         this.presupuestoDisponibleTextField.setText("$ "
                 + presupuesto.getPresupuestoDisponible());
         this.presupuestoActualTextField.setText("$ "
-                + presupuesto.getPresupuestoDisponible());
+                + presupuesto.getPresupuestoActual());
+        this.presupuestoAdicionalTextField.setText("$ "
+                + presupuesto.getPresupuestoAdicional());
 
-        this.presupuestoActual = presupuesto.getPresupuestoDisponible();
+        this.presupuestoActual = presupuesto.getPresupuestoActual();
+        this.presupuestoAdicional = presupuesto.getPresupuestoAdicional();
     }
 
     private void setCodigosVias(List<InfoVia> vias) {
@@ -1848,5 +1941,14 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
         }
 
         return unidad;
+    }
+
+    private File seleccionarDirectorio() {
+        int retorno = FILE_CHOOSER_EXPORTAR.showOpenDialog(this);
+        if (JFileChooser.APPROVE_OPTION == retorno) {
+            return FILE_CHOOSER_EXPORTAR.getSelectedFile();
+        }
+
+        return null;
     }
 }

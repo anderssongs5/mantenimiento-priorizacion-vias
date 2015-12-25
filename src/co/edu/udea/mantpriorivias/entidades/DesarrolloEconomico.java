@@ -1,6 +1,8 @@
 package co.edu.udea.mantpriorivias.entidades;
 
-public class DesarrolloEconomico {
+import java.io.Serializable;
+
+public class DesarrolloEconomico implements Serializable {
 
     private String comercial;
     private String industrial;

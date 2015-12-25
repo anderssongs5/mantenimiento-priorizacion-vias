@@ -1,10 +1,11 @@
 package co.edu.udea.mantpriorivias.entidades;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ResumenMejora {
-    
+public class ResumenMejora implements Serializable {
+
     private String via;
     private List<Alternativa> alternativas = new ArrayList<>();
 

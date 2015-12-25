@@ -1,6 +1,8 @@
 package co.edu.udea.mantpriorivias.entidades;
 
-public class DanioVia {
+import java.io.Serializable;
+
+public class DanioVia implements Serializable {
 
     private String seccionTransversalInapropiada81;
     private String drenajeLongitudinalInadecuado82;
@@ -9,7 +11,7 @@ public class DanioVia {
     private String polvo85;
     private String bachesHuecos86;
     private String ahuellamientoSurcos87;
-    private String agregadoSuelto88;    
+    private String agregadoSuelto88;
     private String cabezasDuras89;
     private String probabilidadDerrumbes90;
     private String danioBanca91;

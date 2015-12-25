@@ -1,6 +1,8 @@
 package co.edu.udea.mantpriorivias.entidades;
 
-public class Via {
+import java.io.Serializable;
+
+public class Via implements Serializable {
 
     private String codigoVia;
     private DesarrolloEconomico desarrolloEconomico;

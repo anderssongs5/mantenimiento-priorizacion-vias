@@ -1,32 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.udea.mantpriorivias.entidades;
 
-/**
- *
- * @author Samsung
- */
-public class Presupuesto {
+import java.io.Serializable;
+
+public class Presupuesto implements Serializable {
 
     double presupuestoTotal;
     double porcentajeAdministracion;
     double porcentajeImprevistos;
     double porcentajeUtilidades;
     double presupuestoDisponible;
+    double presupuestoAdicional = 0.0;
+    double presupuestoActual;
 
     public Presupuesto(double presupuestoTotal, double porcentajeAdministracion,
-            double porcentajeImprevistos, double porcentajeUtiliadades) {
+            double porcentajeImprevistos, double porcentajeUtilidades) {
         this.presupuestoTotal = presupuestoTotal;
         this.porcentajeAdministracion = porcentajeAdministracion;
         this.porcentajeImprevistos = porcentajeImprevistos;
-        this.porcentajeUtilidades = porcentajeUtiliadades;
+        this.porcentajeUtilidades = porcentajeUtilidades;
 
-        this.presupuestoDisponible = presupuestoTotal - presupuestoTotal
-                * (porcentajeAdministracion + porcentajeImprevistos
-                + porcentajeUtiliadades);
+        this.presupuestoDisponible = this.calcularPrespuestoDisponible(
+                presupuestoTotal, porcentajeAdministracion, porcentajeImprevistos,
+                porcentajeUtilidades);
+        this.presupuestoActual = this.calcularPrespuestoDisponible(
+                presupuestoTotal, porcentajeAdministracion, porcentajeImprevistos,
+                porcentajeUtilidades);
     }
 
     public double getPresupuestoTotal() {
@@ -69,4 +67,27 @@ public class Presupuesto {
         this.presupuestoDisponible = presupuestoDisponible;
     }
 
+    public double getPresupuestoAdicional() {
+        return presupuestoAdicional;
+    }
+
+    public void setPresupuestoAdicional(double presupuestoAdicional) {
+        this.presupuestoAdicional = presupuestoAdicional;
+    }
+
+    public double getPresupuestoActual() {
+        return presupuestoActual;
+    }
+
+    public void setPresupuestoActual(double presupuestoActual) {
+        this.presupuestoActual = presupuestoActual;
+    }
+
+    private double calcularPrespuestoDisponible(double presupuestoTotal,
+            double porcentajeAdministracion, double porcentajeImprevistos,
+            double porcentajeUtilidades) {
+        return (presupuestoTotal - presupuestoTotal
+                * (porcentajeAdministracion + porcentajeImprevistos
+                + porcentajeUtilidades));
+    }
 }

@@ -20,9 +20,9 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="abrirAlternativasIntervencionMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
-            <Menu class="javax.swing.JMenu" name="exportarMenu">
+            <Menu class="javax.swing.JMenu" name="exportarResumenMenu">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Exportar"/>
+                <Property name="text" type="java.lang.String" value="Exportar resumen"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="txtMenuItem">
@@ -40,6 +40,14 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
+            <MenuItem class="javax.swing.JMenuItem" name="guardarProgresoMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Guardar progreso"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="guardarProgresoMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>

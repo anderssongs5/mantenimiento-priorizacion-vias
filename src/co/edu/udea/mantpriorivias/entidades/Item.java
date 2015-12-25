@@ -1,6 +1,8 @@
 package co.edu.udea.mantpriorivias.entidades;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable {
 
     private String codigo;
     private String item;

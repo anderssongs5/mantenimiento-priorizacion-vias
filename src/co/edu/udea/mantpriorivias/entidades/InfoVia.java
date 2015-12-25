@@ -1,8 +1,9 @@
 package co.edu.udea.mantpriorivias.entidades;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class InfoVia {
+public class InfoVia implements Serializable {
 
     private Via via;
     private int filaVia;

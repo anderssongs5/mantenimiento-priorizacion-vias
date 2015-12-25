@@ -1,9 +1,10 @@
 package co.edu.udea.mantpriorivias.entidades;
 
 import co.edu.udea.mantpriorivias.validadores.ValidadorVia;
+import java.io.Serializable;
 import java.util.List;
 
-public class MantPriorViasInfo {
+public class MantPriorViasInfo implements Serializable {
 
     private List<String> erroresArchivo;
     private List<String> erroresHojaPresupuesto;
@@ -99,15 +100,15 @@ public class MantPriorViasInfo {
 
     public boolean tieneErrores() {
         /*return ((this.erroresArchivo != null && !this.erroresArchivo.isEmpty())
-                || (this.erroresHojaPresupuesto != null
-                && !this.erroresHojaPresupuesto.isEmpty())
-                || (this.erroresHojaPriorizacion != null
-                && !this.erroresHojaPriorizacion.isEmpty())
-                || this.existenViasConErrores()
-                || ValidadorVia.existenViasConCodigoRepetido(this.vias)
-                || (this.erroresHojaCostosMantenimiento != null
-                && this.erroresHojaCostosMantenimiento.isEmpty())
-                || this.existenItemsConErrores());*/
+         || (this.erroresHojaPresupuesto != null
+         && !this.erroresHojaPresupuesto.isEmpty())
+         || (this.erroresHojaPriorizacion != null
+         && !this.erroresHojaPriorizacion.isEmpty())
+         || this.existenViasConErrores()
+         || ValidadorVia.existenViasConCodigoRepetido(this.vias)
+         || (this.erroresHojaCostosMantenimiento != null
+         && this.erroresHojaCostosMantenimiento.isEmpty())
+         || this.existenItemsConErrores());*/
         return ((this.erroresArchivo != null && !this.erroresArchivo.isEmpty())
                 || (this.erroresHojaPresupuesto != null
                 && !this.erroresHojaPresupuesto.isEmpty())

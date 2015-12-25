@@ -4,7 +4,9 @@ import co.edu.udea.mantpriorivias.archivos.ArchivoTextoPlano;
 import co.edu.udea.mantpriorivias.archivos.ArchivoExcel;
 import co.edu.udea.mantpriorivias.entidades.InfoVia;
 import co.edu.udea.mantpriorivias.entidades.MantPriorViasInfo;
+import co.edu.udea.mantpriorivias.entidades.Progreso;
 import co.edu.udea.mantpriorivias.general.Util;
+import co.edu.udea.mantpriorivias.recursos.progreso.UtilProgreso;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
@@ -12,15 +14,13 @@ import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.UIManager;
-import javax.swing.plaf.metal.MetalLookAndFeel;
-import javax.swing.plaf.metal.OceanTheme;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 public class Inicio extends javax.swing.JFrame {
 
     private static final JFileChooser FILE_CHOOSER_PLANTILLA;
+    private static final JFileChooser FILE_CHOOSER_PROGRESO;
     private static final JFileChooser FILE_CHOOSER_DIRECTORIO_PLANTILLA;
     private static final JFileChooser FILE_CHOOSER_ALTERNATIVAS_INTERVENCION;
     private File archivoSelecciondo;
@@ -40,6 +40,10 @@ public class Inicio extends javax.swing.JFrame {
         FILE_CHOOSER_PLANTILLA = new JFileChooser();
         FILE_CHOOSER_PLANTILLA.setFileSelectionMode(JFileChooser.FILES_ONLY);
         FILE_CHOOSER_PLANTILLA.setDialogTitle("Seleccionar archivo a procesar...");
+
+        FILE_CHOOSER_PROGRESO = new JFileChooser();
+        FILE_CHOOSER_PROGRESO.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        FILE_CHOOSER_PROGRESO.setDialogTitle("Seleccionar archivo para cargar...");
 
         FILE_CHOOSER_DIRECTORIO_PLANTILLA = new JFileChooser();
         FILE_CHOOSER_DIRECTORIO_PLANTILLA.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -66,6 +70,7 @@ public class Inicio extends javax.swing.JFrame {
         barraMenu = new javax.swing.JMenuBar();
         menuArchivo = new javax.swing.JMenu();
         menuItemCargarArchivo = new javax.swing.JMenuItem();
+        cargarProgresoMenuItem = new javax.swing.JMenuItem();
         menuItemDescargarPlantilla = new javax.swing.JMenuItem();
         menuItemDescargarAlternativasIntervencion = new javax.swing.JMenuItem();
         menuAyuda = new javax.swing.JMenu();
@@ -95,6 +100,14 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
         menuArchivo.add(menuItemCargarArchivo);
+
+        cargarProgresoMenuItem.setText("Cargar progreso");
+        cargarProgresoMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cargarProgresoMenuItemActionPerformed(evt);
+            }
+        });
+        menuArchivo.add(cargarProgresoMenuItem);
 
         menuItemDescargarPlantilla.setText("Descargar plantilla");
         menuItemDescargarPlantilla.addActionListener(new java.awt.event.ActionListener() {
@@ -184,9 +197,14 @@ public class Inicio extends javax.swing.JFrame {
         this.descargarAlternativasIntervencion();
     }//GEN-LAST:event_menuItemDescargarAlternativasIntervencionActionPerformed
 
+    private void cargarProgresoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarProgresoMenuItemActionPerformed
+        this.cargarArchivoProgreso();
+    }//GEN-LAST:event_cargarProgresoMenuItemActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton buttonSeleccionarArchivo;
+    private javax.swing.JMenuItem cargarProgresoMenuItem;
     private javax.swing.JLabel labelSeleccioneArchivo;
     private javax.swing.JLabel labelTitulo;
     private javax.swing.JMenu menuArchivo;
@@ -344,7 +362,7 @@ public class Inicio extends javax.swing.JFrame {
                                     "No se puede continuar con proceso",
                                     JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
                         } else {
-                            this.abrirPantallaMantenimientoYMejoramiento(mantPriorViasInfo);
+                            this.abrirPantallaMantenimientoYMejoramientoPlantilla(mantPriorViasInfo);
                         }
                     }
                 } catch (IOException ex) {
@@ -488,10 +506,51 @@ public class Inicio extends javax.swing.JFrame {
         return costosMantenimientoJDialog.iniciarVentanta();
     }
 
-    private void abrirPantallaMantenimientoYMejoramiento(MantPriorViasInfo mantPriorViasInfo) {
+    private void abrirPantallaMantenimientoYMejoramientoPlantilla(MantPriorViasInfo mantPriorViasInfo) {
         PriorizacionMantenimientoJDialog mantenimientoJDialog = new PriorizacionMantenimientoJDialog(this,
-                true, mantPriorViasInfo);
+                true, mantPriorViasInfo, null, null, null, null, null);
 
         mantenimientoJDialog.iniciarVentanta();
+    }
+
+    private void abrirPantallaMantenimientoYMejoramientoProgreso(Progreso progreso) {
+        PriorizacionMantenimientoJDialog mantenimientoJDialog
+                = new PriorizacionMantenimientoJDialog(this, true,
+                        progreso.getMantPriorViasInfo(),
+                        progreso.getViasResumenMantenimiento(),
+                        progreso.getViasResumenMejora(),
+                        progreso.getAlternativasMantenimiento(),
+                        progreso.getAlternativasMejorasTSR(),
+                        progreso.getAlternativasMejorasEA());
+
+        mantenimientoJDialog.iniciarVentanta();
+    }
+
+    private void cargarArchivoProgreso() {
+        int retorno = FILE_CHOOSER_PROGRESO.showOpenDialog(this);
+        if (JFileChooser.APPROVE_OPTION == retorno) {
+            File archivoProgreso = FILE_CHOOSER_PROGRESO.getSelectedFile();
+            if (archivoProgreso != null && UtilProgreso.validarArchivo(archivoProgreso)) {
+                Progreso progreso = UtilProgreso.cargarProgreso(archivoProgreso);
+                if (progreso != null) {
+                    JOptionPane.showMessageDialog(this, "El archivo se ha cargado "
+                            + "de forma correcta.",
+                            "Archivo cargado", JOptionPane.INFORMATION_MESSAGE,
+                            INFORMATION_IMAGE);
+                    this.abrirPantallaMantenimientoYMejoramientoProgreso(progreso);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Se ha presentado un error "
+                            + "leyendo el archivo o no existe información para leer."
+                            + "\nPor favor verifique el archivo seleccionado.",
+                            "Archivo erróneo o vacío", JOptionPane.WARNING_MESSAGE,
+                            WARNING_IMAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "El archivo no es válido. Por "
+                        + "favor verifique que el archivo exista y tenga la extensión "
+                        + "SER.", "Archivo inválido", JOptionPane.ERROR_MESSAGE,
+                        ERROR_IMAGE);
+            }
+        }
     }
 }

@@ -1,6 +1,8 @@
 package co.edu.udea.mantpriorivias.entidades;
 
-public class Unidad {
+import java.io.Serializable;
+
+public class Unidad implements Serializable {
 
     private String unidad;
     private String nombre;

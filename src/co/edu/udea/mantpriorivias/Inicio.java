@@ -69,8 +69,9 @@ public class Inicio extends javax.swing.JFrame {
         buttonSeleccionarArchivo = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
         menuArchivo = new javax.swing.JMenu();
-        menuItemCargarArchivo = new javax.swing.JMenuItem();
-        cargarProgresoMenuItem = new javax.swing.JMenuItem();
+        cargarMenu = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         menuItemDescargarPlantilla = new javax.swing.JMenuItem();
         menuItemDescargarAlternativasIntervencion = new javax.swing.JMenuItem();
         menuAyuda = new javax.swing.JMenu();
@@ -93,21 +94,25 @@ public class Inicio extends javax.swing.JFrame {
 
         menuArchivo.setText("Archivo");
 
-        menuItemCargarArchivo.setText("Cargar archivo");
-        menuItemCargarArchivo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemCargarArchivoActionPerformed(evt);
-            }
-        });
-        menuArchivo.add(menuItemCargarArchivo);
+        cargarMenu.setText("Cargar");
 
-        cargarProgresoMenuItem.setText("Cargar progreso");
-        cargarProgresoMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem1.setText("Plantilla");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cargarProgresoMenuItemActionPerformed(evt);
+                jMenuItem1ActionPerformed(evt);
             }
         });
-        menuArchivo.add(cargarProgresoMenuItem);
+        cargarMenu.add(jMenuItem1);
+
+        jMenuItem2.setText("Progreso");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        cargarMenu.add(jMenuItem2);
+
+        menuArchivo.add(cargarMenu);
 
         menuItemDescargarPlantilla.setText("Descargar plantilla");
         menuItemDescargarPlantilla.addActionListener(new java.awt.event.ActionListener() {
@@ -185,10 +190,6 @@ public class Inicio extends javax.swing.JFrame {
         this.cargarArchivoPlantilla();
     }//GEN-LAST:event_buttonSeleccionarArchivoActionPerformed
 
-    private void menuItemCargarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCargarArchivoActionPerformed
-        this.cargarArchivoPlantilla();
-    }//GEN-LAST:event_menuItemCargarArchivoActionPerformed
-
     private void menuItemDescargarPlantillaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDescargarPlantillaActionPerformed
         this.descargarPlantilla();
     }//GEN-LAST:event_menuItemDescargarPlantillaActionPerformed
@@ -197,20 +198,25 @@ public class Inicio extends javax.swing.JFrame {
         this.descargarAlternativasIntervencion();
     }//GEN-LAST:event_menuItemDescargarAlternativasIntervencionActionPerformed
 
-    private void cargarProgresoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarProgresoMenuItemActionPerformed
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        this.cargarArchivoPlantilla();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         this.cargarArchivoProgreso();
-    }//GEN-LAST:event_cargarProgresoMenuItemActionPerformed
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton buttonSeleccionarArchivo;
-    private javax.swing.JMenuItem cargarProgresoMenuItem;
+    private javax.swing.JMenu cargarMenu;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JLabel labelSeleccioneArchivo;
     private javax.swing.JLabel labelTitulo;
     private javax.swing.JMenu menuArchivo;
     private javax.swing.JMenu menuAyuda;
     private javax.swing.JMenuItem menuItemAcercade;
-    private javax.swing.JMenuItem menuItemCargarArchivo;
     private javax.swing.JMenuItem menuItemDescargarAlternativasIntervencion;
     private javax.swing.JMenuItem menuItemDescargarPlantilla;
     // End of variables declaration//GEN-END:variables

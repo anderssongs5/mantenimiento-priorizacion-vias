@@ -1,6 +1,7 @@
 package co.edu.udea.mantpriorivias.constantes;
 
 import co.edu.udea.mantpriorivias.entidades.Item;
+import co.edu.udea.mantpriorivias.entidades.Unidad;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +17,7 @@ public class Constantes {
     public static final int TSR_FINAL = 5;
     public static final int EA_INICIO = 6;
     public static final int EA_FINAL = 8;
-    public static final List<String> UNIDADES_POSIBLES = new ArrayList<>();
+    public static final List<Unidad> UNIDADES_POSIBLES = new ArrayList<>();
     public static final Map<String, Item> ITEMS = new HashMap<>();
     public static final Map<String, String> ALTERNATIVAS_INTERVENCION_MANTENIMIENTO = new HashMap<>();
     public static final Map<String, Double> VIAS_ALTERNAS_VALORES = new HashMap<>();
@@ -100,10 +101,10 @@ public class Constantes {
         ALTERNATIVAS_INTERVENCION_MANTENIMIENTO.put("91M", "MA21");
         ALTERNATIVAS_INTERVENCION_MANTENIMIENTO.put("91H", "MA22");
 
-        UNIDADES_POSIBLES.add("M");
-        UNIDADES_POSIBLES.add("M2");
-        UNIDADES_POSIBLES.add("M3");
-        UNIDADES_POSIBLES.add("KM");
+        UNIDADES_POSIBLES.add(new Unidad("M", "Metros"));
+        UNIDADES_POSIBLES.add(new Unidad("M2", "Metros cuadrados"));
+        UNIDADES_POSIBLES.add(new Unidad("M3", "Metros cúbicos"));
+        UNIDADES_POSIBLES.add(new Unidad("KM", "Kilómetros"));
 
         VIAS_ALTERNAS_VALORES.put("S", 0.5);
         VIAS_ALTERNAS_VALORES.put("N", 1.0);

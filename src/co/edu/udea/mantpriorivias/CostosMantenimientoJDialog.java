@@ -4,8 +4,10 @@ import co.edu.udea.mantpriorivias.archivos.ArchivoTextoPlano;
 import co.edu.udea.mantpriorivias.constantes.Constantes;
 import co.edu.udea.mantpriorivias.entidades.Item;
 import co.edu.udea.mantpriorivias.entidades.MantPriorViasInfo;
+import co.edu.udea.mantpriorivias.entidades.Unidad;
 import co.edu.udea.mantpriorivias.general.Util;
 import co.edu.udea.mantpriorivias.validadores.ValidadorPriorizacion;
+import java.awt.Component;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
@@ -13,11 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.DefaultCellEditor;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.ListCellRenderer;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 public class CostosMantenimientoJDialog extends javax.swing.JDialog {
@@ -26,7 +32,6 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
     private final MantPriorViasInfo mantPriorViasInfo;
     private List<Item> items = new ArrayList<>();
     private final JComboBox comboBox = new JComboBox();
-    private final DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
     private final DefaultTableModel modeloTablaItems = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
@@ -39,6 +44,36 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
     private static final ImageIcon WARNING_IMAGE = new ImageIcon(Inicio.class
             .getResource("/co/edu/udea/mantpriorivias/recursos/imagenes/"
                     + "ic_dialog_warning.png"));
+    private final ListCellRenderer comboRenderer = new DefaultListCellRenderer() {
+        @Override
+        public Component getListCellRendererComponent(JList<?> list,
+                Object value, int index, boolean isSelected,
+                boolean cellHasFocus) {
+            if (value instanceof Unidad) {
+                setToolTipText(((Unidad) value).getNombre());
+                value = ((Unidad) value).getUnidad();
+            } else {
+                setToolTipText("");
+                value = "";
+            }
+            return super.getListCellRendererComponent(list, value, index,
+                    isSelected, cellHasFocus);
+        }
+    };
+    TableCellRenderer tableRenderer = new DefaultTableCellRenderer() {
+        @Override
+        protected void setValue(Object value) {
+            if (value instanceof Unidad) {
+                setToolTipText(((Unidad) value).getNombre());
+                value = ((Unidad) value).getUnidad();
+            } else {
+                setToolTipText("Clic para abrir opciones");
+                value = "";
+            }
+            super.setValue(value);
+        }
+
+    };
 
     /**
      * Creates new form CostosMantenimientoJDialog
@@ -56,12 +91,12 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
         Constantes.UNIDADES_POSIBLES.stream().forEach((s) -> {
             this.comboBox.addItem(s);
         });
-        this.renderer.setToolTipText("Clic para abrir opciones");
+        this.comboBox.setRenderer(this.comboRenderer);
 
         this.setLocationRelativeTo(parent);
         this.setResizable(false);
         this.armarTablaCostosMantenimiento();
-        
+
         this.setTitle("Alternativas de Intervención");
     }
 
@@ -258,8 +293,9 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
                 Constantes.NOMBRES_COLUMNAS[2]);
         tc.setMaxWidth(125);
         tc.setMinWidth(125);
+        this.comboBox.setRenderer(this.comboRenderer);
         tc.setCellEditor(new DefaultCellEditor(this.comboBox));
-        tc.setCellRenderer(this.renderer);
+        tc.setCellRenderer(this.tableRenderer);
 
         tc = this.tablaAlternativasMantenimiento.getColumn(
                 Constantes.NOMBRES_COLUMNAS[3]);
@@ -325,17 +361,17 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
         for (int fila = 0; fila < this.tablaAlternativasMantenimiento.getRowCount(); fila++) {
             String codigo = (String) this.tablaAlternativasMantenimiento.getValueAt(fila, 0);
             String item = (String) this.tablaAlternativasMantenimiento.getValueAt(fila, 1);
-            String unidad = (String) this.tablaAlternativasMantenimiento.getValueAt(fila, 2);
+            Unidad unidad = (Unidad) this.tablaAlternativasMantenimiento.getValueAt(fila, 2);
             String valorUnitario = (String) this.tablaAlternativasMantenimiento.getValueAt(fila, 3);
 
-            if (unidad == null || unidad.trim().isEmpty()
-                    || !Constantes.UNIDADES_POSIBLES.contains(unidad.trim())
+            if (unidad == null
+                    || !this.contieneUnidad(unidad)
                     || valorUnitario == null || valorUnitario.trim().isEmpty()
                     || !Util.isNumerico(valorUnitario)
                     || (Util.isNumerico(valorUnitario)
                     && Double.parseDouble(valorUnitario.replaceAll(",", ".")) < 0)) {
-                if ((unidad == null || unidad.trim().isEmpty()
-                        || !Constantes.UNIDADES_POSIBLES.contains(unidad.trim()))
+                if ((unidad == null
+                        || !this.contieneUnidad(unidad))
                         && (valorUnitario == null || valorUnitario.trim().isEmpty()
                         || !Util.isNumerico(valorUnitario)
                         || (Util.isNumerico(valorUnitario)
@@ -353,8 +389,8 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
                     continue;
                 }
 
-                if (unidad == null || unidad.trim().isEmpty()
-                        || !Constantes.UNIDADES_POSIBLES.contains(unidad.trim())) {
+                if (unidad == null
+                        || !this.contieneUnidad(unidad)) {
                     errores += "* " + codigo + ": no tiene unidad o es no válido." + separadorLinea;
                     continue;
                 }
@@ -374,6 +410,21 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
         }
 
         return errores;
+    }
+
+    private boolean contieneUnidad(Unidad unidad) {
+        if (unidad == null) {
+
+            return false;
+        } else {
+            if (Constantes.UNIDADES_POSIBLES.stream().anyMatch(u
+                    -> (u.getUnidad().equals(unidad.getUnidad())))) {
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public MantPriorViasInfo iniciarVentanta() {

@@ -4,11 +4,11 @@ public class Item {
 
     private String codigo;
     private String item;
-    private String unidad;
+    private Unidad unidad;
     private double valorUnitario;
     private String valorUnitarioString;
 
-    public Item(String codigo, String item, String unidad, String valorUnitarioString) {
+    public Item(String codigo, String item, Unidad unidad, String valorUnitarioString) {
         this.codigo = codigo;
         this.item = item;
         this.unidad = unidad;
@@ -17,7 +17,7 @@ public class Item {
         this.valorUnitario = Double.parseDouble(valorUnitarioString);
     }
 
-    public Item(String codigo, String item, String unidad, double valorUnitario) {
+    public Item(String codigo, String item, Unidad unidad, double valorUnitario) {
         this.codigo = codigo;
         this.item = item;
         this.unidad = unidad;
@@ -45,11 +45,11 @@ public class Item {
         this.item = item;
     }
 
-    public String getUnidad() {
+    public Unidad getUnidad() {
         return unidad;
     }
 
-    public void setUnidad(String unidad) {
+    public void setUnidad(Unidad unidad) {
         this.unidad = unidad;
     }
 

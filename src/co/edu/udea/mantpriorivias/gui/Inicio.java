@@ -349,8 +349,6 @@ public class Inicio extends javax.swing.JFrame {
                                     JOptionPane.ERROR_MESSAGE, ERROR_IMAGE);
                         }
                     } else {
-                        System.out.println("");
-
                         Collections.sort(mantPriorViasInfo.getVias(), (InfoVia o1, InfoVia o2) -> {
                             Double sum1 = o1.getSumatoriaValores();
                             Double sum2 = o2.getSumatoriaValores();

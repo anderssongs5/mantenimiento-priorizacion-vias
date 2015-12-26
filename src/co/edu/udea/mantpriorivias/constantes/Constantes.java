@@ -30,9 +30,9 @@ public class Constantes {
         ITEMS.put("ME3", new Item("ME3", "Micropavimento"));
         ITEMS.put("ME4", new Item("ME4", "Tratamiento superficial doble"));
         ITEMS.put("ME5", new Item("ME5", "Tratamiento superficial simple"));
-        ITEMS.put("ME6", new Item("ME6", "Física"));
-        ITEMS.put("ME7", new Item("ME7", "Química"));
-        ITEMS.put("ME8", new Item("ME8", "Mecánica"));
+        ITEMS.put("ME6", new Item("ME6", "Estabilización Física"));
+        ITEMS.put("ME7", new Item("ME7", "Estabilización Química"));
+        ITEMS.put("ME8", new Item("ME8", "Estabilización Mecánica"));
         ITEMS.put("MA1", new Item("MA1", "Perfilado ligero, no contempla adición "
                 + "de material"));
         ITEMS.put("MA2", new Item("MA2", "Perfilado del terreno y adición de m"

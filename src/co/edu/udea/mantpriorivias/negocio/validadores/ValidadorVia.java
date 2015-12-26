@@ -58,7 +58,7 @@ public class ValidadorVia {
 
     public String validarInformacion(Via via,
             List<String> daniosSeleccionados) {
-        String separadorLinea = System.getProperty("line.separator");
+        String separadorLinea = Util.getSeparadorLinea();
         if (null == via) {
 
             return "La vía no contiene ningún dato.";

@@ -209,7 +209,7 @@ public class CostosIntervencionesJDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSiguienteActionPerformed
-        String separadorLinea = System.getProperty("line.separator");
+        String separadorLinea = Util.getSeparadorLinea();
         this.mantPriorViasInfo.setItems(new ArrayList<>());
         Object[][] datos = this.obtenerDatos();
         String resultadoValidacion = this.validadorIntervencion.

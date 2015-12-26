@@ -2,12 +2,13 @@ package co.edu.udea.mantpriorivias.negocio;
 
 import co.edu.udea.mantpriorivias.dto.InfoVia;
 import co.edu.udea.mantpriorivias.dto.MantPriorViasInfo;
+import co.edu.udea.mantpriorivias.general.Util;
 
 public class PMVias {
 
     public static String estructurarInformacionErrorPlantilla(MantPriorViasInfo mantPriorViasInfo) {
         String informacion = "";
-        String separadorLinea = System.getProperty("line.separator");
+        String separadorLinea = Util.getSeparadorLinea();
         if (mantPriorViasInfo.getErroresArchivo() != null
                 && !mantPriorViasInfo.getErroresArchivo().isEmpty()) {
             informacion += "Errores del archivo:" + separadorLinea;

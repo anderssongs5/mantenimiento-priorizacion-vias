@@ -30,7 +30,7 @@ public class ValidadorCostosIntervenciones {
 
     public String validarInformacionItems(List<Item> items, Object[][] datosItems) {
         String errores = "";
-        String separadorLinea = System.getProperty("line.separator");
+        String separadorLinea = Util.getSeparadorLinea();
         for (Object[] datosItem : datosItems) {
             String codigo = (String) datosItem[0];
             String item = (String) datosItem[1];

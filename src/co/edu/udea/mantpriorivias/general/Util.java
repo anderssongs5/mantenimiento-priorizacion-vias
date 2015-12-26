@@ -11,6 +11,7 @@ public class Util {
 
     private static final DecimalFormat decimalFormatVista = new DecimalFormat("###,###.#####");
     private static final DecimalFormat decimalFormatOperacion = new DecimalFormat("#.#####");
+    private static String separadorLinea = System.getProperty("line.separator");
 
     public static boolean isNumerico(String numero) {
         if (numero != null) {
@@ -52,5 +53,10 @@ public class Util {
     public static double formatearValorOperacion(double valor) {
 
         return Double.parseDouble(decimalFormatOperacion.format(valor).replace(",", "."));
+    }
+
+    public static String getSeparadorLinea() {
+
+        return separadorLinea;
     }
 }

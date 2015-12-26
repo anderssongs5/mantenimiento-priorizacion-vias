@@ -1636,7 +1636,7 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
     }
 
     private void mostrarResumen() {
-        String separadorLinea = System.getProperty("line.separator");
+        String separadorLinea = Util.getSeparadorLinea();
         this.resumen = "RESUMEN" + separadorLinea + "-----------------------"
                 + separadorLinea + separadorLinea;
         List<String> viasImpresas = new ArrayList<>();
@@ -1907,8 +1907,10 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
                 if (!Constantes.DANIOS_PERMANECEN_POR_MEJORAS.contains(danio.
                         substring(0, danio.length() - 1))) {
                     List<Alternativa> alternativas = rm.getAlternativasPorDanio().get(i);
-                    dineroRecuperar = alternativas.stream().map((a) -> a.getCantidad()
-                            * this.buscarPrecioDadoCodigoItem(a.getItem())).reduce(dineroRecuperar, (accumulator, _item) -> accumulator + _item);
+                    dineroRecuperar = alternativas.stream().map((a) -> Util.
+                            formatearValorOperacion(a.getCantidad()
+                                    * this.buscarPrecioDadoCodigoItem(a.getItem()))).reduce(
+                                    dineroRecuperar, (accumulator, _item) -> accumulator + _item);
                     rm.getDaniosPorVia().remove(i);
                     rm.getAlternativasPorDanio().remove(i);
                 }
@@ -1928,20 +1930,21 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
 
     private void recuperarDinero(double dinero) {
         if (this.presupuestoAdicional > 0.0) {
-            double p = this.presupuestoAdicional - dinero;
+            double p = Util.formatearValorOperacion(this.presupuestoAdicional - dinero);
             if (p >= 0.0) {
                 this.presupuestoAdicional = p;
             } else {
                 this.presupuestoAdicional = 0.0;
-                this.presupuestoActual += Math.abs(p);
+                this.presupuestoActual = Util.formatearValorOperacion(
+                        this.presupuestoActual + Math.abs(p));
             }
         } else {
-            this.presupuestoActual += dinero;
+            this.presupuestoActual = Util.formatearValorOperacion(this.presupuestoActual + dinero);
         }
     }
 
     private String estructurarInformacionTXT() {
-        String separadorLinea = System.getProperty("line.separator");
+        String separadorLinea = Util.getSeparadorLinea();
         String texto = "";
         if (this.resumen != null) {
             texto = this.resumen + separadorLinea + separadorLinea + separadorLinea;

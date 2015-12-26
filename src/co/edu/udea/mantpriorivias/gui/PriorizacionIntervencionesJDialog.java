@@ -231,7 +231,6 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
         abrirAlternativasIntervencionMenuItem = new javax.swing.JMenuItem();
         exportarResumenMenu = new javax.swing.JMenu();
         txtMenuItem = new javax.swing.JMenuItem();
-        docxMenuItem = new javax.swing.JMenuItem();
         guardarProgresoMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -529,9 +528,6 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
             }
         });
         exportarResumenMenu.add(txtMenuItem);
-
-        docxMenuItem.setText("Docx");
-        exportarResumenMenu.add(docxMenuItem);
 
         archivoMenu.add(exportarResumenMenu);
 
@@ -1374,7 +1370,6 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel costoUnitarioMejoraTSRLabel;
     private javax.swing.JLabel daniosAsociadosLabel;
     private javax.swing.JComboBox daniosComboBox;
-    private javax.swing.JMenuItem docxMenuItem;
     private javax.swing.JComboBox estabilizacionAfirmadosComboBox;
     private javax.swing.JLabel estabilizacionAfirmadosLabel;
     private javax.swing.JMenu exportarResumenMenu;

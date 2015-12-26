@@ -6,7 +6,6 @@ import co.edu.udea.mantpriorivias.negocio.entidades.Item;
 import co.edu.udea.mantpriorivias.negocio.entidades.Unidad;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ValidadorCostosIntervenciones {
 
@@ -17,13 +16,13 @@ public class ValidadorCostosIntervenciones {
             if (!s.trim().isEmpty()) {
                 List<String> valoresObtenidos = Util.tokenizar(s, ",");
                 for (String vo : valoresObtenidos) {
-                    infoItems.add(Constantes.ITEMS.get(vo));
+                    Item item = Constantes.ITEMS.get(vo);
+                    if(!infoItems.contains(item)){
+                        infoItems.add(item);
+                    }
                 }
             }
         }
-
-        infoItems = infoItems.stream().distinct().collect(
-                Collectors.toList());
 
         return infoItems;
     }

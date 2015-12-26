@@ -343,7 +343,7 @@ public class CostosIntervencionesJDialog extends javax.swing.JDialog {
     }
 
     private Object[][] obtenerDatos() {
-        Object[][] datos = new String[this.tablaAlternativasIntervencion.getRowCount()][4];
+        Object[][] datos = new Object[this.tablaAlternativasIntervencion.getRowCount()][4];
         for (int fila = 0; fila < this.tablaAlternativasIntervencion.getRowCount(); fila++) {
             String codigo = (String) this.tablaAlternativasIntervencion.getValueAt(fila, 0);
             String item = (String) this.tablaAlternativasIntervencion.getValueAt(fila, 1);

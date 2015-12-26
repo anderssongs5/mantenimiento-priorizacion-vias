@@ -1,6 +1,7 @@
 package co.edu.udea.mantpriorivias;
 
-import co.edu.udea.mantpriorivias.seguridad.Seguridad;
+import co.edu.udea.mantpriorivias.gui.Inicio;
+import co.edu.udea.mantpriorivias.negocio.seguridad.Seguridad;
 import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -11,7 +12,7 @@ import javax.swing.JPasswordField;
 public class Aplicacion {
 
     private static final ImageIcon ERROR_IMAGE = new ImageIcon(Inicio.class
-            .getResource("/co/edu/udea/mantpriorivias/recursos/imagenes/"
+            .getResource("/co/edu/udea/mantpriorivias/gui/imagenes/"
                     + "ic_dialog_error.png"));
 
     /**
@@ -34,7 +35,7 @@ public class Aplicacion {
                     char[] password = pass.getPassword();
                     StringBuilder sb = new StringBuilder();
                     sb.append(password);
-//                    sb.append("PMVias*UdeA*2015");
+                    //sb.append("PMVias*UdeA*2015");
                     if (password != null
                             && Seguridad.puedeContinuar(sb.toString())) {
                         Inicio inicio = new Inicio();

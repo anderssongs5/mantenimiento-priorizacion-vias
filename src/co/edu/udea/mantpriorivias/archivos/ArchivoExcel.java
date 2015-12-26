@@ -1,11 +1,11 @@
 package co.edu.udea.mantpriorivias.archivos;
 
-import co.edu.udea.mantpriorivias.entidades.MantPriorViasInfo;
-import co.edu.udea.mantpriorivias.entidades.Presupuesto;
-import co.edu.udea.mantpriorivias.entidades.Via;
-import co.edu.udea.mantpriorivias.entidades.InfoVia;
-import co.edu.udea.mantpriorivias.validadores.ValidadorPresupuesto;
-import co.edu.udea.mantpriorivias.validadores.ValidadorVia;
+import co.edu.udea.mantpriorivias.dto.MantPriorViasInfo;
+import co.edu.udea.mantpriorivias.negocio.entidades.Presupuesto;
+import co.edu.udea.mantpriorivias.negocio.entidades.Via;
+import co.edu.udea.mantpriorivias.dto.InfoVia;
+import co.edu.udea.mantpriorivias.negocio.validadores.ValidadorPresupuesto;
+import co.edu.udea.mantpriorivias.negocio.validadores.ValidadorVia;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -93,52 +93,6 @@ public class ArchivoExcel {
             }
         }
 
-        /*Sheet hojaCostosMantenimiento = workbook.getSheet("Costos de mantenimiento");
-         List<InfoItem> items = new ArrayList<>();
-         if (null == hojaCostosMantenimiento) {
-         mensajesErrorArchivo.add("No existe la hoja Costos de mantenimiento.");
-         } else {
-         items = this.obtenerInfoCostosMantenimiento(hojaCostosMantenimiento);
-         ValidadorCostosMantenimiento vcs = new ValidadorCostosMantenimiento();
-         if (!vcs.contieneTodosLosItems(items)) {
-         mensajesErrorHojaCostosMantenimiento += "La hoja Costos de "
-         + "mantenimiento no contiene todos los ítems establecidos "
-         + "para la misma.";
-         }
-         }*/
-        System.out.println("Errores de archivo:");
-        mensajesErrorArchivo.stream().forEach((String s) -> {
-            System.out.println("\t" + s);
-        });
-
-        System.out.println("\nErrores Hoja Presupuesto:");
-        mensajesErrorHojaPresupuesto.stream().forEach((String s) -> {
-            System.out.println("\t" + s);
-        });
-        if (vias.isEmpty()) {
-            System.out.println("\tNo existe ninguna vía.");
-        }
-
-        System.out.println("\nErrores Hoja Priorización:");
-        for (InfoVia vu : vias) {
-            System.out.println("Número de Fila: " + vu.getFilaVia());
-            System.out.println("Errores: " + vu.getErroresVia() + "\n");
-        }
-        if (!mensajesErrorHojaPriorizacion.isEmpty()) {
-            System.out.println(mensajesErrorHojaPriorizacion);
-        }
-
-        /*System.out.println("\nErrores en Hoja Costos de mantenimiento:");
-         for (InfoItem ii : items) {
-         System.out.println("Número de fila: " + ii.getFila());
-         System.out.println("Código ítem: " + ii.getItem().getCodigo());
-         System.out.println("Errores: " + ii.getErroresItem());
-         }
-
-         mantPriorViasInfo = new MantPriorViasInfo(mensajesErrorArchivo,
-         mensajesErrorHojaPresupuesto,
-         mensajesErrorHojaPriorizacion, presupuesto, vias,
-         items, mensajesErrorHojaCostosMantenimiento);*/
         mantPriorViasInfo = new MantPriorViasInfo(mensajesErrorArchivo,
                 mensajesErrorHojaPresupuesto,
                 mensajesErrorHojaPriorizacion, presupuesto, vias);

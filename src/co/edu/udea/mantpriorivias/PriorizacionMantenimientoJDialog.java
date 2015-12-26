@@ -157,7 +157,6 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
         this.setTitle("Mantenimiento y Mejoramiento de Vías");
 
         this.restringirValoresCampos();
-        this.aplicarMantenimientoButton.setEnabled(false);
         this.establecerColorPresupuestoActual();
 
         this.setMejoras();
@@ -310,6 +309,11 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
         cantidadMantenimientosLabel.setText("Cantidad");
 
         cantidadMantenimientoTextField.setEditable(false);
+        cantidadMantenimientoTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cantidadMantenimientoTextFieldActionPerformed(evt);
+            }
+        });
 
         aplicarMantenimientoButton.setText("Aplicar Mantenimiento");
         aplicarMantenimientoButton.setEnabled(false);
@@ -709,12 +713,12 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
             this.cantidadMantenimientoTextField.setEditable(true);
             this.itemSeleccionadoMantenimiento = (Item) this.mantenimientosComboBox.
                     getSelectedItem();
-            this.valorUnitarioMantenimiento = this.buscarPrecioDadoCodigoItem(
-                    this.itemSeleccionadoMantenimiento.getCodigo());
+            this.valorUnitarioMantenimiento = Util.formatearValorOperacion(
+                    this.buscarPrecioDadoCodigoItem(this.itemSeleccionadoMantenimiento.getCodigo()));
             this.unidadMantenimiento = this.buscarUnidadDadoCodigoItem(
                     this.itemSeleccionadoMantenimiento.getCodigo());
             this.precioMantenimientoMejoraTextField.setText("$ "
-                    + String.valueOf(this.valorUnitarioMantenimiento));
+                    + String.valueOf(Util.formatearValorVista(this.valorUnitarioMantenimiento)));
             this.unidadMedidaMantenimientoTextField.setText(
                     this.unidadMantenimiento.getUnidad() + " - "
                     + this.unidadMantenimiento.getNombre());
@@ -724,8 +728,12 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
                     this.itemSeleccionadoMantenimiento.getCodigo());
 
             if (mantenimiento != null) {
-                this.cantidadMantenimientoTextField.setText(
-                        String.valueOf(mantenimiento.getCantidad()).replace(".0", ""));
+                String valor = String.valueOf(Util.
+                        formatearValorOperacion(mantenimiento.getCantidad())).replace(".", ",");
+                if (valor.endsWith(",0")) {
+                    valor = valor.replace(",0", "");
+                }
+                this.cantidadMantenimientoTextField.setText(valor);
             } else {
                 this.cantidadMantenimientoTextField.setText("");
             }
@@ -749,20 +757,23 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
             } else {
                 this.alternativasMantenimiento.remove(mantenimiento);
                 if (this.presupuestoActual == 0.0) {
-                    double t = mantenimiento.getCantidad()
-                            * this.buscarPrecioDadoCodigoItem(mantenimiento.getItem());
+                    double t = Util.formatearValorOperacion(mantenimiento.getCantidad()
+                            * this.buscarPrecioDadoCodigoItem(mantenimiento.getItem()));
                     if (t < this.presupuestoAdicional) {
-                        this.presupuestoAdicional = this.presupuestoAdicional - t;
+                        this.presupuestoAdicional = Util.
+                                formatearValorOperacion(this.presupuestoAdicional - t);
                     } else if (t == this.presupuestoAdicional) {
                         this.presupuestoAdicional = 0.0;
                     } else {
                         double p = t - this.presupuestoAdicional;
-                        this.presupuestoAdicional = 0;
-                        this.presupuestoActual += p;
+                        this.presupuestoAdicional = 0.0;
+                        this.presupuestoActual = Util.
+                                formatearValorOperacion(this.presupuestoActual + p);
                     }
                 } else {
-                    this.presupuestoActual = this.presupuestoActual + (mantenimiento.getCantidad()
-                            * this.buscarPrecioDadoCodigoItem(mantenimiento.getItem()));
+                    this.presupuestoActual = Util.
+                            formatearValorOperacion(this.presupuestoActual + (mantenimiento.getCantidad()
+                                    * this.buscarPrecioDadoCodigoItem(mantenimiento.getItem())));
                 }
 
                 this.establecerPresupuesto();
@@ -777,7 +788,9 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
             }
         }
 
-        if (!Util.isNumerico(this.cantidadMantenimientoTextField.getText())) {
+        if (this.cantidadMantenimientoTextField.getText().contains(".")
+                || !Util.isNumerico(this.cantidadMantenimientoTextField.getText().
+                        replace(",", "."))) {
             JOptionPane.showMessageDialog(this,
                     "El valor ingresado no es un número válido", "Valor no numérico",
                     JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
@@ -786,7 +799,8 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
         }
 
         if (Util.isNumerico(this.cantidadMantenimientoTextField.getText())
-                && Double.parseDouble(this.cantidadMantenimientoTextField.getText()) <= 0) {
+                && Double.parseDouble(this.cantidadMantenimientoTextField.
+                        getText().replace(",", ".")) <= 0) {
             JOptionPane.showMessageDialog(this,
                     "El valor ingresado debe ser mayor que cero", "Valor no válido",
                     JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
@@ -794,8 +808,9 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
             return;
         }
 
-        double cantidad = Double.parseDouble(
-                this.cantidadMantenimientoTextField.getText().trim());
+        double cantidad = Util.formatearValorOperacion(
+                Double.parseDouble(this.cantidadMantenimientoTextField.getText().
+                        trim().replace(",", ".")));
         if (mantenimiento != null) {
             if (mantenimiento.getCantidad() == cantidad) {
                 JOptionPane.showMessageDialog(this,
@@ -807,27 +822,34 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
             } else {
                 this.alternativasMantenimiento.remove(mantenimiento);
                 double cantidadTemp = cantidad;
-                cantidad = cantidadTemp - mantenimiento.getCantidad();
+                cantidad = Util.formatearValorOperacion(cantidadTemp - mantenimiento.getCantidad());
                 mantenimiento.setCantidad(cantidadTemp);
-                double precioMantenimiento = Math.abs(cantidad * this.valorUnitarioMantenimiento);
+                double precioMantenimiento = Util.
+                        formatearValorOperacion(Math.abs(cantidad
+                                        * this.valorUnitarioMantenimiento));
                 if (cantidad < 0) {
                     if (this.presupuestoAdicional > 0) {
-                        double t = this.presupuestoAdicional - precioMantenimiento;
+                        double t = Util.formatearValorOperacion(
+                                this.presupuestoAdicional - precioMantenimiento);
                         if (t > 0) {
                             this.presupuestoAdicional = t;
                         } else if (t == 0) {
                             this.presupuestoAdicional = 0;
                         } else {
                             this.presupuestoAdicional = 0;
-                            this.presupuestoActual += Math.abs(t);
+                            this.presupuestoActual = Util.formatearValorOperacion(
+                                    this.presupuestoActual + Math.abs(t));
                         }
                     } else {
-                        this.presupuestoActual += precioMantenimiento;
+                        this.presupuestoActual = Util.formatearValorOperacion(
+                                this.presupuestoActual + precioMantenimiento);
                     }
                 } else if (this.presupuestoAdicional > 0) {
-                    this.presupuestoAdicional += precioMantenimiento;
+                    this.presupuestoAdicional = Util.formatearValorOperacion(
+                            this.presupuestoAdicional + precioMantenimiento);
                 } else {
-                    double t = this.presupuestoActual - precioMantenimiento;
+                    double t = Util.formatearValorOperacion(
+                            this.presupuestoActual - precioMantenimiento);
                     if (t > 0) {
                         this.presupuestoActual = t;
                     } else if (t == 0) {
@@ -847,9 +869,11 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
         }
 
         if (this.presupuestoAdicional > 0) {
-            this.presupuestoAdicional += cantidad * this.valorUnitarioMantenimiento;
+            this.presupuestoAdicional = Util.formatearValorOperacion(
+                    this.presupuestoAdicional + cantidad * this.valorUnitarioMantenimiento);
         } else {
-            double t = this.presupuestoActual - cantidad * this.valorUnitarioMantenimiento;
+            double t = Util.formatearValorOperacion(this.presupuestoActual
+                    - cantidad * this.valorUnitarioMantenimiento);
             if (t >= 0) {
                 this.presupuestoActual = t;
             } else {
@@ -902,8 +926,9 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
                     || this.cantidadEstabilizacionAfirmadosTextField.getText().trim().isEmpty())) {
                 this.eliminarAlternativaResumenMejoras(mejoraEA);
                 this.alternativasMejorasEA.remove(mejoraEA);
-                totalARecuperar += mejoraEA.getCantidad()
-                        * this.buscarPrecioDadoCodigoItem(mejoraEA.getItem());
+                totalARecuperar = Util.formatearValorOperacion(totalARecuperar
+                        + mejoraEA.getCantidad()
+                        * this.buscarPrecioDadoCodigoItem(mejoraEA.getItem()));
                 mejoraEAEliminada = true;
             }
 
@@ -912,24 +937,29 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
                     || this.cantidadTratamientosSuperficialesRiegosTextField.getText().trim().isEmpty())) {
                 this.eliminarAlternativaResumenMejoras(mejoraTSR);
                 this.alternativasMejorasTSR.remove(mejoraTSR);
-                totalARecuperar += mejoraTSR.getCantidad()
-                        * this.buscarPrecioDadoCodigoItem(mejoraTSR.getItem());
+                totalARecuperar = Util.formatearValorOperacion(totalARecuperar
+                        + mejoraTSR.getCantidad()
+                        * this.buscarPrecioDadoCodigoItem(mejoraTSR.getItem()));
                 mejoraTSREliminada = true;
             }
 
             if (mejoraEAEliminada || mejoraTSREliminada) {
                 if (this.presupuestoActual == 0.0) {
                     if (totalARecuperar < this.presupuestoAdicional) {
-                        this.presupuestoAdicional = this.presupuestoAdicional - totalARecuperar;
+                        this.presupuestoAdicional = Util.formatearValorOperacion(
+                                this.presupuestoAdicional - totalARecuperar);
                     } else if (totalARecuperar == this.presupuestoAdicional) {
                         this.presupuestoAdicional = 0.0;
                     } else {
-                        double p = totalARecuperar - this.presupuestoAdicional;
+                        double p = Util.formatearValorOperacion(totalARecuperar
+                                - this.presupuestoAdicional);
                         this.presupuestoAdicional = 0.0;
-                        this.presupuestoActual += p;
+                        this.presupuestoActual = Util.formatearValorOperacion(
+                                this.presupuestoActual + p);
                     }
                 } else {
-                    this.presupuestoActual += totalARecuperar;
+                    this.presupuestoActual = Util.formatearValorOperacion(
+                            this.presupuestoActual + totalARecuperar);
                 }
 
                 this.establecerPresupuesto();
@@ -943,9 +973,11 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
         boolean actualizadaEA = false;
         boolean igualEA = false;
         if (!mejoraEAEliminada
-                && this.cantidadEstabilizacionAfirmadosTextField != null
+                && this.cantidadEstabilizacionAfirmadosTextField.getText() != null
                 && !this.cantidadEstabilizacionAfirmadosTextField.getText().trim().isEmpty()) {
-            if (!Util.isNumerico(this.cantidadEstabilizacionAfirmadosTextField.getText())) {
+            if (this.cantidadEstabilizacionAfirmadosTextField.getText().contains(".")
+                    || !Util.isNumerico(this.cantidadEstabilizacionAfirmadosTextField.
+                            getText().replace(",", "."))) {
                 JOptionPane.showMessageDialog(this,
                         "Por favor verique que las cantidades ingresadas sean numéricas.",
                         "Cantidades no válidas",
@@ -954,42 +986,47 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
                 return;
             }
 
-            double cantidad = Double.parseDouble(
-                    this.cantidadEstabilizacionAfirmadosTextField.getText().trim());
+            double cantidad = Util.formatearValorOperacion(Double.parseDouble(
+                    this.cantidadEstabilizacionAfirmadosTextField.getText().
+                    trim().replace(",", ".")));
             if (mejoraEA != null) {
                 if (mejoraEA.getCantidad() == cantidad) {
                     igualEA = true;
                 } else {
                     this.alternativasMejorasEA.remove(mejoraEA);
                     double cantidadTemp = cantidad;
-                    cantidad = cantidadTemp - mejoraEA.getCantidad();
+                    cantidad = Util.formatearValorOperacion(cantidadTemp - mejoraEA.getCantidad());
                     mejoraEA.setCantidad(cantidadTemp);
-                    double precioMejora = Math.abs(cantidad * this.valorUnitarioMejoraEA);
-                    if (cantidad < 0) {
-                        if (this.presupuestoAdicional > 0) {
-                            double t = this.presupuestoAdicional - precioMejora;
-                            if (t > 0) {
+                    double precioMejora = Util.formatearValorOperacion(
+                            Math.abs(cantidad * this.valorUnitarioMejoraEA));
+                    if (cantidad < 0.0) {
+                        if (this.presupuestoAdicional > 0.0) {
+                            double t = Util.formatearValorOperacion(this.presupuestoAdicional - precioMejora);
+                            if (t > 0.0) {
                                 this.presupuestoAdicional = t;
-                            } else if (t == 0) {
-                                this.presupuestoAdicional = 0;
+                            } else if (t == 0.0) {
+                                this.presupuestoAdicional = 0.0;
                             } else {
-                                this.presupuestoAdicional = 0;
-                                this.presupuestoActual += Math.abs(t);
+                                this.presupuestoAdicional = 0.0;
+                                this.presupuestoActual = Util.formatearValorOperacion(
+                                        this.presupuestoActual + Math.abs(t));
                             }
                         } else {
-                            this.presupuestoActual += precioMejora;
+                            this.presupuestoActual = Util.formatearValorOperacion(
+                                    this.presupuestoActual + precioMejora);
                         }
-                    } else if (this.presupuestoAdicional > 0) {
-                        this.presupuestoAdicional += precioMejora;
+                    } else if (this.presupuestoAdicional > 0.0) {
+                        this.presupuestoAdicional = Util.formatearValorOperacion(
+                                this.presupuestoAdicional + precioMejora);
                     } else {
-                        double t = this.presupuestoActual - precioMejora;
-                        if (t > 0) {
+                        double t = Util.formatearValorOperacion(this.presupuestoActual - precioMejora);
+                        if (t > 0.0) {
                             this.presupuestoActual = t;
-                        } else if (t == 0) {
-                            this.presupuestoActual = 0;
+                        } else if (t == 0.0) {
+                            this.presupuestoActual = 0.0;
                         } else {
-                            this.presupuestoActual = 0;
-                            this.presupuestoAdicional = Math.abs(t);
+                            this.presupuestoActual = 0.0;
+                            this.presupuestoAdicional = Util.formatearValorOperacion(Math.abs(t));
                         }
                     }
                     this.alternativasMejorasEA.add(mejoraEA);
@@ -1001,14 +1038,16 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
             }
 
             if (!actualizadaEA && !mejoraEAEliminada && !igualEA) {
-                if (this.presupuestoAdicional > 0) {
-                    this.presupuestoAdicional += cantidad * this.valorUnitarioMejoraEA;
+                if (this.presupuestoAdicional > 0.0) {
+                    this.presupuestoAdicional = Util.formatearValorOperacion(
+                            this.presupuestoAdicional + cantidad * this.valorUnitarioMejoraEA);
                 } else {
-                    double t = this.presupuestoActual - cantidad * this.valorUnitarioMejoraEA;
+                    double t = Util.formatearValorOperacion(this.presupuestoActual
+                            - cantidad * this.valorUnitarioMejoraEA);
                     if (t >= 0) {
                         this.presupuestoActual = t;
                     } else {
-                        this.presupuestoActual = 0;
+                        this.presupuestoActual = 0.0;
                         this.presupuestoAdicional = Math.abs(t);
                     }
                 }
@@ -1030,7 +1069,9 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
         if (!mejoraTSREliminada
                 && this.cantidadTratamientosSuperficialesRiegosTextField != null
                 && !this.cantidadTratamientosSuperficialesRiegosTextField.getText().trim().isEmpty()) {
-            if (!Util.isNumerico(this.cantidadTratamientosSuperficialesRiegosTextField.getText())) {
+            if (this.cantidadTratamientosSuperficialesRiegosTextField.getText().contains(".")
+                    || !Util.isNumerico(this.cantidadTratamientosSuperficialesRiegosTextField.
+                            getText().replace(",", "."))) {
                 JOptionPane.showMessageDialog(this,
                         "Por favor verique que las cantidades ingresadas sean numéricas.",
                         "Cantidades no válidas",
@@ -1038,41 +1079,46 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
 
                 return;
             }
-            double cantidad = Double.parseDouble(
-                    this.cantidadTratamientosSuperficialesRiegosTextField.getText().trim());
+            double cantidad = Util.formatearValorOperacion(Double.parseDouble(
+                    this.cantidadTratamientosSuperficialesRiegosTextField.
+                    getText().trim().replace(",", ".")));
             if (mejoraTSR != null) {
                 if (mejoraTSR.getCantidad() == cantidad) {
                     igualTSR = true;
                 } else {
                     this.alternativasMejorasTSR.remove(mejoraTSR);
                     double cantidadTemp = cantidad;
-                    cantidad = cantidadTemp - mejoraTSR.getCantidad();
+                    cantidad = Util.formatearValorOperacion(cantidadTemp - mejoraTSR.getCantidad());
                     mejoraTSR.setCantidad(cantidadTemp);
-                    double precioMejora = Math.abs(cantidad * this.valorUnitarioMejoraTSR);
-                    if (cantidad < 0) {
-                        if (this.presupuestoAdicional > 0) {
-                            double t = this.presupuestoAdicional - precioMejora;
-                            if (t > 0) {
+                    double precioMejora = Util.formatearValorOperacion(
+                            Math.abs(cantidad * this.valorUnitarioMejoraTSR));
+                    if (cantidad < 0.0) {
+                        if (this.presupuestoAdicional > 0.0) {
+                            double t = Util.formatearValorOperacion(this.presupuestoAdicional - precioMejora);
+                            if (t > 0.0) {
                                 this.presupuestoAdicional = t;
-                            } else if (t == 0) {
-                                this.presupuestoAdicional = 0;
+                            } else if (t == 0.0) {
+                                this.presupuestoAdicional = 0.0;
                             } else {
-                                this.presupuestoAdicional = 0;
-                                this.presupuestoActual += Math.abs(t);
+                                this.presupuestoAdicional = 0.0;
+                                this.presupuestoActual = Util.formatearValorOperacion(
+                                        this.presupuestoActual + Math.abs(t));
                             }
                         } else {
-                            this.presupuestoActual += precioMejora;
+                            this.presupuestoActual = Util.formatearValorOperacion(
+                                    this.presupuestoActual + precioMejora);
                         }
-                    } else if (this.presupuestoAdicional > 0) {
-                        this.presupuestoAdicional += precioMejora;
+                    } else if (this.presupuestoAdicional > 0.0) {
+                        this.presupuestoAdicional = Util.formatearValorOperacion(
+                                this.presupuestoAdicional + precioMejora);
                     } else {
-                        double t = this.presupuestoActual - precioMejora;
-                        if (t > 0) {
+                        double t = Util.formatearValorOperacion(this.presupuestoActual - precioMejora);
+                        if (t > 0.0) {
                             this.presupuestoActual = t;
-                        } else if (t == 0) {
-                            this.presupuestoActual = 0;
+                        } else if (t == 0.0) {
+                            this.presupuestoActual = 0.0;
                         } else {
-                            this.presupuestoActual = 0;
+                            this.presupuestoActual = 0.0;
                             this.presupuestoAdicional = Math.abs(t);
                         }
                     }
@@ -1086,14 +1132,16 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
             }
 
             if (!actualizadaTSR && !mejoraTSREliminada && !igualTSR) {
-                if (this.presupuestoAdicional > 0) {
-                    this.presupuestoAdicional += cantidad * this.valorUnitarioMejoraTSR;
+                if (this.presupuestoAdicional > 0.0) {
+                    this.presupuestoAdicional = Util.formatearValorOperacion(
+                            this.presupuestoAdicional + cantidad * this.valorUnitarioMejoraTSR);
                 } else {
-                    double t = this.presupuestoActual - cantidad * this.valorUnitarioMejoraTSR;
-                    if (t >= 0) {
+                    double t = Util.formatearValorOperacion(this.presupuestoActual
+                            - cantidad * this.valorUnitarioMejoraTSR);
+                    if (t >= 0.0) {
                         this.presupuestoActual = t;
                     } else {
-                        this.presupuestoActual = 0;
+                        this.presupuestoActual = 0.0;
                         this.presupuestoAdicional = Math.abs(t);
                     }
                 }
@@ -1129,12 +1177,13 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
             this.cantidadTratamientosSuperficialesRiegosTextField.setEditable(true);
             this.itemSeleccionadoMejoraTSR = (Item) this.tratamientosSuperficialesRiegosComboBox.
                     getSelectedItem();
-            this.valorUnitarioMejoraTSR = this.buscarPrecioDadoCodigoItem(
-                    this.itemSeleccionadoMejoraTSR.getCodigo());
+            this.valorUnitarioMejoraTSR = Util.formatearValorOperacion(
+                    this.buscarPrecioDadoCodigoItem(this.itemSeleccionadoMejoraTSR.
+                            getCodigo()));
             this.unidadMejoraTSR = this.buscarUnidadDadoCodigoItem(
                     this.itemSeleccionadoMejoraTSR.getCodigo());
             this.precioMejoraTSRTextField.setText("$ "
-                    + String.valueOf(this.itemSeleccionadoMejoraTSR.getValorUnitario()));
+                    + Util.formatearValorVista(this.valorUnitarioMejoraTSR));
             this.unidadMedidaMejoraTSRTextField.setText(
                     this.unidadMejoraTSR.getUnidad() + " - "
                     + this.unidadMejoraTSR.getNombre());
@@ -1143,8 +1192,12 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
                     this.itemSeleccionadoMejoraTSR.getCodigo());
 
             if (mejora != null) {
-                this.cantidadTratamientosSuperficialesRiegosTextField.setText(
-                        String.valueOf(mejora.getCantidad()).replace(".0", ""));
+                String valor = String.valueOf(Util.formatearValorOperacion(mejora.
+                        getCantidad())).replace(".", ",");
+                if (valor.endsWith(",0")) {
+                    valor = valor.replace(",0", "");
+                }
+                this.cantidadTratamientosSuperficialesRiegosTextField.setText(valor);
             } else {
                 this.cantidadTratamientosSuperficialesRiegosTextField.setText("");
             }
@@ -1169,12 +1222,12 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
             this.cantidadEstabilizacionAfirmadosTextField.setEditable(true);
             this.itemSeleccionadoMejoraEA = (Item) this.estabilizacionAfirmadosComboBox.
                     getSelectedItem();
-            this.valorUnitarioMejoraEA = this.buscarPrecioDadoCodigoItem(
-                    this.itemSeleccionadoMejoraEA.getCodigo());
+            this.valorUnitarioMejoraEA = Util.formatearValorOperacion(
+                    this.buscarPrecioDadoCodigoItem(this.itemSeleccionadoMejoraEA.getCodigo()));
             this.unidadMejoraEA = this.buscarUnidadDadoCodigoItem(
                     this.itemSeleccionadoMejoraEA.getCodigo());
             this.precioMejoraEATextField.setText("$ "
-                    + String.valueOf(this.itemSeleccionadoMejoraEA.getValorUnitario()));
+                    + Util.formatearValorVista(valorUnitarioMejoraEA));
             this.unidadMedidaMejoraEATextField.setText(
                     this.unidadMejoraEA.getUnidad() + " - "
                     + this.unidadMejoraEA.getNombre());
@@ -1183,8 +1236,12 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
                     this.via, this.itemSeleccionadoMejoraEA.getCodigo());
 
             if (mejora != null) {
-                this.cantidadEstabilizacionAfirmadosTextField.setText(
-                        String.valueOf(mejora.getCantidad()).replace(".0", ""));
+                String valor = String.valueOf(Util.formatearValorOperacion(mejora.
+                        getCantidad())).replace(".", ",");
+                if (valor.endsWith(",0")) {
+                    valor = valor.replace(",0", "");
+                }
+                this.cantidadEstabilizacionAfirmadosTextField.setText(valor);
             } else {
                 this.cantidadEstabilizacionAfirmadosTextField.setText("");
             }
@@ -1296,6 +1353,10 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_guardarProgresoMenuItemActionPerformed
 
+    private void cantidadMantenimientoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadMantenimientoTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cantidadMantenimientoTextFieldActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem abrirAlternativasIntervencionMenuItem;
     private javax.swing.JButton aplicarMantenimientoButton;
@@ -1365,22 +1426,24 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
 
     private void setInformacionPresupuesto(Presupuesto presupuesto) {
         this.presupuestoTotalInicialTextField.setText("$ "
-                + presupuesto.getPresupuestoTotal());
+                + Util.formatearValorVista(presupuesto.getPresupuestoTotal()));
         this.porcentajeAdministracionTextField.setText(String.valueOf(
-                presupuesto.getPorcentajeAdministracion() * 100));
+                Util.formatearValorVista(presupuesto.getPorcentajeAdministracion() * 100)));
         this.porcentajeImprevistosTextField.setText(String.valueOf(
-                presupuesto.getPorcentajeImprevistos() * 100));
+                Util.formatearValorVista(presupuesto.getPorcentajeImprevistos() * 100)));
         this.porcentajeUtilidadesTextField.setText(String.valueOf(
-                presupuesto.getPorcentajeUtilidades() * 100));
+                Util.formatearValorVista(presupuesto.getPorcentajeUtilidades() * 100)));
         this.presupuestoDisponibleTextField.setText("$ "
-                + presupuesto.getPresupuestoDisponible());
+                + Util.formatearValorVista(presupuesto.getPresupuestoDisponible()));
         this.presupuestoActualTextField.setText("$ "
-                + presupuesto.getPresupuestoActual());
+                + Util.formatearValorVista(presupuesto.getPresupuestoActual()));
         this.presupuestoAdicionalTextField.setText("$ "
-                + presupuesto.getPresupuestoAdicional());
+                + Util.formatearValorVista(presupuesto.getPresupuestoAdicional()));
 
-        this.presupuestoActual = presupuesto.getPresupuestoActual();
-        this.presupuestoAdicional = presupuesto.getPresupuestoAdicional();
+        this.presupuestoActual = Util.formatearValorOperacion(
+                presupuesto.getPresupuestoActual());
+        this.presupuestoAdicional = Util.formatearValorOperacion(
+                presupuesto.getPresupuestoAdicional());
     }
 
     private void setCodigosVias(List<InfoVia> vias) {
@@ -1412,7 +1475,7 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
                 if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE)
-                        || (c == KeyEvent.VK_DELETE) || c == KeyEvent.VK_PERIOD)) {
+                        || (c == KeyEvent.VK_DELETE) || c == KeyEvent.VK_COMMA)) {
                     getToolkit().beep();
                     e.consume();
                 }
@@ -1424,7 +1487,7 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
                 if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE)
-                        || (c == KeyEvent.VK_DELETE) || c == KeyEvent.VK_PERIOD)) {
+                        || (c == KeyEvent.VK_DELETE) || c == KeyEvent.VK_COMMA)) {
                     getToolkit().beep();
                     e.consume();
                 }
@@ -1436,7 +1499,7 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
                 if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE)
-                        || (c == KeyEvent.VK_DELETE) || c == KeyEvent.VK_PERIOD)) {
+                        || (c == KeyEvent.VK_DELETE) || c == KeyEvent.VK_COMMA)) {
                     getToolkit().beep();
                     e.consume();
                 }
@@ -1497,8 +1560,10 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
 
     private void establecerPresupuesto() {
         this.establecerColorPresupuestoActual();
-        this.presupuestoActualTextField.setText("$ " + this.presupuestoActual);
-        this.presupuestoAdicionalTextField.setText("$ " + this.presupuestoAdicional);
+        this.presupuestoActualTextField.setText("$ " + Util.formatearValorVista(
+                this.presupuestoActual));
+        this.presupuestoAdicionalTextField.setText("$ " + Util.formatearValorVista(
+                this.presupuestoAdicional));
     }
 
     private void agregarAlternativaResumenMantenimiento(Alternativa alternativa) {
@@ -1595,12 +1660,13 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
                             + separadorLinea;
                     Unidad u = this.obtenerUnidadDadoItem(alternativas.get(k).getItem());
                     this.resumen += "                  Cantidad: "
-                            + alternativas.get(k).getCantidad() + " "
-                            + u.getUnidad() + " ("
-                            + u.getNombre() + ")"
+                            + Util.formatearValorVista(alternativas.get(k).getCantidad())
+                            + " " + u.getUnidad() + " (" + u.getNombre() + ")"
                             + separadorLinea;
-                    this.resumen += "                  Costo : $ " + (alternativas.get(k).getCantidad()
-                            * this.buscarPrecioDadoCodigoItem(alternativas.get(k).getItem()));
+                    this.resumen += "                  Costo : $ " + Util.
+                            formatearValorVista((alternativas.get(k).getCantidad()
+                                    * this.buscarPrecioDadoCodigoItem(alternativas.
+                                            get(k).getItem())));
                     this.resumen += separadorLinea + separadorLinea;
                 }
             }
@@ -1612,12 +1678,14 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
                 for (int j = 0; j < alternativas.size(); j++) {
                     viasImpresas.add(v);
                     Unidad u = this.obtenerUnidadDadoItem(alternativas.get(j).getItem());
-                    this.resumen += "        * Mejoramiento: " + alternativas.get(j).getItem() + separadorLinea;
-                    this.resumen += "          Cantidad: " + alternativas.get(j).getCantidad() + " "
-                            + u.getUnidad() + " (" + u.getNombre() + ")"
-                            + separadorLinea;
-                    this.resumen += "          Costo: $ " + (alternativas.get(j).getCantidad()
-                            * this.buscarPrecioDadoCodigoItem(alternativas.get(j).getItem()));
+                    this.resumen += "        * Mejoramiento: " + alternativas.
+                            get(j).getItem() + separadorLinea;
+                    this.resumen += "          Cantidad: " + Util.formatearValorVista(
+                            alternativas.get(j).getCantidad()) + " " + u.getUnidad()
+                            + " (" + u.getNombre() + ")" + separadorLinea;
+                    this.resumen += "          Costo: $ " + Util.formatearValorVista(
+                            (alternativas.get(j).getCantidad()
+                            * this.buscarPrecioDadoCodigoItem(alternativas.get(j).getItem())));
                     this.resumen += separadorLinea + separadorLinea;
                 }
             }
@@ -1631,20 +1699,24 @@ public class PriorizacionMantenimientoJDialog extends javax.swing.JDialog {
                 for (int j = 0; j < alternativas.size(); j++) {
                     Unidad u = this.obtenerUnidadDadoItem(alternativas.get(j).getItem());
                     this.resumen += "        * Mejoramiento: " + alternativas.get(j).getItem() + separadorLinea;
-                    this.resumen += "          Cantidad: " + alternativas.get(j).getCantidad() + " "
+                    this.resumen += "          Cantidad: " + Util.formatearValorVista(
+                            alternativas.get(j).getCantidad()) + " "
                             + u.getUnidad() + " (" + u.getNombre() + ")"
                             + separadorLinea;
-                    this.resumen += "          Costo: $ " + (alternativas.get(j).getCantidad()
-                            * this.buscarPrecioDadoCodigoItem(alternativas.get(j).getItem())) + separadorLinea;
+                    this.resumen += "          Costo: $ " + Util.formatearValorVista(
+                            alternativas.get(j).getCantidad()
+                            * this.buscarPrecioDadoCodigoItem(alternativas.
+                                    get(j).getItem())) + separadorLinea;
                     this.resumen += separadorLinea;
                 }
                 this.resumen += separadorLinea + separadorLinea;
             }
         }
 
-        this.resumen += "Costo total intervenciones: $"
-                + (this.mantPriorViasInfo.getPresupuesto().getPresupuestoDisponible()
-                - this.presupuestoActual + this.presupuestoAdicional);
+        this.resumen += "Costo total intervenciones: $ "
+                + (Util.formatearValorVista(
+                        this.mantPriorViasInfo.getPresupuesto().getPresupuestoDisponible()
+                        - this.presupuestoActual + this.presupuestoAdicional));
 
         this.resumenTextArea.setText(this.resumen);
     }

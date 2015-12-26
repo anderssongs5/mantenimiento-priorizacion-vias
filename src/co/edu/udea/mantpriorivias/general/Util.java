@@ -1,12 +1,16 @@
 package co.edu.udea.mantpriorivias.general;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 import org.apache.commons.lang3.math.NumberUtils;
 
 public class Util {
+
+    private static final DecimalFormat decimalFormatVista = new DecimalFormat("###,###.#####");
+    private static final DecimalFormat decimalFormatOperacion = new DecimalFormat("#.#####");
 
     public static boolean isNumerico(String numero) {
         if (numero != null) {
@@ -32,11 +36,21 @@ public class Util {
         String home = System.getProperty("user.home");
         File file = new File(temporal);
 
-        return (file != null && file.canWrite()) ? temporal : home;
+        return file.canWrite() ? temporal : home;
     }
 
     public static boolean isDirectorioValido(File archivo) {
 
         return (null != archivo && archivo.isDirectory() && archivo.canWrite());
+    }
+
+    public static String formatearValorVista(double valor) {
+
+        return decimalFormatVista.format(valor);
+    }
+
+    public static double formatearValorOperacion(double valor) {
+
+        return Double.parseDouble(decimalFormatOperacion.format(valor).replace(",", "."));
     }
 }

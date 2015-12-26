@@ -114,6 +114,7 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
         labelTitulo = new javax.swing.JLabel();
         labelIngresoInfo = new javax.swing.JLabel();
         botonSiguiente = new javax.swing.JButton();
+        notaDecimalesLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -160,6 +161,8 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
             }
         });
 
+        notaDecimalesLabel.setText("Nota: Recuerde que los valores decimales van separados por coma: 15,7");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -167,19 +170,21 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(labelTitulo)
-                        .addGap(252, 252, 252))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(scrollPaneTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 722, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30))))
+                    .addComponent(notaDecimalesLabel)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(labelTitulo)
+                            .addGap(252, 252, 252))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(scrollPaneTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 722, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(30, 30, 30)))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(44, 44, 44)
                         .addComponent(labelIngresoInfo))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(355, 355, 355)
+                        .addGap(354, 354, 354)
                         .addComponent(botonSiguiente)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -191,10 +196,12 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
                 .addGap(33, 33, 33)
                 .addComponent(labelIngresoInfo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollPaneTabla, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(scrollPaneTabla, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+                .addGap(4, 4, 4)
+                .addComponent(notaDecimalesLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botonSiguiente)
-                .addContainerGap())
+                .addGap(6, 6, 6))
         );
 
         pack();
@@ -258,6 +265,7 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
     private javax.swing.JButton botonSiguiente;
     private javax.swing.JLabel labelIngresoInfo;
     private javax.swing.JLabel labelTitulo;
+    private javax.swing.JLabel notaDecimalesLabel;
     private javax.swing.JScrollPane scrollPaneTabla;
     private javax.swing.JTable tablaAlternativasMantenimiento;
     // End of variables declaration//GEN-END:variables
@@ -367,12 +375,14 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
             if (unidad == null
                     || !this.contieneUnidad(unidad)
                     || valorUnitario == null || valorUnitario.trim().isEmpty()
+                    || valorUnitario.contains(".")
                     || !Util.isNumerico(valorUnitario)
                     || (Util.isNumerico(valorUnitario)
                     && Double.parseDouble(valorUnitario.replaceAll(",", ".")) < 0)) {
                 if ((unidad == null
                         || !this.contieneUnidad(unidad))
                         && (valorUnitario == null || valorUnitario.trim().isEmpty()
+                        || valorUnitario.contains(".")
                         || !Util.isNumerico(valorUnitario)
                         || (Util.isNumerico(valorUnitario)
                         && Double.parseDouble(valorUnitario) < 0))) {
@@ -396,10 +406,11 @@ public class CostosMantenimientoJDialog extends javax.swing.JDialog {
                 }
 
                 if (valorUnitario == null || valorUnitario.trim().isEmpty()
+                        || valorUnitario.contains(".")
                         || !Util.isNumerico(valorUnitario)) {
                     errores += "* " + codigo + ": no tiene valor unitario o es no "
                             + "válido." + separadorLinea;
-                } else if (Util.isNumerico(valorUnitario)
+                } else if (!valorUnitario.contains(".") && Util.isNumerico(valorUnitario)
                         && Double.parseDouble(valorUnitario.replaceAll(",", ".")) < 0) {
                     errores += "* " + codigo + ": el valor unitario es menor "
                             + "que cero." + separadorLinea;

@@ -1,5 +1,6 @@
 package co.edu.udea.mantpriorivias.entidades;
 
+import co.edu.udea.mantpriorivias.general.Util;
 import java.io.Serializable;
 
 public class Presupuesto implements Serializable {
@@ -14,17 +15,19 @@ public class Presupuesto implements Serializable {
 
     public Presupuesto(double presupuestoTotal, double porcentajeAdministracion,
             double porcentajeImprevistos, double porcentajeUtilidades) {
-        this.presupuestoTotal = presupuestoTotal;
-        this.porcentajeAdministracion = porcentajeAdministracion;
-        this.porcentajeImprevistos = porcentajeImprevistos;
-        this.porcentajeUtilidades = porcentajeUtilidades;
+        this.presupuestoTotal = Util.formatearValorOperacion(presupuestoTotal);
+        this.porcentajeAdministracion = Util.formatearValorOperacion(porcentajeAdministracion);
+        this.porcentajeImprevistos = Util.formatearValorOperacion(porcentajeImprevistos);
+        this.porcentajeUtilidades = Util.formatearValorOperacion(porcentajeUtilidades);
 
-        this.presupuestoDisponible = this.calcularPrespuestoDisponible(
-                presupuestoTotal, porcentajeAdministracion, porcentajeImprevistos,
-                porcentajeUtilidades);
-        this.presupuestoActual = this.calcularPrespuestoDisponible(
-                presupuestoTotal, porcentajeAdministracion, porcentajeImprevistos,
-                porcentajeUtilidades);
+        this.presupuestoDisponible = Util.formatearValorOperacion(
+                this.calcularPrespuestoDisponible(presupuestoTotal,
+                        porcentajeAdministracion, porcentajeImprevistos,
+                        porcentajeUtilidades));
+        this.presupuestoActual = Util.formatearValorOperacion(
+                this.calcularPrespuestoDisponible(presupuestoTotal,
+                        porcentajeAdministracion, porcentajeImprevistos,
+                        porcentajeUtilidades));
     }
 
     public double getPresupuestoTotal() {

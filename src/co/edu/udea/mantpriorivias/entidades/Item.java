@@ -1,5 +1,6 @@
 package co.edu.udea.mantpriorivias.entidades;
 
+import co.edu.udea.mantpriorivias.general.Util;
 import java.io.Serializable;
 
 public class Item implements Serializable {
@@ -16,7 +17,8 @@ public class Item implements Serializable {
         this.unidad = unidad;
         this.valorUnitarioString = valorUnitarioString;
 
-        this.valorUnitario = Double.parseDouble(valorUnitarioString);
+        this.valorUnitario = Util.formatearValorOperacion(
+                Double.parseDouble(valorUnitarioString.replace(",", ".")));
     }
 
     public Item(String codigo, String item, Unidad unidad, double valorUnitario) {

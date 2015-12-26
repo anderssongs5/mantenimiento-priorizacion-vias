@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ValidadorPresupuesto {
 
-    public static Presupuesto validarInformacion(String presupuestoTotIni,
+    public Presupuesto validarInformacion(String presupuestoTotIni,
             String porcAdministracion, String porcImprevistos,
             String porcUtilidades, List<String> mensajesError) {
         Presupuesto presupuesto = null;

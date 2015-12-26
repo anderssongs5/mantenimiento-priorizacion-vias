@@ -27,6 +27,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ArchivoExcel {
 
+    private ValidadorPresupuesto validadorPresupuesto = new ValidadorPresupuesto();
+
     public static final String ARCHIVO_ALTERNATIVAS_INTERVENCION
             = "Alternativas_Intervencion.xlsx";
 
@@ -112,7 +114,7 @@ public class ArchivoExcel {
             String porcImprevistos = this.obtenerValorCelda(fila.getCell(2));
             String porcUtilidades = this.obtenerValorCelda(fila.getCell(3));
 
-            presupuesto = ValidadorPresupuesto.validarInformacion(
+            presupuesto = this.validadorPresupuesto.validarInformacion(
                     presupuestoTotIni, porcAdministracion, porcImprevistos,
                     porcUtilidades, mensajesError);
         }

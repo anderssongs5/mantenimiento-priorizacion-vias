@@ -6,6 +6,7 @@ import co.edu.udea.mantpriorivias.negocio.entidades.Item;
 import co.edu.udea.mantpriorivias.dto.MantPriorViasInfo;
 import co.edu.udea.mantpriorivias.negocio.entidades.Unidad;
 import co.edu.udea.mantpriorivias.general.Util;
+import co.edu.udea.mantpriorivias.negocio.validadores.ValidadorCostosIntervenciones;
 import co.edu.udea.mantpriorivias.negocio.validadores.ValidadorPriorizacion;
 import java.awt.Component;
 import java.awt.Desktop;
@@ -13,7 +14,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
@@ -29,6 +29,7 @@ import javax.swing.table.TableColumn;
 public class CostosIntervencionesJDialog extends javax.swing.JDialog {
 
     private final ValidadorPriorizacion validadorPriorizacion = new ValidadorPriorizacion();
+    private final ValidadorCostosIntervenciones validadorIntervencion = new ValidadorCostosIntervenciones();
     private final MantPriorViasInfo mantPriorViasInfo;
     private List<Item> items = new ArrayList<>();
     private final JComboBox comboBox = new JComboBox();
@@ -110,7 +111,7 @@ public class CostosIntervencionesJDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         scrollPaneTabla = new javax.swing.JScrollPane();
-        tablaAlternativasMantenimiento = new javax.swing.JTable();
+        tablaAlternativasIntervencion = new javax.swing.JTable();
         labelTitulo = new javax.swing.JLabel();
         labelIngresoInfo = new javax.swing.JLabel();
         botonSiguiente = new javax.swing.JButton();
@@ -118,7 +119,7 @@ public class CostosIntervencionesJDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        tablaAlternativasMantenimiento.setModel(new javax.swing.table.DefaultTableModel(
+        tablaAlternativasIntervencion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -141,12 +142,12 @@ public class CostosIntervencionesJDialog extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        scrollPaneTabla.setViewportView(tablaAlternativasMantenimiento);
-        if (tablaAlternativasMantenimiento.getColumnModel().getColumnCount() > 0) {
-            tablaAlternativasMantenimiento.getColumnModel().getColumn(0).setResizable(false);
-            tablaAlternativasMantenimiento.getColumnModel().getColumn(1).setResizable(false);
-            tablaAlternativasMantenimiento.getColumnModel().getColumn(2).setResizable(false);
-            tablaAlternativasMantenimiento.getColumnModel().getColumn(3).setResizable(false);
+        scrollPaneTabla.setViewportView(tablaAlternativasIntervencion);
+        if (tablaAlternativasIntervencion.getColumnModel().getColumnCount() > 0) {
+            tablaAlternativasIntervencion.getColumnModel().getColumn(0).setResizable(false);
+            tablaAlternativasIntervencion.getColumnModel().getColumn(1).setResizable(false);
+            tablaAlternativasIntervencion.getColumnModel().getColumn(2).setResizable(false);
+            tablaAlternativasIntervencion.getColumnModel().getColumn(3).setResizable(false);
         }
 
         labelTitulo.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
@@ -209,7 +210,10 @@ public class CostosIntervencionesJDialog extends javax.swing.JDialog {
 
     private void botonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSiguienteActionPerformed
         String separadorLinea = System.getProperty("line.separator");
-        String resultadoValidacion = this.validarInformacionItems();
+        this.mantPriorViasInfo.setItems(new ArrayList<>());
+        Object[][] datos = this.obtenerDatos();
+        String resultadoValidacion = this.validadorIntervencion.
+                validarInformacionItems(this.items, datos);
         if (!resultadoValidacion.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Existen errores en la información.\n\n"
                     + "A continuación se mostrará los errores presentados.",
@@ -267,37 +271,35 @@ public class CostosIntervencionesJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel labelTitulo;
     private javax.swing.JLabel notaDecimalesLabel;
     private javax.swing.JScrollPane scrollPaneTabla;
-    private javax.swing.JTable tablaAlternativasMantenimiento;
+    private javax.swing.JTable tablaAlternativasIntervencion;
     // End of variables declaration//GEN-END:variables
 
     private void armarTablaCostosMantenimiento() {
         List<String> daniosSeleccionadosUnicos = this.validadorPriorizacion.
                 obtenerValoresUnicosDanios(this.mantPriorViasInfo.getVias());
-        List<String> codigosItemsMantenimiento
-                = this.obtenerCodigosMantenimientoUnicos(daniosSeleccionadosUnicos);
-        List<Item> itemsMantenimiento = this.obtenerInfoItemsMantenimient(
-                codigosItemsMantenimiento);
+        List<Item> itemsMantenimiento = this.validadorIntervencion.
+                obtenerCodigosMantenimientoUnicos(daniosSeleccionadosUnicos);
 
         String[][] datosItemsMantenimiento
                 = this.crearTablaItemsMantenimiento(itemsMantenimiento);
         this.modeloTablaItems.setDataVector(datosItemsMantenimiento,
                 Constantes.NOMBRES_COLUMNAS);
-        this.tablaAlternativasMantenimiento.setModel(this.modeloTablaItems);
+        this.tablaAlternativasIntervencion.setModel(this.modeloTablaItems);
 
         TableColumn tc;
-        tc = this.tablaAlternativasMantenimiento.getColumn(
+        tc = this.tablaAlternativasIntervencion.getColumn(
                 Constantes.NOMBRES_COLUMNAS[0]);
         tc.setResizable(false);
         tc.setMaxWidth(70);
         tc.setMinWidth(70);
 
-        tc = this.tablaAlternativasMantenimiento.getColumn(
+        tc = this.tablaAlternativasIntervencion.getColumn(
                 Constantes.NOMBRES_COLUMNAS[1]);
         tc.setResizable(false);
         tc.setMaxWidth(402);
         tc.setMinWidth(402);
 
-        tc = this.tablaAlternativasMantenimiento.getColumn(
+        tc = this.tablaAlternativasIntervencion.getColumn(
                 Constantes.NOMBRES_COLUMNAS[2]);
         tc.setMaxWidth(125);
         tc.setMinWidth(125);
@@ -305,37 +307,10 @@ public class CostosIntervencionesJDialog extends javax.swing.JDialog {
         tc.setCellEditor(new DefaultCellEditor(this.comboBox));
         tc.setCellRenderer(this.tableRenderer);
 
-        tc = this.tablaAlternativasMantenimiento.getColumn(
+        tc = this.tablaAlternativasIntervencion.getColumn(
                 Constantes.NOMBRES_COLUMNAS[3]);
         tc.setMaxWidth(125);
         tc.setMinWidth(125);
-    }
-
-    private List<String> obtenerCodigosMantenimientoUnicos(List<String> daniosSeleccionados) {
-        List<String> codigosMantenimiento = new ArrayList<>();
-        for (String ds : daniosSeleccionados) {
-            String s = Constantes.ALTERNATIVAS_INTERVENCION_MANTENIMIENTO.get(ds);
-            if (!s.trim().isEmpty()) {
-                List<String> valoresObtenidos = Util.tokenizar(s, ",");
-                for (String vo : valoresObtenidos) {
-                    codigosMantenimiento.add(vo);
-                }
-            }
-        }
-
-        codigosMantenimiento = codigosMantenimiento.stream().distinct().collect(
-                Collectors.toList());
-
-        return codigosMantenimiento;
-    }
-
-    private List<Item> obtenerInfoItemsMantenimient(List<String> codigosItemsMantenimiento) {
-        List<Item> infoItems = new ArrayList<>();
-        codigosItemsMantenimiento.stream().forEach(item -> {
-            infoItems.add(Constantes.ITEMS.get(item));
-        });
-
-        return infoItems;
     }
 
     private String[][] crearTablaItemsMantenimiento(List<Item> itemsMantenimiento) {
@@ -361,86 +336,26 @@ public class CostosIntervencionesJDialog extends javax.swing.JDialog {
         return datos;
     }
 
-    private String validarInformacionItems() {
-        String errores = "";
-        this.items.clear();
-        String separadorLinea = System.getProperty("line.separator");
-        this.mantPriorViasInfo.setItems(new ArrayList<>());
-        for (int fila = 0; fila < this.tablaAlternativasMantenimiento.getRowCount(); fila++) {
-            String codigo = (String) this.tablaAlternativasMantenimiento.getValueAt(fila, 0);
-            String item = (String) this.tablaAlternativasMantenimiento.getValueAt(fila, 1);
-            Unidad unidad = (Unidad) this.tablaAlternativasMantenimiento.getValueAt(fila, 2);
-            String valorUnitario = (String) this.tablaAlternativasMantenimiento.getValueAt(fila, 3);
-
-            if (unidad == null
-                    || !this.contieneUnidad(unidad)
-                    || valorUnitario == null || valorUnitario.trim().isEmpty()
-                    || valorUnitario.contains(".")
-                    || !Util.isNumerico(valorUnitario)
-                    || (Util.isNumerico(valorUnitario)
-                    && Double.parseDouble(valorUnitario.replaceAll(",", ".")) < 0)) {
-                if ((unidad == null
-                        || !this.contieneUnidad(unidad))
-                        && (valorUnitario == null || valorUnitario.trim().isEmpty()
-                        || valorUnitario.contains(".")
-                        || !Util.isNumerico(valorUnitario)
-                        || (Util.isNumerico(valorUnitario)
-                        && Double.parseDouble(valorUnitario) < 0))) {
-                    if (Util.isNumerico(valorUnitario)
-                            && Double.parseDouble(valorUnitario.replaceAll(",", ".")) < 0) {
-                        errores += "* " + codigo + ": no tiene unidad ni valor unitario, "
-                                + "ninguno de los dos es válido, no tiene unidad "
-                                + "válida o el valor no es válido o es menor que cero."
-                                + separadorLinea;
-                        continue;
-                    }
-                    errores += "* " + codigo + ": no tiene unidad ni valor unitario o "
-                            + "ninguno de los dos es válido." + separadorLinea;
-                    continue;
-                }
-
-                if (unidad == null
-                        || !this.contieneUnidad(unidad)) {
-                    errores += "* " + codigo + ": no tiene unidad o es no válido." + separadorLinea;
-                    continue;
-                }
-
-                if (valorUnitario == null || valorUnitario.trim().isEmpty()
-                        || valorUnitario.contains(".")
-                        || !Util.isNumerico(valorUnitario)) {
-                    errores += "* " + codigo + ": no tiene valor unitario o es no "
-                            + "válido." + separadorLinea;
-                } else if (!valorUnitario.contains(".") && Util.isNumerico(valorUnitario)
-                        && Double.parseDouble(valorUnitario.replaceAll(",", ".")) < 0) {
-                    errores += "* " + codigo + ": el valor unitario es menor "
-                            + "que cero." + separadorLinea;
-                }
-            } else {
-                this.items.add(new Item(codigo, item, unidad, valorUnitario));
-            }
-        }
-
-        return errores;
-    }
-
-    private boolean contieneUnidad(Unidad unidad) {
-        if (unidad == null) {
-
-            return false;
-        } else {
-            if (Constantes.UNIDADES_POSIBLES.stream().anyMatch(u
-                    -> (u.getUnidad().equals(unidad.getUnidad())))) {
-
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     public MantPriorViasInfo iniciarVentanta() {
         this.setVisible(true);
 
         return this.mantPriorViasInfo;
+    }
+
+    private Object[][] obtenerDatos() {
+        Object[][] datos = new String[this.tablaAlternativasIntervencion.getRowCount()][4];
+        for (int fila = 0; fila < this.tablaAlternativasIntervencion.getRowCount(); fila++) {
+            String codigo = (String) this.tablaAlternativasIntervencion.getValueAt(fila, 0);
+            String item = (String) this.tablaAlternativasIntervencion.getValueAt(fila, 1);
+            Unidad unidad = (Unidad) this.tablaAlternativasIntervencion.getValueAt(fila, 2);
+            String valorUnitario = (String) this.tablaAlternativasIntervencion.getValueAt(fila, 3);
+
+            datos[fila][0] = codigo;
+            datos[fila][1] = item;
+            datos[fila][2] = unidad;
+            datos[fila][3] = valorUnitario;
+        }
+
+        return datos;
     }
 }

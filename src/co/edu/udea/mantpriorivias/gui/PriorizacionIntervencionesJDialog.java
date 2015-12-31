@@ -159,7 +159,7 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
         this.restringirValoresCampos();
         this.establecerColorPresupuestoActual();
 
-        this.setMejoras();
+        this.setMejoramientos();
         this.tratamientosSuperficialesRiegosComboBox.setRenderer(this.comboRenderer);
         this.estabilizacionAfirmadosComboBox.setRenderer(this.comboRenderer);
 
@@ -719,7 +719,7 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
                     this.unidadMantenimiento.getUnidad() + " - "
                     + this.unidadMantenimiento.getNombre());
 
-            Alternativa mantenimiento = this.buscarMantenimientoAplicadoDadoViaItemMantenimiento(
+            Alternativa mantenimiento = this.buscarMantenimientoAplicadoDadoViaDanioItemMantenimiento(
                     this.via, this.listaDaniosComboBox.get(this.posicionDanio),
                     this.itemSeleccionadoMantenimiento.getCodigo());
 
@@ -737,7 +737,7 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_mantenimientosComboBoxActionPerformed
 
     private void aplicarMantenimientoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aplicarMantenimientoButtonActionPerformed
-        Alternativa mantenimiento = this.buscarMantenimientoAplicadoDadoViaItemMantenimiento(
+        Alternativa mantenimiento = this.buscarMantenimientoAplicadoDadoViaDanioItemMantenimiento(
                 this.via, this.listaDaniosComboBox.get(this.posicionDanio),
                 this.itemSeleccionadoMantenimiento.getCodigo());
 
@@ -959,6 +959,7 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
                 }
 
                 this.establecerPresupuesto();
+                this.mostrarResumen();
                 JOptionPane.showMessageDialog(this,
                         "Se han eliminado las mejoras correctamente.",
                         "Mejoras aplicadas eliminadas",
@@ -1525,7 +1526,7 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
         return u;
     }
 
-    private Alternativa buscarMantenimientoAplicadoDadoViaItemMantenimiento(String via,
+    private Alternativa buscarMantenimientoAplicadoDadoViaDanioItemMantenimiento(String via,
             String danio, String item) {
         Alternativa alternativa = null;
         for (Alternativa a : this.alternativasMantenimiento) {
@@ -1740,7 +1741,7 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
         });
     }
 
-    private void setMejoras() {
+    private void setMejoramientos() {
         for (int i = Constantes.TSR_INICIO; i <= Constantes.TSR_FINAL; i++) {
             for (int j = 0; j < this.mantPriorViasInfo.getItems().size(); j++) {
                 if (("ME" + i).equals(this.mantPriorViasInfo.getItems().get(j).getCodigo())) {
@@ -1901,18 +1902,37 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
         if (posicion >= 0) {
             double dineroRecuperar = 0.0;
             ResumenMantenimiento rm = this.viasResumenMantenimiento.get(posicion);
+            ResumenMantenimiento rmc = new ResumenMantenimiento();
+            rmc.setAlternativasPorDanio(rm.getAlternativasPorDanio());
+            rmc.setDaniosPorVia(rm.getDaniosPorVia());
+            rmc.setVia(rm.getVia());
             List<String> danios = rm.getDaniosPorVia();
-            for (int i = 0; i < danios.size(); i++) {
-                String danio = danios.get(i);
+            List<String> daniosList = new ArrayList<>(danios);
+            for (int i = 0; i < daniosList.size(); i++) {
+                String danio = daniosList.get(i);
                 if (!Constantes.DANIOS_PERMANECEN_POR_MEJORAS.contains(danio.
                         substring(0, danio.length() - 1))) {
-                    List<Alternativa> alternativas = rm.getAlternativasPorDanio().get(i);
+                    List<Alternativa> alternativas = rmc.getAlternativasPorDanio().get(i);
                     dineroRecuperar = alternativas.stream().map((a) -> Util.
                             formatearValorOperacion(a.getCantidad()
                                     * this.buscarPrecioDadoCodigoItem(a.getItem()))).reduce(
                                     dineroRecuperar, (accumulator, _item) -> accumulator + _item);
-                    rm.getDaniosPorVia().remove(i);
-                    rm.getAlternativasPorDanio().remove(i);
+                    for (Alternativa a : alternativas) {
+                        Alternativa m = this.buscarMantenimientoAplicadoDadoViaDanioItemMantenimiento(
+                                a.getCodigoVia(), a.getDanio(), a.getItem());
+                        if (m != null) {
+                            this.alternativasMantenimiento.remove(m);
+                        }
+                    }
+
+                    for (int j = 0; j < rm.getDaniosPorVia().size(); j++) {
+                        if (rm.getDaniosPorVia().get(j).equals(danio)) {
+                            rm.getDaniosPorVia().remove(j);
+                            rm.getAlternativasPorDanio().remove(j);
+
+                            break;
+                        }
+                    }
                 }
             }
 
@@ -1951,20 +1971,26 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
         }
 
         texto += "Presupuesto" + separadorLinea;
-        texto += "  * Presupuesto Total Inicial: $"
-                + this.mantPriorViasInfo.getPresupuesto().getPresupuestoTotal() + separadorLinea;
-        texto += "  * Porcentaje Administación: "
-                + (this.mantPriorViasInfo.getPresupuesto().getPorcentajeAdministracion() * 100) + " %" + separadorLinea;
-        texto += "  * Porcentaje Imprevistos: "
-                + (this.mantPriorViasInfo.getPresupuesto().getPorcentajeImprevistos() * 100) + " %" + separadorLinea;
-        texto += "  * Porcentaje Utilidades: "
-                + (this.mantPriorViasInfo.getPresupuesto().getPorcentajeUtilidades() * 100) + " %" + separadorLinea;
-        texto += "  * Presupuesto Disponible: $"
-                + this.mantPriorViasInfo.getPresupuesto().getPresupuestoDisponible();
-        texto += "  * Presupuesto Actual: $" + this.presupuestoActual + separadorLinea;
-        texto += "  * Presupuesto Adicional para Intervención: $"
-                + this.presupuestoAdicional;
-        texto += separadorLinea + separadorLinea;
+        texto += "  * Presupuesto Total Inicial: $ " + Util.formatearValorVista(
+                this.mantPriorViasInfo.getPresupuesto().getPresupuestoTotal())
+                + separadorLinea;
+        texto += "  * Porcentaje Administación: " + Util.formatearValorVista(
+                this.mantPriorViasInfo.getPresupuesto().getPorcentajeAdministracion()
+                * 100) + " %" + separadorLinea;
+        texto += "  * Porcentaje Imprevistos: " + Util.formatearValorVista(
+                this.mantPriorViasInfo.getPresupuesto().getPorcentajeImprevistos()
+                * 100) + " %" + separadorLinea;
+        texto += "  * Porcentaje Utilidades: " + Util.formatearValorVista(
+                this.mantPriorViasInfo.getPresupuesto().getPorcentajeUtilidades()
+                * 100) + " %" + separadorLinea;
+        texto += "  * Presupuesto Disponible: $ " + Util.formatearValorVista(
+                this.mantPriorViasInfo.getPresupuesto().getPresupuestoDisponible())
+                + separadorLinea;
+        texto += "  * Presupuesto Actual: $ " + Util.formatearValorVista(
+                this.presupuestoActual) + separadorLinea;
+        texto += "  * Presupuesto Adicional para Intervención: $ "
+                + Util.formatearValorVista(this.presupuestoAdicional);
+        texto += separadorLinea + separadorLinea + separadorLinea;
 
         texto += "Daños" + separadorLinea;
         texto += "Código  Nombre" + separadorLinea;
@@ -1977,7 +2003,7 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
 
         texto += "Mantenimientos y Mejoramientos" + separadorLinea;
         texto += "Código  Nombre                                                  "
-                + "                                   " + "Precio ($)" + separadorLinea;
+                + "                                       " + "Precio ($)" + separadorLinea;
         for (Item i : this.mantPriorViasInfo.getItems()) {
             texto += " " + i.getCodigo();
             if (i.getCodigo().length() == 3) {
@@ -1987,16 +2013,15 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
             }
 
             texto += i.getItem();
-            int t = 91 - i.getItem().length();
+            int t = 95 - i.getItem().length();
             String s = "";
             for (int j = 0; j < t; j++) {
                 s += " ";
             }
             texto += s;
 
-            texto += i.getValorUnitario() + separadorLinea;
+            texto += Util.formatearValorVista(i.getValorUnitario()) + separadorLinea;
         }
-        texto += separadorLinea + separadorLinea;
 
         return texto;
     }

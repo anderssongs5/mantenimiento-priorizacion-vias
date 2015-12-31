@@ -11,7 +11,7 @@ public class Util {
 
     private static final DecimalFormat decimalFormatVista = new DecimalFormat("###,###.#####");
     private static final DecimalFormat decimalFormatOperacion = new DecimalFormat("#.#####");
-    private static String separadorLinea = System.getProperty("line.separator");
+    private static final String separadorLinea = System.getProperty("line.separator");
 
     public static boolean isNumerico(String numero) {
         if (numero != null) {

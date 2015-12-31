@@ -1,30 +1,42 @@
 package co.edu.udea.mantpriorivias.negocio.validadores;
 
+import co.edu.udea.mantpriorivias.dto.InfoVia;
 import co.edu.udea.mantpriorivias.general.Constantes;
 import co.edu.udea.mantpriorivias.general.Util;
 import co.edu.udea.mantpriorivias.negocio.entidades.Item;
 import co.edu.udea.mantpriorivias.negocio.entidades.Unidad;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ValidadorCostosIntervenciones {
 
     public List<Item> obtenerCodigosMantenimientoUnicos(List<String> daniosSeleccionados) {
         List<Item> infoItems = new ArrayList<>();
-        for (String ds : daniosSeleccionados) {
-            String s = Constantes.ALTERNATIVAS_INTERVENCION_MANTENIMIENTO.get(ds);
-            if (!s.trim().isEmpty()) {
-                List<String> valoresObtenidos = Util.tokenizar(s, ",");
-                for (String vo : valoresObtenidos) {
-                    Item item = Constantes.ITEMS.get(vo);
-                    if(!infoItems.contains(item)){
+        daniosSeleccionados.stream().map((ds)
+                -> Constantes.ALTERNATIVAS_INTERVENCION_MANTENIMIENTO.get(ds)).filter(
+                        (s) -> (!s.trim().isEmpty())).map((s) -> Util.tokenizar(s, ",")).
+                forEach((valoresObtenidos) -> {
+                    valoresObtenidos.stream().map((vo) -> Constantes.ITEMS.get(vo)).
+                    filter((item) -> (!infoItems.contains(item))).forEach((item) -> {
                         infoItems.add(item);
-                    }
-                }
-            }
-        }
+                    });
+                });
 
         return infoItems;
+    }
+
+    public List<String> obtenerValoresUnicosDanios(List<InfoVia> vias) {
+        List<String> daniosUnicos = new ArrayList<>();
+        if (vias != null && !vias.isEmpty()) {
+            vias.stream().forEach(via -> {
+                via.getDaniosSeleccionados().stream().forEach(danio -> {
+                    daniosUnicos.add(danio.trim());
+                });
+            });
+        }
+
+        return daniosUnicos.stream().distinct().collect(Collectors.toList());
     }
 
     public String validarInformacionItems(List<Item> items, Object[][] datosItems) {

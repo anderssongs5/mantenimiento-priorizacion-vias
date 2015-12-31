@@ -1,8 +1,5 @@
 package co.edu.udea.mantpriorivias.dto;
 
-import co.edu.udea.mantpriorivias.dto.ResumenMejora;
-import co.edu.udea.mantpriorivias.dto.ResumenMantenimiento;
-import co.edu.udea.mantpriorivias.dto.MantPriorViasInfo;
 import co.edu.udea.mantpriorivias.negocio.entidades.Alternativa;
 import java.io.Serializable;
 import java.util.List;

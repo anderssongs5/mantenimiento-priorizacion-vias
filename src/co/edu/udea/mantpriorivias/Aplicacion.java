@@ -24,7 +24,7 @@ public class Aplicacion {
             do {
                 JPanel panel = new JPanel();
                 JLabel label = new JLabel("Ingrese la contraseña:");
-                JPasswordField pass = new JPasswordField(10);
+                JPasswordField pass = new JPasswordField(15);
                 panel.add(label);
                 panel.add(pass);
                 String[] options = new String[]{"OK", "Cancelar"};
@@ -35,14 +35,13 @@ public class Aplicacion {
                     char[] password = pass.getPassword();
                     StringBuilder sb = new StringBuilder();
                     sb.append(password);
-                    //sb.append("PMVias*UdeA*2015");
                     if (password != null
                             && Seguridad.puedeContinuar(sb.toString())) {
                         Inicio inicio = new Inicio();
                         inicio.setResizable(false);
                         inicio.setLocationRelativeTo(null);
                         inicio.setVisible(true);
-                        break;
+                        intentar = false;
                     } else {
                         intentar = JOptionPane.showConfirmDialog(null, "La contraseña es incorrecta\n"
                                 + "¿Desea volver a intentarlo?", "Contraseña incorrecta",

@@ -24,7 +24,7 @@ public class ResumenMantenimiento implements Serializable {
     }
 
     public void setDaniosPorVia(List<String> daniosPorVia) {
-        this.daniosPorVia = daniosPorVia;
+        this.daniosPorVia = new ArrayList<>(daniosPorVia);
     }
 
     public List<List<Alternativa>> getAlternativasPorDanio() {
@@ -32,6 +32,6 @@ public class ResumenMantenimiento implements Serializable {
     }
 
     public void setAlternativasPorDanio(List<List<Alternativa>> alternativasPorDanio) {
-        this.alternativasPorDanio = alternativasPorDanio;
+        this.alternativasPorDanio = new ArrayList<>(alternativasPorDanio);
     }
 }

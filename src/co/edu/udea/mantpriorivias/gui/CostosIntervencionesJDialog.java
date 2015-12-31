@@ -7,7 +7,6 @@ import co.edu.udea.mantpriorivias.dto.MantPriorViasInfo;
 import co.edu.udea.mantpriorivias.negocio.entidades.Unidad;
 import co.edu.udea.mantpriorivias.general.Util;
 import co.edu.udea.mantpriorivias.negocio.validadores.ValidadorCostosIntervenciones;
-import co.edu.udea.mantpriorivias.negocio.validadores.ValidadorPriorizacion;
 import java.awt.Component;
 import java.awt.Desktop;
 import java.io.File;
@@ -28,10 +27,9 @@ import javax.swing.table.TableColumn;
 
 public class CostosIntervencionesJDialog extends javax.swing.JDialog {
 
-    private final ValidadorPriorizacion validadorPriorizacion = new ValidadorPriorizacion();
     private final ValidadorCostosIntervenciones validadorIntervencion = new ValidadorCostosIntervenciones();
     private final MantPriorViasInfo mantPriorViasInfo;
-    private List<Item> items = new ArrayList<>();
+    private List<Item> items = null;
     private final JComboBox comboBox = new JComboBox();
     private final DefaultTableModel modeloTablaItems = new DefaultTableModel() {
         @Override
@@ -210,6 +208,7 @@ public class CostosIntervencionesJDialog extends javax.swing.JDialog {
 
     private void botonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSiguienteActionPerformed
         String separadorLinea = Util.getSeparadorLinea();
+        this.items = new ArrayList<>();
         this.mantPriorViasInfo.setItems(new ArrayList<>());
         Object[][] datos = this.obtenerDatos();
         String resultadoValidacion = this.validadorIntervencion.
@@ -275,7 +274,7 @@ public class CostosIntervencionesJDialog extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void armarTablaCostosMantenimiento() {
-        List<String> daniosSeleccionadosUnicos = this.validadorPriorizacion.
+        List<String> daniosSeleccionadosUnicos = this.validadorIntervencion.
                 obtenerValoresUnicosDanios(this.mantPriorViasInfo.getVias());
         List<Item> itemsMantenimiento = this.validadorIntervencion.
                 obtenerCodigosMantenimientoUnicos(daniosSeleccionadosUnicos);

@@ -14,13 +14,14 @@ public class ArchivoTextoPlano {
         try {
             writer = new PrintWriter(fullPath, "UTF-8");
             writer.println(contenido);
-            writer.close();
         } catch (FileNotFoundException | UnsupportedEncodingException ex) {
             Logger.getLogger(ArchivoTextoPlano.class.getName()).
                     log(Level.SEVERE, null, ex);
             correcto = false;
         } finally {
-            writer.close();
+            if (writer != null) {
+                writer.close();
+            }
         }
 
         return correcto;

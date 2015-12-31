@@ -1,89 +1,122 @@
 package co.edu.udea.mantpriorivias.negocio.validadores;
 
+import co.edu.udea.mantpriorivias.archivos.ArchivoExcel;
+import co.edu.udea.mantpriorivias.archivos.ArchivoTextoPlano;
+import co.edu.udea.mantpriorivias.dto.InfoVia;
+import co.edu.udea.mantpriorivias.dto.MantPriorViasInfo;
 import co.edu.udea.mantpriorivias.general.Util;
-import co.edu.udea.mantpriorivias.negocio.entidades.Presupuesto;
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class ValidadorPresupuesto {
+public class ValidadorPlantilla {
 
-    public Presupuesto validarInformacion(String presupuestoTotIni,
-            String porcAdministracion, String porcImprevistos,
-            String porcUtilidades, List<String> mensajesError) {
-        Presupuesto presupuesto = null;
+    private final ArchivoExcel archivoExcel = new ArchivoExcel();
+    private final ArchivoTextoPlano archivoTextoPlano = new ArchivoTextoPlano();
 
-        if ((null == presupuestoTotIni || presupuestoTotIni.isEmpty())
-                || !Util.isNumerico(presupuestoTotIni)) {
-            mensajesError.add("El presupuesto total inicial no puede ser vacío.");
+    public String estructurarInformacionErrorPlantilla(MantPriorViasInfo mantPriorViasInfo) {
+        String informacion = "";
+        String separadorLinea = Util.getSeparadorLinea();
+        if (mantPriorViasInfo.getErroresArchivo() != null
+                && !mantPriorViasInfo.getErroresArchivo().isEmpty()) {
+            informacion += "Errores del archivo:" + separadorLinea;
+            informacion = mantPriorViasInfo.getErroresArchivo().stream().map((s)
+                    -> "    * " + s.trim() + separadorLinea).reduce(informacion,
+                            String::concat);
         }
 
-        if (!(null == porcAdministracion || porcAdministracion.isEmpty())
-                && !Util.isNumerico(porcAdministracion)) {
-            mensajesError.add("El porcentaje de administración no es válido.");
+        if (!informacion.isEmpty()) {
+            informacion += separadorLinea;
+            informacion += separadorLinea;
+            informacion += "====================================================";
+            informacion += separadorLinea;
+            informacion += separadorLinea;
         }
 
-        if (!(null == porcImprevistos || porcImprevistos.isEmpty())
-                && !Util.isNumerico(porcImprevistos)) {
-            mensajesError.add("El porcentaje de imprevistos no es válido.");
+        if (mantPriorViasInfo.getErroresHojaPresupuesto() != null
+                && !mantPriorViasInfo.getErroresHojaPresupuesto().isEmpty()) {
+            informacion += "Errores en hoja Presupuesto:" + separadorLinea;
+            informacion = mantPriorViasInfo.getErroresHojaPresupuesto().stream()
+                    .map((s) -> "    * " + s.trim() + separadorLinea).reduce(
+                            informacion, String::concat);
         }
 
-        if (!(null == porcUtilidades || porcUtilidades.isEmpty())
-                && !Util.isNumerico(porcUtilidades)) {
-            mensajesError.add("El porcentaje de utilidades no es válido.");
+        if (!informacion.isEmpty()) {
+            informacion += separadorLinea;
+            informacion += separadorLinea;
+            informacion += "====================================================";
+            informacion += separadorLinea;
+            informacion += separadorLinea;
         }
 
-        if (mensajesError.isEmpty()) {
-            double presupuestoTotalInicial = Double.parseDouble(presupuestoTotIni);
-            double porcentajeAdministracion = 0.0;
-            double porcentajeImprevistos = 0.0;
-            double porcentajeUtilidades = 0.0;
-
-            if (!(null == porcAdministracion || porcAdministracion.isEmpty())) {
-                porcentajeAdministracion = Double.parseDouble(porcAdministracion);
-            }
-
-            if (!(null == porcImprevistos || porcImprevistos.isEmpty())) {
-                porcentajeImprevistos = Double.parseDouble(porcImprevistos);
-            }
-
-            if (!(null == porcUtilidades || porcUtilidades.isEmpty())) {
-                porcentajeUtilidades = Double.parseDouble(porcUtilidades);
-            }
-
-            if (presupuestoTotalInicial <= 0.0) {
-                mensajesError.add("El presupuesto total inicial debe ser "
-                        + "mayor que cero.");
-            }
-
-            if (porcentajeAdministracion < 0.0) {
-                mensajesError.add("El porcentaje de administración debe ser "
-                        + "mayor o igual que cero.");
-            }
-
-            if (porcentajeImprevistos < 0.0) {
-                mensajesError.add("El porcentaje de imprevistos debe ser "
-                        + "mayor o igual que cero.");
-            }
-
-            if (porcentajeUtilidades < 0.0) {
-                mensajesError.add("El porcentaje de utilidades debe ser "
-                        + "mayor o igual que cero.");
-            }
-
-            if (porcentajeAdministracion >= 0.0 && porcentajeImprevistos >= 0.0
-                    && porcentajeUtilidades >= 0.0) {
-                if (porcentajeAdministracion + porcentajeImprevistos
-                        + porcentajeUtilidades >= 1.0) {
-                    mensajesError.add("El AIU no puede ser mayor o igual al 100%.");
+        boolean erroresVias = false;
+        if (mantPriorViasInfo.existenViasConErrores()) {
+            informacion += "Errores en hoja Priorización o errores en vías:";
+            informacion += separadorLinea;
+            informacion += separadorLinea;
+            for (InfoVia iv : mantPriorViasInfo.getVias()) {
+                if (iv.getErroresVia() != null && !iv.getErroresVia().isEmpty()) {
+                    informacion += "Número de fila: " + iv.getFilaVia() + separadorLinea;
+                    String codVia = (iv.getVia().getCodigoVia() != null)
+                            ? iv.getVia().getCodigoVia() : "";
+                    informacion += "Código de la vía: " + codVia + separadorLinea;
+                    informacion += "Errores: " + separadorLinea + iv.getErroresVia();
+                    informacion += separadorLinea;
+                    informacion += separadorLinea;
                 }
             }
-
-            if (mensajesError.isEmpty()) {
-                presupuesto = new Presupuesto(presupuestoTotalInicial,
-                        porcentajeAdministracion, porcentajeImprevistos,
-                        porcentajeUtilidades);
-            }
+            erroresVias = true;
+        } else if (mantPriorViasInfo.getVias().isEmpty()) {
+            informacion += "Errores en hoja Priorización o errores en vías:";
+            informacion += separadorLinea;
+            informacion += separadorLinea;
+            informacion += "    * No existe ninguna vía.";
+            erroresVias = true;
         }
 
-        return presupuesto;
+        if (mantPriorViasInfo.getErroresHojaPriorizacion() != null
+                && !mantPriorViasInfo.getErroresHojaPriorizacion().isEmpty()) {
+            if (!erroresVias) {
+                informacion += "Errores en hoja Priorización o errores en vías:";
+                informacion += separadorLinea;
+                informacion += separadorLinea;
+            }
+            informacion += mantPriorViasInfo.getErroresHojaPriorizacion().trim()
+                    + separadorLinea;
+        }
+
+        return informacion;
+    }
+
+    public MantPriorViasInfo leerPlantilla(File archivo) {
+
+        try {
+            return this.archivoExcel.leerPlantilla(archivo);
+        } catch (IOException ex) {
+            Logger.getLogger(ValidadorPlantilla.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
+    public boolean validarArchivoPlantilla(File archivo) {
+
+        return this.archivoExcel.validarArchivoPlantilla(archivo);
+    }
+
+    public boolean descargarPlantilla(File directorio) throws IOException {
+
+        return this.archivoExcel.descargarPlantilla(directorio);
+    }
+
+    public boolean descargarAlternativasIntervencion(File directorio) throws IOException {
+
+        return this.archivoExcel.descargarAlternativasIntervencion(directorio);
+    }
+
+    public boolean crearArchivo(String contenido, String fullPath) {
+
+        return this.archivoTextoPlano.crearArchivo(contenido, fullPath);
     }
 }

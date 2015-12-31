@@ -1,13 +1,11 @@
 package co.edu.udea.mantpriorivias.gui;
 
-import co.edu.udea.mantpriorivias.archivos.ArchivoTextoPlano;
-import co.edu.udea.mantpriorivias.archivos.ArchivoExcel;
 import co.edu.udea.mantpriorivias.dto.InfoVia;
 import co.edu.udea.mantpriorivias.dto.MantPriorViasInfo;
 import co.edu.udea.mantpriorivias.dto.Progreso;
 import co.edu.udea.mantpriorivias.general.Util;
-import co.edu.udea.mantpriorivias.negocio.PMVias;
 import co.edu.udea.mantpriorivias.general.progreso.UtilProgreso;
+import co.edu.udea.mantpriorivias.negocio.validadores.ValidadorPlantilla;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +24,7 @@ public class Inicio extends javax.swing.JFrame {
     private static final JFileChooser FILE_CHOOSER_ALTERNATIVAS_INTERVENCION;
     private File archivoSelecciondo;
     private File directorioSeleccionado;
-    private final ArchivoExcel archivoExcel = new ArchivoExcel();
+    private final ValidadorPlantilla validadorPlantilla = new ValidadorPlantilla();
     private static final ImageIcon ERROR_IMAGE = new ImageIcon(Inicio.class
             .getResource("/co/edu/udea/mantpriorivias/gui/imagenes/"
                     + "ic_dialog_error.png"));
@@ -229,7 +227,7 @@ public class Inicio extends javax.swing.JFrame {
                     getSelectedFile();
             if (Util.isDirectorioValido(this.directorioSeleccionado)) {
                 try {
-                    boolean correcto = this.archivoExcel.descargarPlantilla(
+                    boolean correcto = this.validadorPlantilla.descargarPlantilla(
                             this.directorioSeleccionado);
                     if (correcto) {
                         JOptionPane.showMessageDialog(this, "Se ha descargado "
@@ -270,7 +268,7 @@ public class Inicio extends javax.swing.JFrame {
                     getSelectedFile();
             if (Util.isDirectorioValido(this.directorioSeleccionado)) {
                 try {
-                    boolean correcto = this.archivoExcel.descargarAlternativasIntervencion(
+                    boolean correcto = this.validadorPlantilla.descargarAlternativasIntervencion(
                             this.directorioSeleccionado);
                     if (correcto) {
                         JOptionPane.showMessageDialog(this, "Se ha descargado "
@@ -308,9 +306,9 @@ public class Inicio extends javax.swing.JFrame {
         int retorno = FILE_CHOOSER_PLANTILLA.showOpenDialog(this);
         if (JFileChooser.APPROVE_OPTION == retorno) {
             this.archivoSelecciondo = FILE_CHOOSER_PLANTILLA.getSelectedFile();
-            if (this.archivoExcel.validarArchivo(this.archivoSelecciondo)) {
+            if (this.validadorPlantilla.validarArchivoPlantilla(this.archivoSelecciondo)) {
                 try {
-                    MantPriorViasInfo mantPriorViasInfo = this.archivoExcel.
+                    MantPriorViasInfo mantPriorViasInfo = this.validadorPlantilla.
                             leerPlantilla(this.archivoSelecciondo);
                     if (mantPriorViasInfo.tieneErrores()) {
                         JOptionPane.showMessageDialog(this, "El archivo contiene "
@@ -321,12 +319,10 @@ public class Inicio extends javax.swing.JFrame {
                                 WARNING_IMAGE);
                         String rutaTemporal = Util.getRutaTemporal();
                         String fullPath = rutaTemporal + "Errores_Plantilla.txt";
-                        ArchivoTextoPlano creadorArchivoTextoPlano
-                                = new ArchivoTextoPlano();
 
-                        String contenidoErrores = PMVias.estructurarInformacionErrorPlantilla(
-                                mantPriorViasInfo);
-                        if (creadorArchivoTextoPlano.crearArchivo(contenidoErrores,
+                        String contenidoErrores = validadorPlantilla.
+                                estructurarInformacionErrorPlantilla(mantPriorViasInfo);
+                        if (this.validadorPlantilla.crearArchivo(contenidoErrores,
                                 fullPath)) {
                             File archivoErrores = new File(fullPath);
                             if (Desktop.isDesktopSupported()) {
@@ -425,7 +421,8 @@ public class Inicio extends javax.swing.JFrame {
                 } else {
                     JOptionPane.showMessageDialog(this, "Se ha presentado un error "
                             + "leyendo el archivo o no existe información para leer."
-                            + "\nPor favor verifique el archivo seleccionado.",
+                            + "\nPor favor verifique el archivo seleccionado o "
+                            + "contáctese con el administrador del sistema.",
                             "Archivo erróneo o vacío", JOptionPane.WARNING_MESSAGE,
                             WARNING_IMAGE);
                 }

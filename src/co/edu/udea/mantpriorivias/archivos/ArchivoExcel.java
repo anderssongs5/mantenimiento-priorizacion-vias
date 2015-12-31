@@ -27,7 +27,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ArchivoExcel {
 
-    private ValidadorPresupuesto validadorPresupuesto = new ValidadorPresupuesto();
+    private final ValidadorPresupuesto validadorPresupuesto = new ValidadorPresupuesto();
 
     public static final String ARCHIVO_ALTERNATIVAS_INTERVENCION
             = "Alternativas_Intervencion.xlsx";
@@ -114,7 +114,7 @@ public class ArchivoExcel {
             String porcImprevistos = this.obtenerValorCelda(fila.getCell(2));
             String porcUtilidades = this.obtenerValorCelda(fila.getCell(3));
 
-            presupuesto = this.validadorPresupuesto.validarInformacion(
+            presupuesto = this.validadorPresupuesto.validarInformacionPresupuesto(
                     presupuestoTotIni, porcAdministracion, porcImprevistos,
                     porcUtilidades, mensajesError);
         }
@@ -242,31 +242,7 @@ public class ArchivoExcel {
         return vias;
     }
 
-//    private List<InfoItem> obtenerInfoCostosMantenimiento(Sheet hojaCostosMantenimiento)
-//            throws IOException {
-//        ValidadorCostosMantenimiento validadorCostosMantenimiento
-//                = new ValidadorCostosMantenimiento();
-//        List<InfoItem> items = new ArrayList<>();
-//        Iterator<Row> rows = hojaCostosMantenimiento.iterator();
-//
-//        rows.next();
-//        while (rows.hasNext()) {
-//            Row row = rows.next();
-//            String codigo = this.obtenerValorCelda(row.getCell(1));
-//            String item = this.obtenerValorCelda(row.getCell(2));
-//            String unidad = this.obtenerValorCelda(row.getCell(3));
-//            String valorUnitario = this.obtenerValorCelda(row.getCell(4));
-//            int fila = row.getRowNum();
-//
-//            Item i = new Item(codigo, item, unidad, valorUnitario);
-//            String erroresItem = validadorCostosMantenimiento.validarItem(i);
-//
-//            items.add(new InfoItem(i, erroresItem, fila));
-//        }
-//
-//        return items;
-//    }
-    public boolean validarArchivo(File archivo) {
+    public boolean validarArchivoPlantilla(File archivo) {
 
         return (null != archivo && archivo.exists() && archivo.isFile()
                 && archivo.canRead() && (archivo.getName().endsWith(

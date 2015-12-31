@@ -39,10 +39,10 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
     private ArchivoExcel archivoExcel = new ArchivoExcel();
     private List<String> listaDaniosComboBox = new ArrayList<>();
     private List<Alternativa> alternativasMantenimiento;
-    private List<Alternativa> alternativasMejorasTSR;
-    private List<Alternativa> alternativasMejorasEA;
+    private List<Alternativa> alternativasMejoramientosTSR;
+    private List<Alternativa> alternativasMejoramientosEA;
     private List<ResumenMantenimiento> viasResumenMantenimiento;
-    private List<ResumenMejora> viasResumenMejora;
+    private List<ResumenMejora> viasResumenMejoramientos;
     private List<Item> tratamientosSuperficialesRiegos = new ArrayList<>();
     private List<Item> estabilizacionAfirmados = new ArrayList<>();
     private ArchivoTextoPlano creadorArchivoTextoPlano = new ArchivoTextoPlano();
@@ -52,7 +52,7 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
     private Unidad unidadMantenimiento;
     private Unidad unidadMejoraTSR;
     private Unidad unidadMejoraEA;
-    private boolean tieneMejoras;
+    private boolean tieneMejoramientos;
     private int posicionDanio;
     private double presupuestoActual;
     private double presupuestoAdicional;
@@ -104,16 +104,16 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
      * @param viasResumenMantenimiento
      * @param viasResumenMejora
      * @param alternativasMantenimiento
-     * @param alternativasMejorasTSR
-     * @param alternativasMejorasEA
+     * @param alternativasMejoramientosTSR
+     * @param alternativasMejoramientosEA
      */
     public PriorizacionIntervencionesJDialog(java.awt.Frame parent, boolean modal,
             MantPriorViasInfo mantPriorViasInfo,
             List<ResumenMantenimiento> viasResumenMantenimiento,
             List<ResumenMejora> viasResumenMejora,
             List<Alternativa> alternativasMantenimiento,
-            List<Alternativa> alternativasMejorasTSR,
-            List<Alternativa> alternativasMejorasEA) {
+            List<Alternativa> alternativasMejoramientosTSR,
+            List<Alternativa> alternativasMejoramientosEA) {
         super(parent, modal);
         this.mantPriorViasInfo = mantPriorViasInfo;
         if (viasResumenMantenimiento == null) {
@@ -123,9 +123,9 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
         }
 
         if (viasResumenMejora == null) {
-            this.viasResumenMejora = new ArrayList<>();
+            this.viasResumenMejoramientos = new ArrayList<>();
         } else {
-            this.viasResumenMejora = viasResumenMejora;
+            this.viasResumenMejoramientos = viasResumenMejora;
         }
 
         if (alternativasMantenimiento == null) {
@@ -134,16 +134,16 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
             this.alternativasMantenimiento = alternativasMantenimiento;
         }
 
-        if (alternativasMejorasTSR == null) {
-            this.alternativasMejorasTSR = new ArrayList<>();
+        if (alternativasMejoramientosTSR == null) {
+            this.alternativasMejoramientosTSR = new ArrayList<>();
         } else {
-            this.alternativasMejorasTSR = alternativasMejorasTSR;
+            this.alternativasMejoramientosTSR = alternativasMejoramientosTSR;
         }
 
-        if (alternativasMejorasEA == null) {
-            this.alternativasMejorasEA = new ArrayList<>();
+        if (alternativasMejoramientosEA == null) {
+            this.alternativasMejoramientosEA = new ArrayList<>();
         } else {
-            this.alternativasMejorasEA = alternativasMejorasEA;
+            this.alternativasMejoramientosEA = alternativasMejoramientosEA;
         }
 
         initComponents();
@@ -222,7 +222,7 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
         unidadMedidaMejoraEATextField = new javax.swing.JTextField();
         cantidadEstabilizacionAfirmadosLabel = new javax.swing.JLabel();
         cantidadEstabilizacionAfirmadosTextField = new javax.swing.JTextField();
-        aplicarMejorasButton = new javax.swing.JButton();
+        aplicarMejoramientosButton = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         scrollPaneResumenTextArea = new javax.swing.JScrollPane();
         resumenTextArea = new javax.swing.JTextArea();
@@ -410,11 +410,11 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
 
         cantidadEstabilizacionAfirmadosLabel.setText("Cantidad");
 
-        aplicarMejorasButton.setText("Aplicar Mejora(s)");
-        aplicarMejorasButton.setEnabled(false);
-        aplicarMejorasButton.addActionListener(new java.awt.event.ActionListener() {
+        aplicarMejoramientosButton.setText("Aplicar Mejoramiento(s)");
+        aplicarMejoramientosButton.setEnabled(false);
+        aplicarMejoramientosButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aplicarMejorasButtonActionPerformed(evt);
+                aplicarMejoramientosButtonActionPerformed(evt);
             }
         });
 
@@ -422,10 +422,6 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
         mejoramientosPanel.setLayout(mejoramientosPanelLayout);
         mejoramientosPanelLayout.setHorizontalGroup(
             mejoramientosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mejoramientosPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(aplicarMejorasButton)
-                .addGap(159, 159, 159))
             .addGroup(mejoramientosPanelLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(mejoramientosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -450,6 +446,10 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
                     .addComponent(cantidadEstabilizacionAfirmadosTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32))
             .addComponent(jSeparator1)
+            .addGroup(mejoramientosPanelLayout.createSequentialGroup()
+                .addGap(114, 114, 114)
+                .addComponent(aplicarMejoramientosButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         mejoramientosPanelLayout.setVerticalGroup(
             mejoramientosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -493,7 +493,7 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cantidadEstabilizacionAfirmadosTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(aplicarMejorasButton)
+                .addComponent(aplicarMejoramientosButton)
                 .addContainerGap())
         );
 
@@ -689,7 +689,7 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
 
         this.itemSeleccionadoMejoraEA = null;
         this.itemSeleccionadoMejoraTSR = null;
-        this.aplicarMejorasButton.setEnabled(false);
+        this.aplicarMejoramientosButton.setEnabled(false);
     }//GEN-LAST:event_codigosViasComboBoxActionPerformed
 
     private void daniosComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daniosComboBoxActionPerformed
@@ -890,56 +890,56 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
         this.agregarAlternativaResumenMantenimiento(alternativa);
     }//GEN-LAST:event_aplicarMantenimientoButtonActionPerformed
 
-    private void aplicarMejorasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aplicarMejorasButtonActionPerformed
+    private void aplicarMejoramientosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aplicarMejoramientosButtonActionPerformed
         Alternativa mejoraTSR = null;
         if (this.itemSeleccionadoMejoraTSR != null) {
             mejoraTSR = this.buscarMejoraTSRAplicadaDadoViaMejora(via,
                     this.itemSeleccionadoMejoraTSR.getCodigo());
         }
-        Alternativa mejoraEA = null;
+        Alternativa mejoramientoEA = null;
         if (this.itemSeleccionadoMejoraEA != null) {
-            mejoraEA = this.buscarMejoraEAAplicadaDadoViaMejora(via,
+            mejoramientoEA = this.buscarMejoraEAAplicadaDadoViaMejora(via,
                     this.itemSeleccionadoMejoraEA.getCodigo());
         }
 
         boolean mejoraTSREliminada = false;
-        boolean mejoraEAEliminada = false;
+        boolean mejoramientoEAEliminado = false;
         if ((this.cantidadTratamientosSuperficialesRiegosTextField.getText() == null
                 || this.cantidadTratamientosSuperficialesRiegosTextField.getText().trim().isEmpty())
                 && (this.cantidadEstabilizacionAfirmadosTextField.getText() == null
                 || this.cantidadEstabilizacionAfirmadosTextField.getText().trim().isEmpty())
-                && mejoraEA == null && mejoraTSR == null) {
+                && mejoramientoEA == null && mejoraTSR == null) {
             JOptionPane.showMessageDialog(this,
-                    "No se han agregado las mejoras porque no se han ingresado"
-                    + " las cantidades", "No se aplicaron mejoras.",
+                    "No se han agregado los mejoramientos porque no se han ingresado"
+                    + " las cantidades", "No se aplicaron mejoramientos.",
                     JOptionPane.WARNING_MESSAGE, WARNING_IMAGE);
 
             return;
         } else {
             double totalARecuperar = 0.0;
-            if (mejoraEA != null
+            if (mejoramientoEA != null
                     && (this.cantidadEstabilizacionAfirmadosTextField.getText() == null
                     || this.cantidadEstabilizacionAfirmadosTextField.getText().trim().isEmpty())) {
-                this.eliminarAlternativaResumenMejoras(mejoraEA);
-                this.alternativasMejorasEA.remove(mejoraEA);
+                this.eliminarAlternativaResumenMejoramientos(mejoramientoEA);
+                this.alternativasMejoramientosEA.remove(mejoramientoEA);
                 totalARecuperar = Util.formatearValorOperacion(totalARecuperar
-                        + mejoraEA.getCantidad()
-                        * this.buscarPrecioDadoCodigoItem(mejoraEA.getItem()));
-                mejoraEAEliminada = true;
+                        + mejoramientoEA.getCantidad()
+                        * this.buscarPrecioDadoCodigoItem(mejoramientoEA.getItem()));
+                mejoramientoEAEliminado = true;
             }
 
             if (mejoraTSR != null
                     && (this.cantidadTratamientosSuperficialesRiegosTextField.getText() == null
                     || this.cantidadTratamientosSuperficialesRiegosTextField.getText().trim().isEmpty())) {
-                this.eliminarAlternativaResumenMejoras(mejoraTSR);
-                this.alternativasMejorasTSR.remove(mejoraTSR);
+                this.eliminarAlternativaResumenMejoramientos(mejoraTSR);
+                this.alternativasMejoramientosTSR.remove(mejoraTSR);
                 totalARecuperar = Util.formatearValorOperacion(totalARecuperar
                         + mejoraTSR.getCantidad()
                         * this.buscarPrecioDadoCodigoItem(mejoraTSR.getItem()));
                 mejoraTSREliminada = true;
             }
 
-            if (mejoraEAEliminada || mejoraTSREliminada) {
+            if (mejoramientoEAEliminado || mejoraTSREliminada) {
                 if (this.presupuestoActual == 0.0) {
                     if (totalARecuperar < this.presupuestoAdicional) {
                         this.presupuestoAdicional = Util.formatearValorOperacion(
@@ -961,15 +961,15 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
                 this.establecerPresupuesto();
                 this.mostrarResumen();
                 JOptionPane.showMessageDialog(this,
-                        "Se han eliminado las mejoras correctamente.",
-                        "Mejoras aplicadas eliminadas",
+                        "Se han eliminado los mejoramientos correctamente.",
+                        "Mejoramientos aplicados eliminados",
                         JOptionPane.INFORMATION_MESSAGE, INFORMATION_IMAGE);
             }
         }
 
         boolean actualizadaEA = false;
         boolean igualEA = false;
-        if (!mejoraEAEliminada
+        if (!mejoramientoEAEliminado
                 && this.cantidadEstabilizacionAfirmadosTextField.getText() != null
                 && !this.cantidadEstabilizacionAfirmadosTextField.getText().trim().isEmpty()) {
             if (this.cantidadEstabilizacionAfirmadosTextField.getText().contains(".")
@@ -986,14 +986,14 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
             double cantidad = Util.formatearValorOperacion(Double.parseDouble(
                     this.cantidadEstabilizacionAfirmadosTextField.getText().
                     trim().replace(",", ".")));
-            if (mejoraEA != null) {
-                if (mejoraEA.getCantidad() == cantidad) {
+            if (mejoramientoEA != null) {
+                if (mejoramientoEA.getCantidad() == cantidad) {
                     igualEA = true;
                 } else {
-                    this.alternativasMejorasEA.remove(mejoraEA);
+                    this.alternativasMejoramientosEA.remove(mejoramientoEA);
                     double cantidadTemp = cantidad;
-                    cantidad = Util.formatearValorOperacion(cantidadTemp - mejoraEA.getCantidad());
-                    mejoraEA.setCantidad(cantidadTemp);
+                    cantidad = Util.formatearValorOperacion(cantidadTemp - mejoramientoEA.getCantidad());
+                    mejoramientoEA.setCantidad(cantidadTemp);
                     double precioMejora = Util.formatearValorOperacion(
                             Math.abs(cantidad * this.valorUnitarioMejoraEA));
                     if (cantidad < 0.0) {
@@ -1026,15 +1026,15 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
                             this.presupuestoAdicional = Util.formatearValorOperacion(Math.abs(t));
                         }
                     }
-                    this.alternativasMejorasEA.add(mejoraEA);
-                    this.agregarAlternativaResumenMejoras(mejoraEA);
+                    this.alternativasMejoramientosEA.add(mejoramientoEA);
+                    this.agregarAlternativaResumenMejoramientos(mejoramientoEA);
 
                     this.establecerPresupuesto();
                     actualizadaEA = true;
                 }
             }
 
-            if (!actualizadaEA && !mejoraEAEliminada && !igualEA) {
+            if (!actualizadaEA && !mejoramientoEAEliminado && !igualEA) {
                 if (this.presupuestoAdicional > 0.0) {
                     this.presupuestoAdicional = Util.formatearValorOperacion(
                             this.presupuestoAdicional + cantidad * this.valorUnitarioMejoraEA);
@@ -1055,9 +1055,9 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
                 alternativa.setCodigoVia(this.via);
                 alternativa.setItem(this.itemSeleccionadoMejoraEA.getCodigo());
                 alternativa.setCantidad(cantidad);
-                this.alternativasMejorasEA.add(alternativa);
+                this.alternativasMejoramientosEA.add(alternativa);
 
-                this.agregarAlternativaResumenMejoras(alternativa);
+                this.agregarAlternativaResumenMejoramientos(alternativa);
             }
         }
 
@@ -1083,7 +1083,7 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
                 if (mejoraTSR.getCantidad() == cantidad) {
                     igualTSR = true;
                 } else {
-                    this.alternativasMejorasTSR.remove(mejoraTSR);
+                    this.alternativasMejoramientosTSR.remove(mejoraTSR);
                     double cantidadTemp = cantidad;
                     cantidad = Util.formatearValorOperacion(cantidadTemp - mejoraTSR.getCantidad());
                     mejoraTSR.setCantidad(cantidadTemp);
@@ -1119,12 +1119,12 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
                             this.presupuestoAdicional = Math.abs(t);
                         }
                     }
-                    this.alternativasMejorasTSR.add(mejoraTSR);
+                    this.alternativasMejoramientosTSR.add(mejoraTSR);
 
                     this.establecerPresupuesto();
                     actualizadaTSR = true;
 
-                    this.agregarAlternativaResumenMejoras(mejoraTSR);
+                    this.agregarAlternativaResumenMejoramientos(mejoraTSR);
                 }
             }
 
@@ -1149,12 +1149,12 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
                 alternativa.setCodigoVia(this.via);
                 alternativa.setItem(this.itemSeleccionadoMejoraTSR.getCodigo());
                 alternativa.setCantidad(cantidad);
-                this.alternativasMejorasTSR.add(alternativa);
+                this.alternativasMejoramientosTSR.add(alternativa);
 
-                this.agregarAlternativaResumenMejoras(alternativa);
+                this.agregarAlternativaResumenMejoramientos(alternativa);
             }
         }
-    }//GEN-LAST:event_aplicarMejorasButtonActionPerformed
+    }//GEN-LAST:event_aplicarMejoramientosButtonActionPerformed
 
     private void tratamientosSuperficialesRiegosComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tratamientosSuperficialesRiegosComboBoxActionPerformed
         int posicionItemSeleccionado = this.tratamientosSuperficialesRiegosComboBox.getSelectedIndex();
@@ -1167,10 +1167,10 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
 
             if (this.itemSeleccionadoMejoraTSR == null
                     && this.itemSeleccionadoMejoraEA == null) {
-                this.aplicarMejorasButton.setEnabled(false);
+                this.aplicarMejoramientosButton.setEnabled(false);
             }
         } else {
-            this.aplicarMejorasButton.setEnabled(true);
+            this.aplicarMejoramientosButton.setEnabled(true);
             this.cantidadTratamientosSuperficialesRiegosTextField.setEditable(true);
             this.itemSeleccionadoMejoraTSR = (Item) this.tratamientosSuperficialesRiegosComboBox.
                     getSelectedItem();
@@ -1212,10 +1212,10 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
 
             if (this.itemSeleccionadoMejoraTSR == null
                     && this.itemSeleccionadoMejoraEA == null) {
-                this.aplicarMejorasButton.setEnabled(false);
+                this.aplicarMejoramientosButton.setEnabled(false);
             }
         } else {
-            this.aplicarMejorasButton.setEnabled(true);
+            this.aplicarMejoramientosButton.setEnabled(true);
             this.cantidadEstabilizacionAfirmadosTextField.setEditable(true);
             this.itemSeleccionadoMejoraEA = (Item) this.estabilizacionAfirmadosComboBox.
                     getSelectedItem();
@@ -1322,10 +1322,10 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
                 Progreso progreso = new Progreso();
                 progreso.setMantPriorViasInfo(this.mantPriorViasInfo);
                 progreso.setViasResumenMantenimiento(this.viasResumenMantenimiento);
-                progreso.setViasResumenMejora(this.viasResumenMejora);
+                progreso.setViasResumenMejora(this.viasResumenMejoramientos);
                 progreso.setAlternativasMantenimiento(this.alternativasMantenimiento);
-                progreso.setAlternativasMejorasTSR(this.alternativasMejorasTSR);
-                progreso.setAlternativasMejorasEA(this.alternativasMejorasEA);
+                progreso.setAlternativasMejorasTSR(this.alternativasMejoramientosTSR);
+                progreso.setAlternativasMejorasEA(this.alternativasMejoramientosEA);
                 if (UtilProgreso.guardarProgreso(progreso, file.getAbsolutePath())) {
                     JOptionPane.showMessageDialog(this, "Se ha guardado "
                             + "satisfactoriamente el archivo de progreso \n"
@@ -1357,7 +1357,7 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem abrirAlternativasIntervencionMenuItem;
     private javax.swing.JButton aplicarMantenimientoButton;
-    private javax.swing.JButton aplicarMejorasButton;
+    private javax.swing.JButton aplicarMejoramientosButton;
     private javax.swing.JMenu archivoMenu;
     private javax.swing.JLabel cantidadEstabilizacionAfirmadosLabel;
     private javax.swing.JTextField cantidadEstabilizacionAfirmadosTextField;
@@ -1669,7 +1669,7 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
 
             int posicion = this.contieneViaMejora(v);
             if (posicion >= 0) {
-                List<Alternativa> alternativas = this.viasResumenMejora.
+                List<Alternativa> alternativas = this.viasResumenMejoramientos.
                         get(posicion).getAlternativas();
                 for (int j = 0; j < alternativas.size(); j++) {
                     viasImpresas.add(v);
@@ -1687,11 +1687,11 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
             }
         }
 
-        for (int i = 0; i < this.viasResumenMejora.size(); i++) {
-            if (!viasImpresas.contains(this.viasResumenMejora.get(i).getVia())) {
-                this.resumen += this.viasResumenMejora.get(i).getVia();
+        for (int i = 0; i < this.viasResumenMejoramientos.size(); i++) {
+            if (!viasImpresas.contains(this.viasResumenMejoramientos.get(i).getVia())) {
+                this.resumen += this.viasResumenMejoramientos.get(i).getVia();
                 this.resumen += separadorLinea;
-                List<Alternativa> alternativas = this.viasResumenMejora.get(i).getAlternativas();
+                List<Alternativa> alternativas = this.viasResumenMejoramientos.get(i).getAlternativas();
                 for (int j = 0; j < alternativas.size(); j++) {
                     Unidad u = this.obtenerUnidadDadoItem(alternativas.get(j).getItem());
                     this.resumen += "        * Mejoramiento: " + alternativas.get(j).getItem() + separadorLinea;
@@ -1720,7 +1720,7 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
     private void setDaniosAsociados() {
         this.via = (String) this.codigosViasComboBox.getSelectedItem();
         if (this.codigosViasComboBox.getSelectedIndex() > 0) {
-            this.tieneMejoras = this.contieneViaMejora(this.via) >= 0;
+            this.tieneMejoramientos = this.contieneViaMejora(this.via) >= 0;
         }
         this.mantenimientosComboBox.removeAllItems();
         this.mantenimientosComboBox.addItem(this.itemVacio);
@@ -1763,7 +1763,7 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
 
     private Alternativa buscarMejoraEAAplicadaDadoViaMejora(String via, String item) {
         Alternativa alternativa = null;
-        for (Alternativa a : this.alternativasMejorasEA) {
+        for (Alternativa a : this.alternativasMejoramientosEA) {
             if (via.equals(a.getCodigoVia()) && item.equals(a.getItem())) {
                 return a;
             }
@@ -1774,7 +1774,7 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
 
     private Alternativa buscarMejoraTSRAplicadaDadoViaMejora(String via, String item) {
         Alternativa alternativa = null;
-        for (Alternativa a : this.alternativasMejorasTSR) {
+        for (Alternativa a : this.alternativasMejoramientosTSR) {
             if (via.equals(a.getCodigoVia()) && item.equals(a.getItem())) {
                 return a;
             }
@@ -1783,7 +1783,7 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
         return alternativa;
     }
 
-    private void agregarAlternativaResumenMejoras(Alternativa mejora) {
+    private void agregarAlternativaResumenMejoramientos(Alternativa mejora) {
         int posicion = this.contieneViaMejora(mejora.getCodigoVia());
         if (posicion < 0) {
             ResumenMejora resumenMejora = new ResumenMejora();
@@ -1791,12 +1791,12 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
             List<Alternativa> alternativas = new ArrayList<>();
             alternativas.add(mejora);
             resumenMejora.setAlternativas(alternativas);
-            this.viasResumenMejora.add(resumenMejora);
+            this.viasResumenMejoramientos.add(resumenMejora);
             this.eliminarMantenimientosAsociados(mejora.getCodigoVia());
-            this.tieneMejoras = true;
+            this.tieneMejoramientos = true;
             this.setDaniosAsociados();
         } else {
-            ResumenMejora rm = this.viasResumenMejora.get(posicion);
+            ResumenMejora rm = this.viasResumenMejoramientos.get(posicion);
             int pos = this.contieneMejora(rm.getAlternativas(), mejora.getItem());
             if (pos < 0) {
                 rm.getAlternativas().add(mejora);
@@ -1808,12 +1808,12 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
         this.mostrarResumen();
     }
 
-    private void eliminarAlternativaResumenMejoras(Alternativa mejora) {
+    private void eliminarAlternativaResumenMejoramientos(Alternativa mejora) {
         int posicion = this.contieneViaMejora(mejora.getCodigoVia());
-        this.viasResumenMejora.get(posicion).getAlternativas().remove(mejora);
-        if (this.viasResumenMejora.get(posicion).getAlternativas().isEmpty()) {
-            this.viasResumenMejora.remove(posicion);
-            this.tieneMejoras = false;
+        this.viasResumenMejoramientos.get(posicion).getAlternativas().remove(mejora);
+        if (this.viasResumenMejoramientos.get(posicion).getAlternativas().isEmpty()) {
+            this.viasResumenMejoramientos.remove(posicion);
+            this.tieneMejoramientos = false;
             this.setDaniosAsociados();
         }
 
@@ -1821,8 +1821,8 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
     }
 
     private int contieneViaMejora(String codigoVia) {
-        for (int i = 0; i < this.viasResumenMejora.size(); i++) {
-            if (this.viasResumenMejora.get(i).getVia().equals(codigoVia)) {
+        for (int i = 0; i < this.viasResumenMejoramientos.size(); i++) {
+            if (this.viasResumenMejoramientos.get(i).getVia().equals(codigoVia)) {
 
                 return i;
             }
@@ -1850,11 +1850,11 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
             String alternativasIntervencion = Constantes.ALTERNATIVAS_INTERVENCION_MANTENIMIENTO.get(
                     danioSeleccionado);
             if (alternativasIntervencion != null) {
-                List<String> mantenimientosMejoras = Util.tokenizar(
+                List<String> mantenimientosMejoramientos = Util.tokenizar(
                         alternativasIntervencion, ",");
                 List<Item> itemsObject = new ArrayList<>();
                 this.mantPriorViasInfo.getItems().stream().forEach(i -> {
-                    mantenimientosMejoras.stream().forEach(m -> {
+                    mantenimientosMejoramientos.stream().forEach(m -> {
                         if (m.equals(i.getCodigo())) {
                             itemsObject.add(i);
                         }
@@ -1881,10 +1881,10 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
 
         // Se eliminan los daños 82, 83, 90 y 91
         if (!danios.isEmpty()) {
-            if (this.tieneMejoras) {
+            if (this.tieneMejoramientos) {
                 List<String> daniosABorrar = new ArrayList<>();
-                danios.stream().filter((danio) -> (!Constantes.DANIOS_PERMANECEN_POR_MEJORAS.contains(
-                        danio.substring(0, danio.length() - 1)))).forEach((danio) -> {
+                danios.stream().filter((danio) -> (!Constantes.DANIOS_PERMANECEN_POR_MEJORAMIENTOS.
+                        contains(danio.substring(0, danio.length() - 1)))).forEach((danio) -> {
                             daniosABorrar.add(danio);
                         });
 
@@ -1910,7 +1910,7 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
             List<String> daniosList = new ArrayList<>(danios);
             for (int i = 0; i < daniosList.size(); i++) {
                 String danio = daniosList.get(i);
-                if (!Constantes.DANIOS_PERMANECEN_POR_MEJORAS.contains(danio.
+                if (!Constantes.DANIOS_PERMANECEN_POR_MEJORAMIENTOS.contains(danio.
                         substring(0, danio.length() - 1))) {
                     List<Alternativa> alternativas = rmc.getAlternativasPorDanio().get(i);
                     dineroRecuperar = alternativas.stream().map((a) -> Util.

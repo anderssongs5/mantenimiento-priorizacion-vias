@@ -140,11 +140,10 @@ public class ValidadorVia {
                     + "o no tiene un valor válido." + separadorLinea;
         }
 
-        if (null == via.getUrci() || via.getUrci().trim().isEmpty()) {
-            if (!this.valoresPosiblesUrci.contains(via.getUrci())) {
-                mensajesErrorVia += "     * URCI es vacío "
-                        + "o no tiene un valor válido." + separadorLinea;
-            }
+        if (null == via.getUrci() || via.getUrci().trim().isEmpty()
+                || !this.valoresPosiblesUrci.contains(via.getUrci())) {
+            mensajesErrorVia += "     * URCI es vacío "
+                    + "o no tiene un valor válido." + separadorLinea;
         }
 
         if (null != via.getDanioVia()) {

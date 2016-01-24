@@ -17,6 +17,7 @@ public class Constantes {
     public static final int TSR_FINAL = 6;
     public static final int EA_INICIO = 7;
     public static final int EA_FINAL = 9;
+    public static final String UNIDAD_VACIA = " ";
     public static final List<Unidad> UNIDADES_POSIBLES = new ArrayList<>();
     public static final Map<String, Item> ITEMS = new HashMap<>();
     public static final Map<String, String> ALTERNATIVAS_INTERVENCION_MANTENIMIENTO = new HashMap<>();
@@ -102,6 +103,7 @@ public class Constantes {
         ALTERNATIVAS_INTERVENCION_MANTENIMIENTO.put("91M", "MA20");
         ALTERNATIVAS_INTERVENCION_MANTENIMIENTO.put("91H", "MA21");
 
+        UNIDADES_POSIBLES.add(new Unidad(UNIDAD_VACIA, UNIDAD_VACIA));
         UNIDADES_POSIBLES.add(new Unidad("M", "Metros"));
         UNIDADES_POSIBLES.add(new Unidad("M2", "Metros cuadrados"));
         UNIDADES_POSIBLES.add(new Unidad("M3", "Metros cúbicos"));

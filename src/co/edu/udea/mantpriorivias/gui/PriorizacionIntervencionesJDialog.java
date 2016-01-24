@@ -1744,7 +1744,9 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
     private void setMejoramientos() {
         for (int i = Constantes.TSR_INICIO; i <= Constantes.TSR_FINAL; i++) {
             for (int j = 0; j < this.mantPriorViasInfo.getItems().size(); j++) {
-                if (("ME" + i).equals(this.mantPriorViasInfo.getItems().get(j).getCodigo())) {
+                String codigoItem = "ME" + i;
+                Item item = this.mantPriorViasInfo.getItems().get(j);
+                if (codigoItem.equals(item.getCodigo()) && item.getUnidad() != null) {
                     this.tratamientosSuperficialesRiegos.add(
                             this.mantPriorViasInfo.getItems().get(j));
                 }
@@ -1753,7 +1755,9 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
 
         for (int i = Constantes.EA_INICIO; i <= Constantes.EA_FINAL; i++) {
             for (int j = 0; j < this.mantPriorViasInfo.getItems().size(); j++) {
-                if (("ME" + i).equals(this.mantPriorViasInfo.getItems().get(j).getCodigo())) {
+                String codigoItem = "ME" + i;
+                Item item = this.mantPriorViasInfo.getItems().get(j);
+                if (codigoItem.equals(item.getCodigo()) && item.getUnidad() != null) {
                     this.estabilizacionAfirmados.add(
                             this.mantPriorViasInfo.getItems().get(j));
                 }
@@ -1855,7 +1859,7 @@ public class PriorizacionIntervencionesJDialog extends javax.swing.JDialog {
                 List<Item> itemsObject = new ArrayList<>();
                 this.mantPriorViasInfo.getItems().stream().forEach(i -> {
                     mantenimientosMejoramientos.stream().forEach(m -> {
-                        if (m.equals(i.getCodigo())) {
+                        if (m.equals(i.getCodigo()) && i.getUnidad() != null) {
                             itemsObject.add(i);
                         }
                     });

@@ -42,57 +42,50 @@ public class ValidadorCostosIntervenciones {
     public String validarInformacionItems(List<Item> items, Object[][] datosItems) {
         String errores = "";
         String separadorLinea = Util.getSeparadorLinea();
+        boolean todosVacios = true;
         for (Object[] datosItem : datosItems) {
             String codigo = (String) datosItem[0];
             String item = (String) datosItem[1];
             Unidad unidad = (Unidad) datosItem[2];
             String valorUnitario = (String) datosItem[3];
-            if (unidad == null
-                    || !this.contieneUnidad(unidad)
-                    || valorUnitario == null || valorUnitario.trim().isEmpty()
-                    || valorUnitario.contains(".")
-                    || !Util.isNumerico(valorUnitario)
-                    || (Util.isNumerico(valorUnitario)
-                    && Double.parseDouble(valorUnitario.replaceAll(",", ".")) < 0)) {
-                if ((unidad == null
-                        || !this.contieneUnidad(unidad))
-                        && (valorUnitario == null || valorUnitario.trim().isEmpty()
-                        || valorUnitario.contains(".")
-                        || !Util.isNumerico(valorUnitario)
-                        || (Util.isNumerico(valorUnitario)
-                        && Double.parseDouble(valorUnitario) < 0))) {
-                    if (valorUnitario != null && Util.isNumerico(valorUnitario)
-                            && Double.parseDouble(valorUnitario.replaceAll(",", ".")) < 0) {
-                        errores += "* " + codigo + ": no tiene unidad ni valor unitario, "
-                                + "ninguno de los dos es válido, no tiene unidad "
-                                + "válida o el valor no es válido o es menor que cero."
-                                + separadorLinea;
-                        continue;
-                    }
-                    errores += "* " + codigo + ": no tiene unidad ni valor unitario o "
-                            + "ninguno de los dos es válido." + separadorLinea;
-                    continue;
-                }
-
-                if (unidad == null
-                        || !this.contieneUnidad(unidad)) {
-                    errores += "* " + codigo + ": no tiene unidad o es no válido." + separadorLinea;
-                    continue;
-                }
-
-                if (valorUnitario == null || valorUnitario.trim().isEmpty()
-                        || valorUnitario.contains(".")
-                        || !Util.isNumerico(valorUnitario)) {
-                    errores += "* " + codigo + ": no tiene valor unitario o es no "
-                            + "válido." + separadorLinea;
-                } else if (!valorUnitario.contains(".") && Util.isNumerico(valorUnitario)
-                        && Double.parseDouble(valorUnitario.replaceAll(",", ".")) < 0) {
-                    errores += "* " + codigo + ": el valor unitario es menor "
-                            + "que cero." + separadorLinea;
-                }
-            } else {
-                items.add(new Item(codigo, item, unidad, valorUnitario));
+            if ((unidad == null || Constantes.UNIDAD_VACIA.equals(unidad.getUnidad()))
+                    && valorUnitario != null && !valorUnitario.trim().isEmpty()) {
+                errores += "* " + codigo + ": no se seleccionó ninguna unidad y "
+                        + "se ingresó un valor unitario." + separadorLinea;
+                continue;
             }
+
+            if (unidad != null && !Constantes.UNIDAD_VACIA.equals(unidad.getUnidad())
+                    && (valorUnitario == null || valorUnitario.trim().isEmpty()
+                    || !Util.isNumerico(valorUnitario) || (Util.isNumerico(valorUnitario)
+                    && Double.parseDouble(valorUnitario.replace(",", ".")) <= 0))) {
+                errores += "* " + codigo + ": se seleccionó una unidad y no se "
+                        + "ingresó un valor unitario válido. Recuerde que el valor "
+                        + "unitario debe ser mayor a cero." + separadorLinea;
+                continue;
+            }
+
+            if (todosVacios && unidad != null && !Constantes.UNIDAD_VACIA.equals(
+                    unidad.getUnidad()) && valorUnitario != null
+                    && Util.isNumerico(valorUnitario)) {
+                todosVacios = false;
+            }
+
+            if (unidad != null && Constantes.UNIDAD_VACIA.equals(unidad.getUnidad())) {
+                unidad = null;
+            }
+
+            if (valorUnitario == null || valorUnitario.trim().isEmpty()) {
+                valorUnitario = "0";
+            }
+
+            items.add(new Item(codigo, item, unidad, valorUnitario));
+        }
+
+        if (todosVacios) {
+            errores += "Todos los ítems vacíos: por favor ingrese la información "
+                    + "para al menos uno de los ítems o intervenciones de la "
+                    + "lista." + separadorLinea;
         }
 
         return errores;
